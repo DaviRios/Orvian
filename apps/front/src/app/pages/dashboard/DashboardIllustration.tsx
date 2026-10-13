@@ -4,7 +4,7 @@ export function DashboardIllustration() {
       viewBox="0 0 360 170"
       role="img"
       aria-label="Painel de conteúdo flutuante"
-      className="h-[150px] w-[318px]"
+      className="h-[clamp(150px,12vw,280px)] w-[clamp(318px,25.4vw,593px)]"
     >
       <defs>
         <linearGradient id="windowTop" x1="0" x2="1">
