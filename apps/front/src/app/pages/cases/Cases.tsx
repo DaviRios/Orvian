@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CasesTab = lazy(() =>
   import('./cases/CasesTab').then((module) => ({ default: module.CasesTab })),
@@ -14,8 +14,11 @@ type Tab = 'cases' | 'client-stories';
 
 export function Cases() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState<Tab>('cases');
-  const [openFormTrigger, setOpenFormTrigger] = useState(0);
+  const [openFormTrigger, setOpenFormTrigger] = useState(() =>
+    (location.state as { create?: boolean } | null)?.create ? 1 : 0,
+  );
   const [casesCount, setCasesCount] = useState(0);
   const [storiesCount, setStoriesCount] = useState(0);
   const [success, setSuccess] = useState('');

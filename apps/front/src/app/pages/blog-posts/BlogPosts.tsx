@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   listBlogPosts,
@@ -16,8 +16,11 @@ const LANG_LABEL: Record<string, string> = { PORTUGUESE: 'PT', ENGLISH: 'EN' };
 
 export function BlogPosts() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(() =>
+    Boolean((location.state as { create?: boolean } | null)?.create),
+  );
   const [editingPost, setEditingPost] = useState<BlogPostDTO | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');

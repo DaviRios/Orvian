@@ -1,6 +1,27 @@
-import { ReactNode } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import {
+  type ComponentType,
+  type FormEvent,
+  type ReactNode,
+  useMemo,
+  useState,
+} from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/auth';
+import {
+  BellIcon,
+  BriefcaseIcon,
+  CalendarIcon,
+  FolderIcon,
+  HomeIcon,
+  ImageIcon,
+  LogOutIcon,
+  MenuIcon,
+  NewspaperIcon,
+  SearchIcon,
+  SettingsIcon,
+  XIcon,
+  type IconProps,
+} from '../icons/CmsIcons';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -8,60 +29,169 @@ interface AdminLayoutProps {
   onAction?: () => void;
 }
 
-const WEEKDAYS = [
-  'Domingo',
-  'Segunda',
-  'Terça',
-  'Quarta',
-  'Quinta',
-  'Sexta',
-  'Sábado',
-];
-const MONTHS = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro',
-];
-
-function getFormattedDate() {
-  const d = new Date();
-  return `Hoje, ${WEEKDAYS[d.getDay()]}, ${d.getDate()} de ${MONTHS[d.getMonth()]}`;
+interface NavigationItem {
+  path?: string;
+  label: string;
+  description?: string;
+  icon: ComponentType<IconProps>;
 }
 
-function LogoutButton() {
-  const { signOut } = useAuth();
+const navigationItems: NavigationItem[] = [
+  { path: '/', label: 'Início', icon: HomeIcon },
+  { path: '/home-content', label: 'Conteúdo', icon: FolderIcon },
+  { path: '/cases', label: 'Cases', icon: BriefcaseIcon },
+  { path: '/blog-posts', label: 'Blog', icon: NewspaperIcon },
+  { path: '/media', label: 'Mídias', icon: ImageIcon },
+  { label: 'Configurações', description: 'Em breve', icon: SettingsIcon },
+];
+
+const searchableModules = [
+  { path: '/', label: 'Início', keywords: 'dashboard painel' },
+  {
+    path: '/home-content',
+    label: 'Conteúdo da Home',
+    keywords: 'slides logos ecossistema popups links',
+  },
+  {
+    path: '/cases',
+    label: 'Cases',
+    keywords: 'histórias clientes portfólio',
+  },
+  {
+    path: '/blog-posts',
+    label: 'Blog e Notícias',
+    keywords: 'posts autores editorial',
+  },
+  {
+    path: '/media',
+    label: 'Repositório de Mídias',
+    keywords: 'imagens vídeos arquivos upload',
+  },
+  {
+    path: '/about',
+    label: 'Página Sobre',
+    keywords: 'serviços parceiros vagas institucional',
+  },
+];
+
+function formattedDate() {
+  const value = new Intl.DateTimeFormat('pt-BR', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+  }).format(new Date());
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, signOut } = useAuth();
+  const initials = (user?.name ?? user?.username ?? 'Administrador')
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
+  function goTo(path?: string) {
+    if (!path) return;
+    navigate(path);
+    onNavigate?.();
+  }
+
   return (
-    <button
-      className={
-        '[width:38px] [height:38px] [border-radius:50%] border-0 [background:transparent] [color:#9ca3af] flex items-center justify-center cursor-pointer [transition:background_0.15s,_color_0.15s,_transform_0.1s] hover:[background:#fee2e2] hover:[color:#dc2626] hover:[transform:scale(1.08)]'
-      }
-      onClick={() => signOut()}
-      title="Sair"
-    >
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+    <div className="flex h-full flex-col">
+      <button
+        className="flex h-20 items-center gap-3 border-0 bg-transparent px-6 text-left"
+        onClick={() => goTo('/')}
+        aria-label="Ir para o início"
       >
-        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-        <polyline points="16 17 21 12 16 7" />
-        <line x1="21" y1="12" x2="9" y2="12" />
-      </svg>
-    </button>
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-blue-500 text-lg font-bold text-white shadow-[0_8px_20px_rgba(59,130,246,0.25)]">
+          S
+        </span>
+        <span>
+          <strong className="block text-lg font-bold tracking-[0.08em] text-slate-900">
+            Soir
+          </strong>
+          <span className="block text-[10px] font-semibold uppercase tracking-[0.15em] text-slate-400">
+            Gestão de conteúdo
+          </span>
+        </span>
+      </button>
+
+      <nav className="flex-1 px-3 py-3" aria-label="Navegação principal">
+        <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+          Menu principal
+        </p>
+        <div className="flex flex-col gap-1">
+          {navigationItems.map((item) => {
+            const active = item.path
+              ? item.path === '/'
+                ? location.pathname === '/'
+                : location.pathname.startsWith(item.path)
+              : false;
+            const NavigationIcon = item.icon;
+            return (
+              <button
+                key={item.label}
+                type="button"
+                aria-current={active ? 'page' : undefined}
+                disabled={!item.path}
+                title={item.description}
+                onClick={() => goTo(item.path)}
+                className={`group flex h-11 w-full items-center gap-3 rounded-xl border-0 px-3 text-left text-sm font-semibold transition ${
+                  active
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'bg-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                } disabled:cursor-not-allowed disabled:opacity-55`}
+              >
+                <span
+                  className={`grid size-8 shrink-0 place-items-center rounded-lg transition ${
+                    active
+                      ? 'bg-blue-500 text-white shadow-[0_5px_12px_rgba(59,130,246,0.24)]'
+                      : 'text-slate-400 group-hover:text-blue-500'
+                  }`}
+                >
+                  <NavigationIcon className="size-[18px]" />
+                </span>
+                <span className="flex-1">{item.label}</span>
+                {!item.path && (
+                  <span className="text-[9px] font-bold uppercase tracking-wide text-slate-400">
+                    Em breve
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </nav>
+
+      <div className="border-t border-slate-100 p-3">
+        <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-2.5">
+          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-sky-400 text-xs font-bold text-white">
+            {initials}
+          </span>
+          <span className="min-w-0 flex-1">
+            <strong className="block truncate text-xs font-semibold text-slate-800">
+              {user?.name ?? 'Administrador'}
+            </strong>
+            <span className="block truncate text-[10px] text-slate-400">
+              {user?.email ?? user?.username}
+            </span>
+          </span>
+          <button
+            type="button"
+            onClick={() => void signOut()}
+            className="grid size-8 shrink-0 place-items-center rounded-lg border-0 bg-transparent text-slate-400 transition hover:bg-red-50 hover:text-red-500"
+            aria-label="Sair"
+            title="Sair"
+          >
+            <LogOutIcon className="size-[17px]" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -71,193 +201,144 @@ export function AdminLayout({
   onAction,
 }: AdminLayoutProps) {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [query, setQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const results = useMemo(() => {
+    const normalized = query.trim().toLocaleLowerCase('pt-BR');
+    if (!normalized) return [];
+    return searchableModules.filter(({ label, keywords }) =>
+      `${label} ${keywords}`.toLocaleLowerCase('pt-BR').includes(normalized),
+    );
+  }, [query]);
 
-  const navItems = [
-    {
-      path: '/home-content',
-      label: 'Home',
-      icon: (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
-          <polyline points="9 21 9 12 15 12 15 21" />
-        </svg>
-      ),
-    },
-    {
-      path: '/cases',
-      label: 'Cases',
-      icon: (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-          <polyline points="14 2 14 8 20 8" />
-          <line x1="16" y1="13" x2="8" y2="13" />
-          <line x1="16" y1="17" x2="8" y2="17" />
-          <line x1="10" y1="9" x2="8" y2="9" />
-        </svg>
-      ),
-    },
-    {
-      path: '/',
-      label: 'Dashboard',
-      icon: (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="7" height="7" rx="1" />
-          <rect x="14" y="3" width="7" height="7" rx="1" />
-          <rect x="14" y="14" width="7" height="7" rx="1" />
-          <rect x="3" y="14" width="7" height="7" rx="1" />
-        </svg>
-      ),
-    },
-    {
-      path: '/blog-posts',
-      label: 'Blog',
-      icon: (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="9" y="3" width="13" height="13" rx="2" />
-          <path d="M5 7H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" />
-        </svg>
-      ),
-    },
-    {
-      path: '/about',
-      label: 'Sobre',
-      icon: (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <line x1="2" y1="12" x2="22" y2="12" />
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-        </svg>
-      ),
-    },
-  ];
+  function submitSearch(event: FormEvent) {
+    event.preventDefault();
+    if (!results[0]) return;
+    navigate(results[0].path);
+    setQuery('');
+  }
 
   return (
-    <div className={'flex min-h-screen [background:#f8f7fc]'}>
-      <aside
-        className={
-          '[width:72px] shrink-0 [background:#ffffff] [border-right:1px_solid_#C5EDF8] flex flex-col items-center [padding:20px_0_24px] fixed [top:0] [left:0] h-screen [z-index:100] [box-shadow:2px_0_16px_rgba(84,_200,_232,_0.05)]'
-        }
-      >
-        <div className={'[margin-bottom:28px]'}>
-          <div
-            className={
-              '[width:44px] [height:44px] [background:linear-gradient(135deg,_#3783D1,_#6BA3E3)] [border-radius:14px] flex items-center justify-center [color:#ffffff] [box-shadow:0_4px_12px_rgba(84,_200,_232,_0.3)]'
-            }
-          >
-            <span className="text-lg font-extrabold">S</span>
-          </div>
-        </div>
-
-        <nav
-          className={
-            'flex flex-col [gap:4px] flex-1 [padding:0_12px] w-full items-center'
-          }
-        >
-          {navItems.map(({ path, icon, label }) => (
-            <button
-              key={path}
-              className={`${'[width:46px] [height:46px] [border-radius:14px] border-0 [background:transparent] [color:#9ca3af] flex items-center justify-center cursor-pointer [transition:background_0.15s,_color_0.15s,_transform_0.1s] relative hover:[background:#EBF9FD] hover:[color:#3783D1] hover:[transform:scale(1.05)]'} ${location.pathname === path ? '[background:#3783D1] [color:#ffffff] [box-shadow:0_4px_10px_rgba(84,_200,_232,_0.3)]' : ''}`}
-              onClick={() => navigate(path)}
-              title={label}
-            >
-              {icon}
-            </button>
-          ))}
-        </nav>
-
-        <div
-          className={
-            '[padding:0_12px] w-full flex flex-col items-center [gap:10px]'
-          }
-        >
-          <div
-            className={
-              '[width:38px] [height:38px] [border-radius:50%] [background:linear-gradient(135deg,_#3783D1,_#A0BEE8)] [color:#ffffff] flex items-center justify-center [font-size:14px] font-bold cursor-pointer [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.25)] [transition:transform_0.15s] hover:[transform:scale(1.08)]'
-            }
-          >
-            D
-          </div>
-          <LogoutButton />
-        </div>
+    <div className="flex h-dvh min-h-0 overflow-hidden bg-[#F8FAFD] text-slate-900">
+      <aside className="hidden h-dvh w-[220px] shrink-0 border-r border-slate-200 bg-white lg:block">
+        <SidebarContent />
       </aside>
 
-      <div className={'flex-1 [margin-left:72px] flex flex-col min-h-screen'}>
-        <header
-          className={
-            '[height:64px] [background:#ffffff] [border-bottom:1px_solid_#C5EDF8] flex items-center [padding:0_32px] sticky [top:0] [z-index:50] [box-shadow:0_1px_8px_rgba(84,_200,_232,_0.04)]'
-          }
-        >
-          <div className={'flex-1'} />
-          <div className={'flex-1 justify-center sm:flex'}>
-            <span
-              className={
-                'hidden whitespace-nowrap text-sm font-medium tracking-wide text-slate-500 sm:inline'
-              }
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] lg:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 border-0 bg-slate-950/30 backdrop-blur-[2px]"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Fechar menu"
+          />
+          <aside className="relative h-dvh w-[280px] border-r border-slate-200 bg-white shadow-2xl">
+            <button
+              type="button"
+              className="absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-lg border-0 bg-slate-50 text-slate-500"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Fechar menu"
             >
-              {getFormattedDate()}
-            </span>
-          </div>
-          <div className={'flex-1 flex justify-end'}>
+              <XIcon className="size-5" />
+            </button>
+            <SidebarContent onNavigate={() => setMobileMenuOpen(false)} />
+          </aside>
+        </div>
+      )}
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="relative z-50 flex h-14 shrink-0 items-center gap-3 border-b border-slate-200 bg-white px-4 lg:px-6">
+          <button
+            type="button"
+            className="grid size-9 shrink-0 place-items-center rounded-lg border border-slate-200 bg-white text-slate-500 lg:hidden"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Abrir menu"
+          >
+            <MenuIcon className="size-5" />
+          </button>
+
+          <form
+            className="relative w-full max-w-[430px]"
+            onSubmit={submitSearch}
+          >
+            <SearchIcon className="pointer-events-none absolute left-3 top-1/2 size-[17px] -translate-y-1/2 text-slate-400" />
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Buscar no CMS..."
+              aria-label="Buscar no CMS"
+              className="h-9 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-xs text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-blue-300 focus:bg-white focus:ring-4 focus:ring-blue-50"
+            />
+            {query && (
+              <div className="absolute left-0 right-0 top-11 overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl">
+                {results.length > 0 ? (
+                  results.map((result) => (
+                    <button
+                      key={result.path}
+                      type="button"
+                      className="flex w-full items-center gap-3 rounded-lg border-0 bg-white px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-600"
+                      onClick={() => {
+                        navigate(result.path);
+                        setQuery('');
+                      }}
+                    >
+                      <SearchIcon className="size-4 text-slate-400" />
+                      {result.label}
+                    </button>
+                  ))
+                ) : (
+                  <p className="m-0 px-3 py-2 text-xs text-slate-400">
+                    Nenhum módulo encontrado.
+                  </p>
+                )}
+              </div>
+            )}
+          </form>
+
+          <div className="ml-auto flex items-center gap-2">
+            <div className="hidden items-center gap-2 text-xs text-slate-500 sm:flex">
+              <CalendarIcon className="size-4 text-blue-500" />
+              <span>{formattedDate()}</span>
+            </div>
+            <span className="mx-1 hidden h-6 w-px bg-slate-200 sm:block" />
+            <div className="relative">
+              <button
+                type="button"
+                className="grid size-9 place-items-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
+                onClick={() => setNotificationsOpen((open) => !open)}
+                aria-label="Notificações"
+                aria-expanded={notificationsOpen}
+              >
+                <BellIcon className="size-[18px]" />
+              </button>
+              {notificationsOpen && (
+                <div className="absolute right-0 top-11 w-64 rounded-xl border border-slate-200 bg-white p-4 shadow-xl">
+                  <strong className="text-xs font-semibold text-slate-800">
+                    Notificações
+                  </strong>
+                  <p className="mb-0 mt-2 text-xs leading-5 text-slate-400">
+                    Nenhuma nova notificação.
+                  </p>
+                </div>
+              )}
+            </div>
             {actionLabel && onAction && (
               <button
-                className={
-                  '[background:#3783D1] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [letter-spacing:0.01em] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.4)] active:[transform:translateY(0)] active:[box-shadow:0_2px_8px_rgba(84,_200,_232,_0.25)]'
-                }
+                type="button"
                 onClick={onAction}
+                className="h-9 rounded-xl border-0 bg-blue-500 px-4 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-600"
               >
-                + {actionLabel}
+                {actionLabel}
               </button>
             )}
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-10">{children}</main>
+        <main className="min-h-0 flex-1 overflow-y-auto p-4 lg:p-5 xl:p-6">
+          {children}
+        </main>
       </div>
     </div>
   );

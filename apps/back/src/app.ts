@@ -28,6 +28,9 @@ import { authRoutes } from './modules/auth/auth.routes';
 import { CasesService } from './modules/cases/cases.service';
 import { PrismaCasesRepository } from './modules/cases/prisma-cases.repository';
 import { casesRoutes } from './modules/cases/cases.routes';
+import { DashboardService } from './modules/dashboard/dashboard.service';
+import { PrismaDashboardRepository } from './modules/dashboard/prisma-dashboard.repository';
+import { dashboardRoutes } from './modules/dashboard/dashboard.routes';
 import { EditorialService } from './modules/editorial/editorial.service';
 import { PrismaEditorialRepository } from './modules/editorial/prisma-editorial.repository';
 import { editorialRoutes } from './modules/editorial/editorial.routes';
@@ -136,6 +139,9 @@ export async function buildApp(
     new PrismaHomeContentRepository(database),
   );
   const cases = new CasesService(new PrismaCasesRepository(database));
+  const dashboard = new DashboardService(
+    new PrismaDashboardRepository(database),
+  );
   const siteContent = new SiteContentService(
     new PrismaSiteContentRepository(database),
   );
@@ -167,6 +173,11 @@ export async function buildApp(
     auth,
   });
   await app.register(casesRoutes, { prefix: '/v1', service: cases, auth });
+  await app.register(dashboardRoutes, {
+    prefix: '/v1',
+    service: dashboard,
+    auth,
+  });
   await app.register(siteContentRoutes, {
     prefix: '/v1',
     service: siteContent,
