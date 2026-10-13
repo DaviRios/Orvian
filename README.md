@@ -17,24 +17,36 @@ Os módulos de backend separam rotas, serviços de aplicação e contratos de re
 
 Conteúdos novos começam como `DRAFT` e `isActive=true`. Publicar muda o estado editorial para `PUBLISHED`; excluir realiza soft delete (`isActive=false` e `deletedAt` preenchido). Registros removidos permanecem no banco. Mídias e autores referenciados não podem ser excluídos e retornam HTTP 409.
 
-## Execução local
+## Execução local com Docker
 
-Requisitos: Node.js 22.18+ ou 24+, npm e PostgreSQL. O Docker é opcional; o Compose incluído fornece apenas o PostgreSQL de desenvolvimento.
+Requisito: Docker Desktop com Docker Compose. O ambiente de desenvolvimento executa frontend, backend, migrations e PostgreSQL em containers.
 
 ```bash
 copy .env.example .env
-npm install
-npm run db:up
-npm run db:migrate:deploy
-npm run dev
+docker compose up --build
 ```
 
 - Painel: <http://localhost:4200>
 - API: <http://localhost:3000/v1>
 - Health check: <http://localhost:3000/v1/health>
 - Documentação OpenAPI: <http://localhost:3000/docs>
+- PostgreSQL no host: `localhost:5433`
 
-O comando `npm run dev` usa dois processos independentes e propaga `Ctrl+C` para ambos. Também é possível usar um PostgreSQL instalado localmente e ignorar `db:up`.
+O Compose monta o código-fonte dentro dos containers e mantém hot reload no Vite e no backend. A migration `deploy` é executada automaticamente depois que o PostgreSQL fica saudável e antes da API iniciar. Dentro da rede Docker, a API conecta em `postgres:5432`; a porta `5433` é usada apenas para acesso a partir do Windows e evita conflito com uma instalação local do PostgreSQL.
+
+`Ctrl+C` encerra a execução anexada. Para remover os containers e a rede, execute `docker compose down` (ou `npm run docker:down` quando o Node.js estiver instalado). Os dados do PostgreSQL, uploads e dependências permanecem em volumes nomeados.
+
+## Execução sem Docker
+
+Requisitos: Node.js 22.18+ ou 24+, npm e PostgreSQL acessível pela `DATABASE_URL`.
+
+```bash
+npm install
+npm run db:migrate:deploy
+npm run dev
+```
+
+O comando `npm run dev` usa dois processos independentes e propaga `Ctrl+C` para ambos.
 
 Credenciais iniciais de desenvolvimento:
 
@@ -51,12 +63,15 @@ Defina um `CMS_ADMIN_PASSWORD` próprio antes da primeira execução e um `JWT_S
 npm run dev                 # API e painel; Ctrl+C encerra ambos
 npm run dev:back            # somente API
 npm run dev:front           # somente painel
+npm run docker:up           # constrói e inicia front, back, migrations e PostgreSQL
+npm run docker:down         # remove containers e rede; preserva volumes
+npm run docker:logs         # acompanha os logs dos containers
 npm run build               # builds de produção
 npm test                    # testes unitários/frontend e integração via inject
 npm run typecheck           # TypeScript strict
 npm run lint                # ESLint, incluindo regras de hooks
-npm run db:up               # PostgreSQL local via Docker
-npm run db:down             # encerra o PostgreSQL do Compose
+npm run db:up               # inicia somente o PostgreSQL em localhost:5433
+npm run db:down             # para somente o PostgreSQL do Compose
 npm run db:generate         # gera o Prisma Client
 npm run db:migrate          # cria/aplica migration de desenvolvimento
 npm run db:migrate:deploy   # aplica migrations existentes
@@ -68,23 +83,25 @@ Os testes de integração não abrem nem alteram banco algum: usam `Fastify.inje
 
 ## Configuração
 
-| Variável               | Padrão                  | Uso                                   |
-| ---------------------- | ----------------------- | ------------------------------------- |
-| `PORT`                 | `3000`                  | porta da API                          |
-| `APP_ORIGIN`           | `http://localhost:4200` | origem aceita para mutações           |
-| `DATABASE_URL`         | obrigatória             | conexão PostgreSQL                    |
-| `JWT_SECRET`           | obrigatória             | assinatura do access token            |
-| `CMS_ADMIN_USER`       | `admin`                 | usuário inicial                       |
-| `CMS_ADMIN_EMAIL`      | `admin@soir.local`      | e-mail inicial                        |
+| Variável               | Padrão                  | Uso                                    |
+| ---------------------- | ----------------------- | -------------------------------------- |
+| `PORT`                 | `3000`                  | porta da API                           |
+| `APP_ORIGIN`           | `http://localhost:4200` | origem aceita para mutações            |
+| `LOG_LEVEL`            | `warn`                  | nível de log no desenvolvimento        |
+| `DATABASE_URL`         | obrigatória             | conexão PostgreSQL                     |
+| `POSTGRES_PORT`        | `5433`                  | porta PostgreSQL exposta no host       |
+| `JWT_SECRET`           | obrigatória             | assinatura do access token             |
+| `CMS_ADMIN_USER`       | `admin`                 | usuário inicial                        |
+| `CMS_ADMIN_EMAIL`      | `admin@soir.local`      | e-mail inicial                         |
 | `CMS_ADMIN_PASSWORD`   | obrigatório             | senha inicial (mínimo de 8 caracteres) |
-| `MEDIA_STORAGE`        | `local`                 | `local` ou `s3`                       |
-| `CMS_UPLOAD_DIR`       | `data/uploads`          | raiz do adaptador local               |
-| `S3_REGION`            | `us-east-1`             | região S3                             |
-| `S3_BUCKET`            | —                       | bucket obrigatório no modo S3         |
-| `S3_ENDPOINT`          | —                       | endpoint compatível com S3, opcional  |
-| `S3_ACCESS_KEY_ID`     | —                       | credencial opcional                   |
-| `S3_SECRET_ACCESS_KEY` | —                       | credencial opcional                   |
-| `S3_FORCE_PATH_STYLE`  | `false`                 | compatibilidade com MinIO e similares |
+| `MEDIA_STORAGE`        | `local`                 | `local` ou `s3`                        |
+| `CMS_UPLOAD_DIR`       | `data/uploads`          | raiz do adaptador local                |
+| `S3_REGION`            | `us-east-1`             | região S3                              |
+| `S3_BUCKET`            | —                       | bucket obrigatório no modo S3          |
+| `S3_ENDPOINT`          | —                       | endpoint compatível com S3, opcional   |
+| `S3_ACCESS_KEY_ID`     | —                       | credencial opcional                    |
+| `S3_SECRET_ACCESS_KEY` | —                       | credencial opcional                    |
+| `S3_FORCE_PATH_STYLE`  | `false`                 | compatibilidade com MinIO e similares  |
 
 No frontend, `VITE_API_CMS_URL` pode apontar para outra API. No desenvolvimento padrão, o proxy do Vite encaminha `/v1` para `http://localhost:3000`.
 

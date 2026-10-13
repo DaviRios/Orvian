@@ -17,9 +17,12 @@ export default defineConfig(() => ({
   },
   server: {
     port: 4200,
-    host: 'localhost',
+    host: process.env.DEV_SERVER_HOST ?? 'localhost',
+    watch: {
+      usePolling: process.env.DOCKER_DEV === 'true',
+    },
     proxy: {
-      '/v1': 'http://localhost:3000',
+      '/v1': process.env.DEV_API_PROXY_TARGET ?? 'http://localhost:3000',
     },
   },
   preview: {

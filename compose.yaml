@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: soir
       POSTGRES_PASSWORD: soir
     ports:
-      - '5432:5432'
+      - '127.0.0.1:${POSTGRES_PORT:-5433}:5432'
     volumes:
       - soir-postgres:/var/lib/postgresql/data
     healthcheck:
@@ -15,5 +15,94 @@ services:
       timeout: 5s
       retries: 10
 
+  migrate:
+    image: soir-development
+    pull_policy: never
+    init: true
+    command: npm run db:migrate:deploy
+    environment:
+      DOTENV_CONFIG_PATH: /dev/null
+      DATABASE_URL: postgresql://soir:soir@postgres:5432/soir?schema=public
+    volumes:
+      - .:/workspace
+      - soir-node-modules:/workspace/node_modules
+      - soir-prisma-client:/workspace/apps/back/src/generated/prisma
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: 'no'
+
+  back:
+    image: soir-development
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    command: npm run dev:back
+    environment:
+      DOTENV_CONFIG_PATH: /dev/null
+      NODE_ENV: development
+      PORT: 3000
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:4200}
+      LOG_LEVEL: ${LOG_LEVEL:-warn}
+      DATABASE_URL: postgresql://soir:soir@postgres:5432/soir?schema=public
+      JWT_SECRET: ${JWT_SECRET:-local-development-secret-change-before-production}
+      CMS_ADMIN_USER: ${CMS_ADMIN_USER:-admin}
+      CMS_ADMIN_EMAIL: ${CMS_ADMIN_EMAIL:-admin@soir.local}
+      CMS_ADMIN_PASSWORD: ${CMS_ADMIN_PASSWORD:-change-me-before-running}
+      CMS_UPLOAD_DIR: /workspace/data/uploads
+      MEDIA_STORAGE: local
+      NX_DAEMON: 'true'
+      WATCHPACK_POLLING: 'true'
+    ports:
+      - '127.0.0.1:3000:3000'
+    volumes:
+      - .:/workspace
+      - soir-node-modules:/workspace/node_modules
+      - soir-prisma-client:/workspace/apps/back/src/generated/prisma
+      - soir-uploads:/workspace/data/uploads
+    tmpfs:
+      - /workspace/.nx
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/v1/health').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  front:
+    image: soir-development
+    pull_policy: never
+    init: true
+    command: npm run dev:front
+    environment:
+      DEV_SERVER_HOST: 0.0.0.0
+      DEV_API_PROXY_TARGET: http://back:3000
+      DOCKER_DEV: 'true'
+      CHOKIDAR_USEPOLLING: 'true'
+    ports:
+      - '127.0.0.1:4200:4200'
+    volumes:
+      - .:/workspace
+      - soir-node-modules:/workspace/node_modules
+      - soir-prisma-client:/workspace/apps/back/src/generated/prisma
+    tmpfs:
+      - /workspace/.nx
+    depends_on:
+      back:
+        condition: service_healthy
+
 volumes:
   soir-postgres:
+  soir-node-modules:
+  soir-prisma-client:
+  soir-uploads:

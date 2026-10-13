@@ -8,6 +8,9 @@
     "dev": "node tools/dev.mjs",
     "dev:back": "nx serve back --outputStyle=stream-without-prefixes",
     "dev:front": "nx serve front --outputStyle=stream-without-prefixes",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
     "build": "nx run-many -t build --all",
     "test": "nx run-many -t test --all --runInBand",
     "typecheck": "tsc -p apps/back/tsconfig.app.json --noEmit && tsc -p apps/front/tsconfig.app.json --noEmit && tsc -p apps/back/tsconfig.spec.json --noEmit && tsc -p apps/front/tsconfig.spec.json --noEmit && tsc -p tools/tsconfig.json --noEmit",
@@ -19,7 +22,7 @@
     "db:import-legacy": "ts-node --project tools/tsconfig.json tools/import-legacy-cms.ts",
     "db:studio": "prisma studio",
     "db:up": "docker compose up -d postgres",
-    "db:down": "docker compose down"
+    "db:down": "docker compose stop postgres"
   },
   "private": true,
   "devDependencies": {

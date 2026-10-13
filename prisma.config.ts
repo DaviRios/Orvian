@@ -9,6 +9,6 @@ export default defineConfig({
   datasource: {
     url:
       process.env.DATABASE_URL ??
-      'postgresql://soir:soir@localhost:5432/soir?schema=public',
+      'postgresql://soir:soir@localhost:5433/soir?schema=public',
   },
 });
