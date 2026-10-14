@@ -1,5 +1,12 @@
 import { lazy, Suspense, useState } from 'react';
+import type { ComponentType } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ModulePageHero } from '../../components/ui/ModulePageHero';
+import {
+  BriefcaseIcon,
+  UsersIcon,
+  type IconProps,
+} from '../../components/icons/OrvianIcons';
 
 const CasesTab = lazy(() =>
   import('./cases/CasesTab').then((module) => ({ default: module.CasesTab })),
@@ -11,6 +18,28 @@ const HistoriasDeClientesTab = lazy(() =>
 );
 
 type Tab = 'cases' | 'client-stories';
+
+interface TabDetails {
+  label: string;
+  description: string;
+  icon: ComponentType<IconProps>;
+  iconClass: string;
+}
+
+const TAB_DETAILS: Record<Tab, TabDetails> = {
+  cases: {
+    label: 'Cases',
+    description: 'Projetos e resultados',
+    icon: BriefcaseIcon,
+    iconClass: 'bg-orvian-primary/15 text-orvian-primary',
+  },
+  'client-stories': {
+    label: 'Histórias de Clientes',
+    description: 'Experiências e depoimentos',
+    icon: UsersIcon,
+    iconClass: 'bg-orvian-gold/15 text-orvian-gold',
+  },
+};
 
 export function Cases() {
   const navigate = useNavigate();
@@ -30,116 +59,115 @@ export function Cases() {
 
   const currentCount = activeTab === 'cases' ? casesCount : storiesCount;
   const addLabel = activeTab === 'cases' ? '+ Novo Caso' : '+ Nova História';
+  const activeTabDetails = TAB_DETAILS[activeTab];
 
   return (
-    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
-      <div
-        className={
-          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+    <div className="mx-auto flex min-h-full w-full max-w-[1800px] flex-col gap-[clamp(0.875rem,1.4vh,2rem)]">
+      <ModulePageHero
+        eyebrow="Portfólio e resultados"
+        title="Cases"
+        description="Gerencie os cases e as histórias de clientes exibidos no site."
+        icon={BriefcaseIcon}
+        countLabel={
+          currentCount > 0
+            ? `${currentCount} item${currentCount > 1 ? 's' : ''}`
+            : undefined
         }
-      >
-        <button
-          className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
-          }
-          onClick={() => navigate('/')}
+        actionLabel={addLabel}
+        onBack={() => navigate('/')}
+        onAction={() => setOpenFormTrigger((trigger) => trigger + 1)}
+      />
+
+      <section aria-labelledby="case-sections-title">
+        <div className="mb-3 flex items-end justify-between gap-4">
+          <div>
+            <h2
+              id="case-sections-title"
+              className="m-0 text-[clamp(0.8rem,0.78vw,1.3rem)] font-bold text-white"
+            >
+              Tipos de conteúdo
+            </h2>
+            <p className="mb-0 mt-0.5 text-[clamp(0.62rem,0.56vw,0.95rem)] font-normal text-orvian-lavender">
+              Selecione uma área para visualizar e editar seus conteúdos
+            </p>
+          </div>
+          <span className="hidden text-xs font-semibold text-orvian-lavender sm:block">
+            Editando: {activeTabDetails.label}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-[clamp(0.625rem,0.75vw,1.25rem)] sm:grid-cols-2">
+          {(Object.keys(TAB_DETAILS) as Tab[]).map((tab) => {
+            const details = TAB_DETAILS[tab];
+            const TabIcon = details.icon;
+            const active = activeTab === tab;
+
+            return (
+              <button
+                key={tab}
+                type="button"
+                aria-pressed={active}
+                className={`group flex min-h-[88px] min-w-0 items-center gap-3 rounded-[clamp(0.75rem,0.8vw,1.25rem)] border p-[clamp(0.75rem,0.85vw,1.25rem)] text-left shadow-[0_6px_18px_rgba(0,0,0,0.12)] transition hover:-translate-y-0.5 hover:border-orvian-primary/70 ${
+                  active
+                    ? 'border-orvian-primary bg-orvian-primary/10 shadow-[0_10px_24px_rgba(239,89,40,0.12)]'
+                    : 'border-orvian-secondary/35 bg-orvian-shadow'
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                <span
+                  className={`grid size-11 shrink-0 place-items-center rounded-xl transition ${
+                    active
+                      ? 'bg-orvian-primary text-white shadow-[0_5px_12px_rgba(239,89,40,0.24)]'
+                      : details.iconClass
+                  }`}
+                >
+                  <TabIcon className="size-5" />
+                </span>
+                <span className="min-w-0">
+                  <strong
+                    className={`block text-xs font-bold ${
+                      active ? 'text-orvian-primary' : 'text-white'
+                    }`}
+                  >
+                    {details.label}
+                  </strong>
+                  <span className="mt-1 block text-[11px] font-normal text-orvian-lavender">
+                    {details.description}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {success && (
+        <div
+          role="status"
+          className="flex items-center gap-2 rounded-xl border border-green-400/35 bg-green-400/10 px-4 py-3 text-xs font-medium text-green-300"
         >
           <svg
-            width="16"
-            height="16"
+            width="15"
+            height="15"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeWidth="2"
+            aria-hidden="true"
           >
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
+            <polyline points="20 6 9 17 4 12" />
           </svg>
-          Voltar
-        </button>
-        <button
-          className={
-            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
-          }
-          onClick={() => setOpenFormTrigger((n) => n + 1)}
-        >
-          {addLabel}
-        </button>
-      </div>
+          {success}
+        </div>
+      )}
 
-      <div
-        className={
-          'flex-1 [padding:36px_40px] [max-width:1100px] w-full [margin:0_auto] [box-sizing:border-box]'
-        }
+      <section
+        aria-label={`Conteúdo de ${activeTabDetails.label}`}
+        className="min-w-0"
       >
-        <div
-          className={'flex items-start justify-between [margin-bottom:28px]'}
-        >
-          <div>
-            <h1
-              className={
-                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
-              }
-            >
-              Cases
-            </h1>
-            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
-              Gerencie os Cases e Histórias de Clientes exibidos no site
-            </p>
-          </div>
-          {currentCount > 0 && (
-            <span
-              className={
-                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
-              }
-            >
-              {currentCount} item{currentCount > 1 ? 's' : ''}
-            </span>
-          )}
-        </div>
-
-        <div
-          className={
-            'flex [gap:4px] [background:#302638] [border-radius:14px] [padding:5px] [margin-bottom:28px] [width:fit-content]'
-          }
-        >
-          <button
-            className={`${'[padding:9px_22px] [border-radius:10px] border-0 [background:transparent] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s] hover:[color:#EF5928] hover:[background:rgba(255,_255,_255,_0.5)]'} ${activeTab === 'cases' ? '[background:#302638] [color:#EF5928] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.12)]' : ''}`}
-            onClick={() => setActiveTab('cases')}
-          >
-            Cases
-          </button>
-          <button
-            className={`${'[padding:9px_22px] [border-radius:10px] border-0 [background:transparent] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s] hover:[color:#EF5928] hover:[background:rgba(255,_255,_255,_0.5)]'} ${activeTab === 'client-stories' ? '[background:#302638] [color:#EF5928] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.12)]' : ''}`}
-            onClick={() => setActiveTab('client-stories')}
-          >
-            Histórias de Clientes
-          </button>
-        </div>
-
-        {success && (
-          <div
-            className={`${'flex items-center [gap:8px] [border-radius:10px] [padding:12px_16px] [font-size:14px] font-medium [margin-bottom:20px]'} ${'[background:#f0fdf4] [border:1px_solid_#bbf7d0] [color:#16a34a]'}`}
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            {success}
-          </div>
-        )}
-
         <Suspense
           fallback={
-            <div className="py-16 text-center text-slate-500">
+            <div className="grid min-h-40 place-items-center rounded-2xl border border-orvian-secondary/35 bg-orvian-shadow text-sm text-orvian-lavender">
               Carregando seção…
             </div>
           }
@@ -159,7 +187,7 @@ export function Cases() {
             />
           )}
         </Suspense>
-      </div>
+      </section>
     </div>
   );
 }

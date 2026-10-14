@@ -61,9 +61,6 @@ export function Login() {
                 Bem-vindo ao Orvian
               </h2>
               <p className="mb-0 mt-[clamp(0.75rem,1.5vh,1.5rem)] max-w-[38rem] text-[clamp(0.75rem,0.8vw,1.25rem)] font-medium leading-relaxed text-orvian-gold">
-                Software off information repository
-              </p>
-              <p className="mb-0 mt-[clamp(0.75rem,1.5vh,1.5rem)] max-w-[38rem] text-[clamp(0.75rem,0.8vw,1.25rem)] font-normal leading-relaxed text-orvian-lavender">
                 Gerencie todo o conteúdo do seu site de forma simples, rápida e
                 organizada.
               </p>

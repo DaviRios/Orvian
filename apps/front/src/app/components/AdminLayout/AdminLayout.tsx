@@ -272,7 +272,7 @@ export function AdminLayout({
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Buscar no Orvian..."
               aria-label="Buscar no Orvian"
-              className="h-9 w-full rounded-xl border border-orvian-secondary bg-orvian-charcoal pl-10 pr-4 text-xs text-white outline-none transition placeholder:text-orvian-gray focus:border-orvian-primary focus:ring-4 focus:ring-orvian-primary/15 lg:h-[clamp(2.25rem,2.6vw,4rem)] lg:rounded-[clamp(0.75rem,0.8vw,1.25rem)] lg:pl-[clamp(2.5rem,2.8vw,4.5rem)] lg:pr-[clamp(1rem,1vw,1.75rem)] lg:text-[clamp(0.75rem,0.65vw,1.1rem)]"
+              className="h-9 w-full rounded-xl border border-orvian-secondary bg-orvian-charcoal pl-10 pr-4 text-xs text-white outline-none transition placeholder:text-orvian-gray focus:border-orvian-primary focus:ring-4 focus:ring-orvian-primary/15 lg:h-[clamp(2.25rem,2vw,2.75rem)] lg:rounded-[clamp(0.75rem,0.8vw,1.25rem)] lg:pl-[clamp(2.5rem,2.8vw,4.5rem)] lg:pr-[clamp(1rem,1vw,1.75rem)] lg:text-[clamp(0.75rem,0.65vw,1.1rem)]"
             />
             {query && (
               <div className="absolute left-0 right-0 top-11 overflow-hidden rounded-xl border border-orvian-secondary bg-orvian-shadow p-1.5 shadow-xl">
@@ -309,7 +309,7 @@ export function AdminLayout({
             <div className="relative">
               <button
                 type="button"
-                className="grid size-9 place-items-center rounded-xl border border-orvian-secondary bg-orvian-charcoal text-orvian-lavender transition hover:border-orvian-primary hover:bg-orvian-primary/15 hover:text-orvian-primary lg:size-[clamp(2.25rem,2.6vw,4rem)] lg:rounded-[clamp(0.75rem,0.8vw,1.25rem)]"
+                className="grid size-9 place-items-center rounded-xl border border-orvian-secondary bg-orvian-charcoal text-orvian-lavender transition hover:border-orvian-primary hover:bg-orvian-primary/15 hover:text-orvian-primary lg:size-[clamp(2.25rem,2vw,2.75rem)] lg:rounded-[clamp(0.75rem,0.8vw,1.25rem)]"
                 onClick={() => setNotificationsOpen((open) => !open)}
                 aria-label="Notificações"
                 aria-expanded={notificationsOpen}

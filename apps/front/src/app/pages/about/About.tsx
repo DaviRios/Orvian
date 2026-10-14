@@ -1,154 +1,152 @@
 import { useState } from 'react';
+import type { ComponentType } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ModulePageHero } from '../../components/ui/ModulePageHero';
+import {
+  BriefcaseIcon,
+  ImageIcon,
+  SettingsIcon,
+  UsersIcon,
+  type IconProps,
+} from '../../components/icons/OrvianIcons';
 
 type Tab = 'services' | 'partners' | 'careers' | 'media';
 
-const TAB_LABELS: Record<Tab, string> = {
-  services: 'Serviços',
-  partners: 'Parceiros',
-  careers: 'Carreiras',
-  media: 'Mídia',
+interface TabDetails {
+  label: string;
+  description: string;
+  icon: ComponentType<IconProps>;
+  iconClass: string;
+}
+
+const TAB_DETAILS: Record<Tab, TabDetails> = {
+  services: {
+    label: 'Serviços',
+    description: 'Soluções oferecidas',
+    icon: SettingsIcon,
+    iconClass: 'bg-orvian-primary/15 text-orvian-primary',
+  },
+  partners: {
+    label: 'Parceiros',
+    description: 'Empresas parceiras',
+    icon: UsersIcon,
+    iconClass: 'bg-orvian-secondary/30 text-orvian-lavender',
+  },
+  careers: {
+    label: 'Carreiras',
+    description: 'Vagas e oportunidades',
+    icon: BriefcaseIcon,
+    iconClass: 'bg-orvian-gold/15 text-orvian-gold',
+  },
+  media: {
+    label: 'Mídia',
+    description: 'Materiais institucionais',
+    icon: ImageIcon,
+    iconClass: 'bg-orvian-blue/15 text-orvian-blue',
+  },
 };
 
 export function About() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<Tab>('services');
+  const activeTabDetails = TAB_DETAILS[activeTab];
 
   return (
-    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
-      <div
-        className={
-          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
-        }
-      >
-        <button
-          className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
-          }
-          onClick={() => navigate('/')}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
-          </svg>
-          Voltar
-        </button>
-      </div>
+    <div className="mx-auto flex min-h-full w-full max-w-[1800px] flex-col gap-[clamp(0.875rem,1.4vh,2rem)]">
+      <ModulePageHero
+        eyebrow="Conteúdo institucional"
+        title="Página Sobre"
+        description="Gerencie serviços, parceiros, carreiras e materiais institucionais exibidos no site."
+        icon={UsersIcon}
+        onBack={() => navigate('/')}
+      />
 
-      <div
-        className={
-          'flex-1 [padding:36px_40px] [max-width:1100px] w-full [margin:0_auto] [box-sizing:border-box]'
-        }
-      >
-        <div
-          className={'flex items-start justify-between [margin-bottom:24px]'}
-        >
+      <section aria-labelledby="about-sections-title">
+        <div className="mb-3 flex items-end justify-between gap-4">
           <div>
-            <h1
-              className={
-                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
-              }
+            <h2
+              id="about-sections-title"
+              className="m-0 text-[clamp(0.8rem,0.78vw,1.3rem)] font-bold text-white"
             >
-              Página Sobre
-            </h1>
-            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
-              Gerencie o conteúdo da página Sobre do site
+              Seções institucionais
+            </h2>
+            <p className="mb-0 mt-0.5 text-[clamp(0.62rem,0.56vw,0.95rem)] font-normal text-orvian-lavender">
+              Selecione uma área para visualizar e editar seu conteúdo
             </p>
           </div>
+          <span className="hidden text-xs font-semibold text-orvian-lavender sm:block">
+            Editando: {activeTabDetails.label}
+          </span>
         </div>
 
-        <div
-          className={
-            'flex [gap:4px] [background:#302638] [border-radius:14px] [padding:5px] [margin-bottom:28px] [width:fit-content]'
-          }
-        >
-          {(Object.keys(TAB_LABELS) as Tab[]).map((tab) => (
-            <button
-              key={tab}
-              className={`${'[padding:9px_22px] [border-radius:10px] border-0 [background:transparent] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s] hover:[color:#EF5928] hover:[background:rgba(255,_255,_255,_0.5)]'} ${activeTab === tab ? '[background:#302638] [color:#EF5928] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.12)]' : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {TAB_LABELS[tab]}
-            </button>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 gap-[clamp(0.625rem,0.75vw,1.25rem)] min-[430px]:grid-cols-2 lg:grid-cols-4">
+          {(Object.keys(TAB_DETAILS) as Tab[]).map((tab) => {
+            const details = TAB_DETAILS[tab];
+            const TabIcon = details.icon;
+            const active = activeTab === tab;
 
-        <ComingSoon />
-      </div>
+            return (
+              <button
+                key={tab}
+                type="button"
+                aria-pressed={active}
+                className={`group flex min-h-[88px] min-w-0 items-center gap-3 rounded-[clamp(0.75rem,0.8vw,1.25rem)] border p-[clamp(0.75rem,0.85vw,1.25rem)] text-left shadow-[0_6px_18px_rgba(0,0,0,0.12)] transition hover:-translate-y-0.5 hover:border-orvian-primary/70 ${
+                  active
+                    ? 'border-orvian-primary bg-orvian-primary/10 shadow-[0_10px_24px_rgba(239,89,40,0.12)]'
+                    : 'border-orvian-secondary/35 bg-orvian-shadow'
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                <span
+                  className={`grid size-11 shrink-0 place-items-center rounded-xl transition ${
+                    active
+                      ? 'bg-orvian-primary text-white shadow-[0_5px_12px_rgba(239,89,40,0.24)]'
+                      : details.iconClass
+                  }`}
+                >
+                  <TabIcon className="size-5" />
+                </span>
+                <span className="min-w-0">
+                  <strong
+                    className={`block text-xs font-bold ${
+                      active ? 'text-orvian-primary' : 'text-white'
+                    }`}
+                  >
+                    {details.label}
+                  </strong>
+                  <span className="mt-1 block text-[11px] font-normal text-orvian-lavender">
+                    {details.description}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <ComingSoon sectionName={activeTabDetails.label} />
     </div>
   );
 }
 
-function ComingSoon() {
+function ComingSoon({ sectionName }: { sectionName: string }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '12px',
-        padding: '80px 40px',
-        textAlign: 'center',
-      }}
+    <section
+      aria-label={`Conteúdo de ${sectionName}`}
+      className="grid min-h-[280px] place-items-center rounded-[clamp(0.875rem,1vw,1.5rem)] border border-orvian-secondary/35 bg-orvian-shadow p-8 text-center shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
     >
-      <div
-        style={{
-          width: '68px',
-          height: '68px',
-          borderRadius: '20px',
-          background: '#302638',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#A1C8FA',
-          marginBottom: '8px',
-        }}
-      >
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <polyline points="12 6 12 12 16 14" />
-        </svg>
+      <div className="flex max-w-sm flex-col items-center gap-3">
+        <div className="mb-2 grid size-16 place-items-center rounded-2xl bg-orvian-secondary/25 text-orvian-blue">
+          <SettingsIcon className="size-8" />
+        </div>
+        <p className="m-0 text-base font-bold text-white">
+          {sectionName} em breve
+        </p>
+        <p className="m-0 text-sm leading-relaxed text-orvian-lavender">
+          Esta seção está em desenvolvimento e estará disponível em breve.
+        </p>
       </div>
-      <p
-        style={{
-          fontSize: '16px',
-          fontWeight: '700',
-          color: '#F7F2FA',
-          margin: '0',
-        }}
-      >
-        Em breve
-      </p>
-      <p
-        style={{
-          fontSize: '14px',
-          color: '#9981AE',
-          margin: '0',
-          maxWidth: '300px',
-          lineHeight: '1.6',
-        }}
-      >
-        Esta seção está em desenvolvimento e estará disponível em breve.
-      </p>
-    </div>
+    </section>
   );
 }
 

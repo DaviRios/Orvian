@@ -11,6 +11,8 @@ import {
 import { AuthorsPanel } from './components/AuthorsPanel';
 import { BlogPostForm } from './components/BlogPostForm';
 import { Alert } from '../../components/ui/Alert';
+import { ModulePageHero } from '../../components/ui/ModulePageHero';
+import { NewspaperIcon } from '../../components/icons/OrvianIcons';
 
 const LANG_LABEL: Record<string, string> = { PORTUGUESE: 'PT', ENGLISH: 'EN' };
 
@@ -84,132 +86,84 @@ export function BlogPosts() {
   }
 
   return (
-    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
-      <div
-        className={
-          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+    <div className="mx-auto flex min-h-full w-full max-w-[1800px] flex-col gap-[clamp(0.875rem,1.4vh,2rem)]">
+      <ModulePageHero
+        eyebrow="Conteúdo editorial"
+        title="Blog e Notícias"
+        description="Crie, edite e gerencie os posts publicados no blog do site."
+        icon={NewspaperIcon}
+        countLabel={
+          posts.length > 0
+            ? `${posts.length} post${posts.length > 1 ? 's' : ''}`
+            : undefined
         }
-      >
-        <button
-          className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
-          }
-          onClick={() => navigate('/')}
+        actionLabel="+ Novo Post"
+        onBack={() => navigate('/')}
+        onAction={() => openForm()}
+      />
+
+      {error && (
+        <div className="mb-5">
+          <Alert>{error}</Alert>
+        </div>
+      )}
+
+      {success && (
+        <div
+          role="status"
+          className="flex items-center gap-2 rounded-xl border border-green-400/35 bg-green-400/10 px-4 py-3 text-xs font-medium text-green-300"
         >
           <svg
-            width="16"
-            height="16"
+            width="15"
+            height="15"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeWidth="2"
           >
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
+            <polyline points="20 6 9 17 4 12" />
           </svg>
-          Voltar
-        </button>
-        <button
-          className={
-            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
-          }
-          onClick={() => openForm()}
-        >
-          + Novo Post
-        </button>
-      </div>
+          {success}
+        </div>
+      )}
 
-      <div
-        className={
-          'flex-1 [padding:36px_40px] [max-width:1100px] w-full [margin:0_auto] [box-sizing:border-box]'
-        }
-      >
-        <div
-          className={'flex items-start justify-between [margin-bottom:28px]'}
-        >
+      {showForm && (
+        <BlogPostForm
+          key={editingPost?.id ?? 'new-post'}
+          item={editingPost}
+          onClose={closeForm}
+          onSaved={async (message) => {
+            setSuccess(message);
+            setTimeout(() => setSuccess(''), 3500);
+            closeForm();
+            await refreshEditorial();
+          }}
+        />
+      )}
+      <section aria-labelledby="blog-content-title">
+        <div className="mb-3 flex items-end justify-between gap-4">
           <div>
-            <h1
-              className={
-                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
-              }
+            <h2
+              id="blog-content-title"
+              className="m-0 text-[clamp(0.8rem,0.78vw,1.3rem)] font-bold text-white"
             >
-              Blog e Notícias
-            </h1>
-            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
-              Gerencie os posts publicados no blog do site
+              Conteúdo editorial
+            </h2>
+            <p className="mb-0 mt-0.5 text-[clamp(0.62rem,0.56vw,0.95rem)] font-normal text-orvian-lavender">
+              Visualize, publique e organize os posts do Orvian
             </p>
           </div>
-          {posts.length > 0 && (
-            <span
-              className={
-                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
-              }
-            >
-              {posts.length} post{posts.length > 1 ? 's' : ''}
-            </span>
-          )}
         </div>
 
-        {error && (
-          <div className="mb-5">
-            <Alert>{error}</Alert>
-          </div>
-        )}
-
-        {success && (
-          <div
-            className={`${'flex items-center [gap:8px] [border-radius:10px] [padding:12px_16px] [font-size:14px] font-medium [margin-bottom:20px]'} ${'[background:#f0fdf4] [border:1px_solid_#bbf7d0] [color:#16a34a]'}`}
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            {success}
-          </div>
-        )}
-
-        {showForm && (
-          <BlogPostForm
-            key={editingPost?.id ?? 'new-post'}
-            item={editingPost}
-            onClose={closeForm}
-            onSaved={async (message) => {
-              setSuccess(message);
-              setTimeout(() => setSuccess(''), 3500);
-              closeForm();
-              await refreshEditorial();
-            }}
-          />
-        )}
         {loading ? (
-          <div
-            className={
-              'flex flex-col items-center [gap:14px] [padding:80px_40px]'
-            }
-          >
-            <div
-              className={
-                '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
-              }
-            />
-            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
+          <div className="flex min-h-52 flex-col items-center justify-center gap-3 rounded-2xl border border-orvian-secondary/35 bg-orvian-shadow">
+            <div className="size-9 animate-spin rounded-full border-[3px] border-orvian-secondary border-t-orvian-primary" />
+            <p className="m-0 text-sm text-orvian-lavender">
               Carregando posts...
             </p>
           </div>
         ) : posts.length > 0 ? (
-          <div
-            className={
-              'grid [grid-template-columns:repeat(auto-fill,_minmax(300px,_1fr))] [gap:20px] [margin-bottom:48px]'
-            }
-          >
+          <div className="mb-12 grid grid-cols-1 gap-[clamp(0.875rem,1vw,1.5rem)] sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {posts.map((post) => (
               <div
                 key={post.id}
@@ -425,9 +379,9 @@ export function BlogPosts() {
             </div>
           )
         )}
+      </section>
 
-        <AuthorsPanel />
-      </div>
+      <AuthorsPanel />
     </div>
   );
 }

@@ -6,6 +6,8 @@ import {
   deleteImage,
   ImageSearchResult,
 } from '../../services/images.service';
+import { ModulePageHero } from '../../components/ui/ModulePageHero';
+import { ImageIcon } from '../../components/icons/OrvianIcons';
 
 const EXTENSIONS = ['PNG', 'JPEG', 'GIF', 'MP4'];
 
@@ -133,117 +135,80 @@ export function MediaGallery() {
   const isVideo = (ext: string) => ext?.toUpperCase() === 'MP4';
 
   return (
-    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
-      <div
-        className={
-          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+    <div className="mx-auto flex min-h-full w-full max-w-[1800px] flex-col gap-[clamp(0.875rem,1.4vh,2rem)]">
+      <ModulePageHero
+        eyebrow="Biblioteca de arquivos"
+        title="Repositório de Mídias"
+        description="Organize, busque e envie todas as imagens e vídeos utilizados pelo sistema."
+        icon={ImageIcon}
+        countLabel={
+          !loading && images.length > 0
+            ? `${images.length} arquivo${images.length > 1 ? 's' : ''}`
+            : undefined
         }
-      >
-        <button
-          className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
-          }
-          onClick={() => navigate('/')}
+        actionLabel={uploading ? 'Enviando...' : '+ Upload'}
+        onBack={() => navigate('/')}
+        onAction={() => fileRef.current?.click()}
+        actionDisabled={uploading}
+      />
+
+      {error && (
+        <div
+          role="alert"
+          className="flex items-center gap-2 rounded-xl border border-red-400/35 bg-red-400/10 px-4 py-3 text-xs font-medium text-red-300"
         >
           <svg
-            width="16"
-            height="16"
+            width="15"
+            height="15"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeWidth="2"
           >
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
-          Voltar
-        </button>
-        <button
-          className={
-            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
-          }
-          onClick={() => fileRef.current?.click()}
-          disabled={uploading}
-        >
-          {uploading ? 'Enviando...' : '+ Upload'}
-        </button>
-      </div>
-
-      <div
-        className={
-          'flex-1 [padding:36px_40px] [max-width:1200px] w-full [margin:0_auto] [box-sizing:border-box]'
-        }
-      >
+          {error}
+        </div>
+      )}
+      {success && (
         <div
-          className={'flex items-start justify-between [margin-bottom:24px]'}
+          role="status"
+          className="flex items-center gap-2 rounded-xl border border-green-400/35 bg-green-400/10 px-4 py-3 text-xs font-medium text-green-300"
         >
-          <div>
-            <h1
-              className={
-                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
-              }
-            >
-              Repositório de Mídias
-            </h1>
-            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
-              Gerencie todas as imagens e vídeos do sistema
-            </p>
-          </div>
-          {!loading && images.length > 0 && (
-            <span
-              className={
-                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
-              }
-            >
-              {images.length} arquivo{images.length > 1 ? 's' : ''}
-            </span>
-          )}
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          {success}
+        </div>
+      )}
+
+      <section
+        aria-labelledby="media-tools-title"
+        className="rounded-[clamp(0.875rem,1vw,1.5rem)] border border-orvian-secondary/35 bg-orvian-shadow p-[clamp(1rem,1.2vw,1.75rem)] shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+      >
+        <div className="mb-4">
+          <h2
+            id="media-tools-title"
+            className="m-0 text-[clamp(0.8rem,0.78vw,1.3rem)] font-bold text-white"
+          >
+            Buscar e adicionar arquivos
+          </h2>
+          <p className="mb-0 mt-0.5 text-[clamp(0.62rem,0.56vw,0.95rem)] font-normal text-orvian-lavender">
+            Filtre a biblioteca ou envie novas imagens e vídeos
+          </p>
         </div>
 
-        {error && (
-          <div
-            className={`${'flex items-center [gap:8px] [border-radius:10px] [padding:12px_16px] [font-size:14px] font-medium [margin-bottom:20px]'} ${'[background:#fef2f2] [border:1px_solid_#fecaca] [color:#dc2626]'}`}
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="12" />
-              <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
-            {error}
-          </div>
-        )}
-        {success && (
-          <div
-            className={`${'flex items-center [gap:8px] [border-radius:10px] [padding:12px_16px] [font-size:14px] font-medium [margin-bottom:20px]'} ${'[background:#f0fdf4] [border:1px_solid_#bbf7d0] [color:#16a34a]'}`}
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            {success}
-          </div>
-        )}
-
-        {/* Search + Filter bar */}
         <form
-          className={
-            'flex items-center [gap:10px] [margin-bottom:20px] [flex-wrap:wrap]'
-          }
+          className="mb-5 flex flex-wrap items-center gap-2.5"
           onSubmit={handleSearch}
         >
           <div className={'relative flex-1 [min-width:200px]'}>
@@ -302,9 +267,8 @@ export function MediaGallery() {
           </div>
         </form>
 
-        {/* Dropzone */}
         <div
-          className={`${'[border:2px_dashed_#A1C8FA] [border-radius:14px] [background:#25232C] [padding:24px_20px] flex flex-col items-center [gap:8px] cursor-pointer [transition:border-color_0.2s,_background_0.2s] [margin-bottom:28px] hover:[border-color:#EF5928] hover:[background:#302638]'} ${isDragging ? '[border-color:#EF5928] [background:#302638]' : ''} ${uploading ? '[cursor:default] pointer-events-none [opacity:0.8]' : ''}`}
+          className={`flex cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-dashed border-orvian-blue/55 bg-orvian-charcoal/45 px-5 py-6 transition hover:border-orvian-primary hover:bg-orvian-primary/5 ${isDragging ? 'border-orvian-primary bg-orvian-primary/5' : ''} ${uploading ? 'pointer-events-none cursor-default opacity-80' : ''}`}
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
@@ -377,8 +341,21 @@ export function MediaGallery() {
             </>
           )}
         </div>
+      </section>
 
-        {/* Gallery */}
+      <section aria-labelledby="media-gallery-title">
+        <div className="mb-3">
+          <h2
+            id="media-gallery-title"
+            className="m-0 text-[clamp(0.8rem,0.78vw,1.3rem)] font-bold text-white"
+          >
+            Arquivos do repositório
+          </h2>
+          <p className="mb-0 mt-0.5 text-[clamp(0.62rem,0.56vw,0.95rem)] font-normal text-orvian-lavender">
+            Selecione um item para visualizar seus detalhes
+          </p>
+        </div>
+
         {loading ? (
           <div
             className={
@@ -517,167 +494,167 @@ export function MediaGallery() {
             </p>
           </div>
         )}
+      </section>
 
-        {/* Detail panel */}
-        {selected && (
+      {/* Detail panel */}
+      {selected && (
+        <div
+          className={
+            'fixed [right:24px] [bottom:24px] [width:280px] [background:#302638] [border:1px_solid_#68577E] [border-radius:18px] [box-shadow:0_12px_40px_rgba(84,_200,_232,_0.16)] overflow-hidden [z-index:100] animate-[slide-up_.22s_ease]'
+          }
+        >
           <div
             className={
-              'fixed [right:24px] [bottom:24px] [width:280px] [background:#302638] [border:1px_solid_#68577E] [border-radius:18px] [box-shadow:0_12px_40px_rgba(84,_200,_232,_0.16)] overflow-hidden [z-index:100] animate-[slide-up_.22s_ease]'
+              'flex items-center justify-between [padding:14px_16px_12px] [border-bottom:1px_solid_#302638]'
             }
           >
-            <div
-              className={
-                'flex items-center justify-between [padding:14px_16px_12px] [border-bottom:1px_solid_#302638]'
-              }
-            >
-              <span className={'[font-size:14px] font-bold [color:#F7F2FA]'}>
-                Detalhes
-              </span>
-              <button
-                className={
-                  '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer [transition:background_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626]'
-                }
-                onClick={() => setSelected(null)}
-              >
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </div>
-            <div
-              className={
-                '[background:#302638] flex items-center justify-center [min-height:160px]'
-              }
-            >
-              {isVideo(selected.extension) ? (
-                <video
-                  src={selected.url}
-                  controls
-                  className={'w-full [max-height:200px] block'}
-                />
-              ) : (
-                <img
-                  src={selected.url}
-                  alt={selected.name}
-                  className={'w-full [max-height:200px] object-contain block'}
-                />
-              )}
-            </div>
-            <dl
-              className={
-                'grid [grid-template-columns:auto_1fr] [gap:6px_12px] [padding:14px_16px] [margin:0] [font-size:14px] [&_dt]:[color:#9981AE] [&_dt]:font-semibold [&_dt]:whitespace-nowrap [&_dd]:[margin:0] [&_dd]:[color:#F7F2FA] [&_dd]:font-medium [&_dd]:whitespace-nowrap [&_dd]:overflow-hidden [&_dd]:[text-overflow:ellipsis]'
-              }
-            >
-              <dt>Nome</dt>
-              <dd title={selected.name}>{selected.name}</dd>
-              <dt>Tipo</dt>
-              <dd>{selected.extension}</dd>
-              <dt>Tamanho</dt>
-              <dd>{formatBytes(selected.size)}</dd>
-              {selected.uploadDate && (
-                <>
-                  <dt>Data</dt>
-                  <dd>{formatDate(selected.uploadDate)}</dd>
-                </>
-              )}
-              <dt>URL</dt>
-              <dd>
-                <button
-                  className={
-                    'inline-flex items-center [gap:5px] [background:#302638] [border:1px_solid_#68577E] [color:#EF5928] [border-radius:7px] [padding:4px_10px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#68577E]'
-                  }
-                  onClick={() => navigator.clipboard.writeText(selected.url)}
-                  title="Copiar URL"
-                >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                  >
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                  </svg>
-                  Copiar URL
-                </button>
-              </dd>
-            </dl>
+            <span className={'[font-size:14px] font-bold [color:#F7F2FA]'}>
+              Detalhes
+            </span>
             <button
               className={
-                'flex items-center [gap:6px] w-full [padding:8px_14px] [border-radius:8px] [border:1px_solid_#fecaca] [background:#fef2f2] [color:#dc2626] [font-size:1rem] font-medium cursor-pointer [transition:background_0.15s] justify-center hover:[background:#fee2e2]'
+                '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer [transition:background_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626]'
               }
-              onClick={() => setConfirmingDelete(true)}
+              onClick={() => setSelected(null)}
             >
               <svg
-                width="13"
-                height="13"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
               >
-                <polyline points="3 6 5 6 21 6" />
-                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                <path d="M10 11v6M14 11v6" />
-                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
-              Excluir
             </button>
           </div>
-        )}
-
-        {confirmingDelete && selected && (
           <div
             className={
-              'fixed [inset:0] [background:rgba(0,_0,_0,_0.45)] flex items-center justify-center [z-index:1000]'
+              '[background:#302638] flex items-center justify-center [min-height:160px]'
             }
           >
-            <div
+            {isVideo(selected.extension) ? (
+              <video
+                src={selected.url}
+                controls
+                className={'w-full [max-height:200px] block'}
+              />
+            ) : (
+              <img
+                src={selected.url}
+                alt={selected.name}
+                className={'w-full [max-height:200px] object-contain block'}
+              />
+            )}
+          </div>
+          <dl
+            className={
+              'grid [grid-template-columns:auto_1fr] [gap:6px_12px] [padding:14px_16px] [margin:0] [font-size:14px] [&_dt]:[color:#9981AE] [&_dt]:font-semibold [&_dt]:whitespace-nowrap [&_dd]:[margin:0] [&_dd]:[color:#F7F2FA] [&_dd]:font-medium [&_dd]:whitespace-nowrap [&_dd]:overflow-hidden [&_dd]:[text-overflow:ellipsis]'
+            }
+          >
+            <dt>Nome</dt>
+            <dd title={selected.name}>{selected.name}</dd>
+            <dt>Tipo</dt>
+            <dd>{selected.extension}</dd>
+            <dt>Tamanho</dt>
+            <dd>{formatBytes(selected.size)}</dd>
+            {selected.uploadDate && (
+              <>
+                <dt>Data</dt>
+                <dd>{formatDate(selected.uploadDate)}</dd>
+              </>
+            )}
+            <dt>URL</dt>
+            <dd>
+              <button
+                className={
+                  'inline-flex items-center [gap:5px] [background:#302638] [border:1px_solid_#68577E] [color:#EF5928] [border-radius:7px] [padding:4px_10px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#68577E]'
+                }
+                onClick={() => navigator.clipboard.writeText(selected.url)}
+                title="Copiar URL"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                Copiar URL
+              </button>
+            </dd>
+          </dl>
+          <button
+            className={
+              'flex items-center [gap:6px] w-full [padding:8px_14px] [border-radius:8px] [border:1px_solid_#fecaca] [background:#fef2f2] [color:#dc2626] [font-size:1rem] font-medium cursor-pointer [transition:background_0.15s] justify-center hover:[background:#fee2e2]'
+            }
+            onClick={() => setConfirmingDelete(true)}
+          >
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+              <path d="M10 11v6M14 11v6" />
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+            </svg>
+            Excluir
+          </button>
+        </div>
+      )}
+
+      {confirmingDelete && selected && (
+        <div
+          className={
+            'fixed [inset:0] [background:rgba(0,_0,_0,_0.45)] flex items-center justify-center [z-index:1000]'
+          }
+        >
+          <div
+            className={
+              '[background:#302638] [border-radius:12px] [padding:28px_32px] [max-width:360px] [width:90%] [box-shadow:0_8px_32px_rgba(0,0,0,0.18)] flex flex-col [gap:20px]'
+            }
+          >
+            <p
               className={
-                '[background:#302638] [border-radius:12px] [padding:28px_32px] [max-width:360px] [width:90%] [box-shadow:0_8px_32px_rgba(0,0,0,0.18)] flex flex-col [gap:20px]'
+                '[font-size:1rem] [color:#F7F2FA] text-center [margin:0]'
               }
             >
-              <p
+              Excluir <strong>{selected.name}</strong> permanentemente?
+            </p>
+            <div className={'flex [gap:10px] justify-center'}>
+              <button
                 className={
-                  '[font-size:1rem] [color:#F7F2FA] text-center [margin:0]'
+                  '[padding:8px_20px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#C6B5D2] [font-size:1rem] cursor-pointer [transition:background_0.15s] hover:[background:#302638]'
                 }
+                onClick={() => setConfirmingDelete(false)}
               >
-                Excluir <strong>{selected.name}</strong> permanentemente?
-              </p>
-              <div className={'flex [gap:10px] justify-center'}>
-                <button
-                  className={
-                    '[padding:8px_20px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#C6B5D2] [font-size:1rem] cursor-pointer [transition:background_0.15s] hover:[background:#302638]'
-                  }
-                  onClick={() => setConfirmingDelete(false)}
-                >
-                  Cancelar
-                </button>
-                <button
-                  className={
-                    '[padding:8px_20px] [border-radius:8px] border-0 [background:#dc2626] [color:#fff] [font-size:1rem] font-semibold cursor-pointer [transition:background_0.15s] hover:[background:#b91c1c]'
-                  }
-                  onClick={handleConfirmDelete}
-                >
-                  Excluir
-                </button>
-              </div>
+                Cancelar
+              </button>
+              <button
+                className={
+                  '[padding:8px_20px] [border-radius:8px] border-0 [background:#dc2626] [color:#fff] [font-size:1rem] font-semibold cursor-pointer [transition:background_0.15s] hover:[background:#b91c1c]'
+                }
+                onClick={handleConfirmDelete}
+              >
+                Excluir
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
