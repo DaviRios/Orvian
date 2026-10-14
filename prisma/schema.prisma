@@ -23,7 +23,7 @@ enum PublicationStatus {
   PUBLISHED
 }
 
-enum PopupStyle {
+enum InformationStyle {
   ORANGE_WHITE
   WHITE_ORANGE
   PURPLE_WHITE
@@ -60,7 +60,7 @@ model User {
 
 model AuthSession {
   id        String    @id @default(uuid()) @db.Uuid
-  userId    String    @db.Uuid @map("user_id")
+  userId    String    @map("user_id") @db.Uuid
   tokenHash String    @unique @map("token_hash")
   expiresAt DateTime  @map("expires_at")
   revokedAt DateTime? @map("revoked_at")
@@ -94,7 +94,7 @@ model BlogPost {
   url               String
   description       String            @default("")
   imageUrl          String            @default("") @map("image_url")
-  authorId          String            @db.Uuid @map("author_id")
+  authorId          String            @map("author_id") @db.Uuid
   language          Language          @default(PORTUGUESE)
   publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
   isActive          Boolean           @default(true) @map("is_active")
@@ -110,33 +110,33 @@ model BlogPost {
 }
 
 model MediaAsset {
-  id            String          @id @default(uuid()) @db.Uuid
-  kind          MediaKind
-  name          String
-  size          Int
-  extension     String
-  tags          String[]        @default([])
-  storagePath   String          @unique @map("storage_path")
-  contentType   String          @map("content_type")
-  isActive      Boolean         @default(true) @map("is_active")
-  deletedAt     DateTime?       @map("deleted_at")
-  createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime        @updatedAt @map("updated_at")
-  slides        Slide[]         @relation("SlideLogo")
-  ecosystems    EcosystemItem[] @relation("EcosystemImage")
-  clientStories ClientStory[]   @relation("ClientStoryImage")
-  caseLogos     Case[]          @relation("CaseLogo")
-  caseImages    CaseImage[]
-  aboutMedia    AboutMedia[]
-  partnerLogos  Partner[]       @relation("PartnerLogo")
+  id             String          @id @default(uuid()) @db.Uuid
+  kind           MediaKind
+  name           String
+  size           Int
+  extension      String
+  tags           String[]        @default([])
+  storagePath    String          @unique @map("storage_path")
+  contentType    String          @map("content_type")
+  isActive       Boolean         @default(true) @map("is_active")
+  deletedAt      DateTime?       @map("deleted_at")
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  products       Product[]       @relation("ProductLogo")
+  partnerBanners PartnerBanner[] @relation("PartnerBannerImage")
+  feedbacks      Feedback[]      @relation("FeedbackImage")
+  reviewLogos    Review[]        @relation("ReviewLogo")
+  reviewImages   ReviewImage[]
+  aboutMedia     AboutMedia[]
+  partnerLogos   Partner[]       @relation("PartnerLogo")
 
   @@index([kind, isActive])
   @@map("media_assets")
 }
 
-model Slide {
+model Product {
   id                String            @id @default(uuid()) @db.Uuid
-  logoId            String            @db.Uuid @map("logo_id")
+  logoId            String            @map("logo_id") @db.Uuid
   text              String
   buttonText        String            @default("") @map("button_text")
   buttonUrl         String            @default("") @map("button_url")
@@ -147,13 +147,13 @@ model Slide {
   deletedAt         DateTime?         @map("deleted_at")
   createdAt         DateTime          @default(now()) @map("created_at")
   updatedAt         DateTime          @updatedAt @map("updated_at")
-  logo              MediaAsset        @relation("SlideLogo", fields: [logoId], references: [id], onDelete: Restrict)
+  logo              MediaAsset        @relation("ProductLogo", fields: [logoId], references: [id], onDelete: Restrict)
 
   @@index([language, publicationStatus, isActive])
-  @@map("slides")
+  @@map("products")
 }
 
-model Popup {
+model Information {
   id                String            @id @default(uuid()) @db.Uuid
   title             String
   description       String            @default("")
@@ -161,7 +161,7 @@ model Popup {
   redirectUrl       String            @default("") @map("redirect_url")
   buttonText2       String            @default("") @map("button_text_2")
   redirectUrl2      String            @default("") @map("redirect_url_2")
-  style             PopupStyle        @default(ORANGE_WHITE)
+  style             InformationStyle  @default(ORANGE_WHITE)
   language          Language          @default(PORTUGUESE)
   publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
   isActive          Boolean           @default(true) @map("is_active")
@@ -171,26 +171,26 @@ model Popup {
   updatedAt         DateTime          @updatedAt @map("updated_at")
 
   @@index([language, publicationStatus, isActive])
-  @@map("popups")
+  @@map("information")
 }
 
-model EcosystemItem {
+model PartnerBanner {
   id                String            @id @default(uuid()) @db.Uuid
   name              String
-  imageId           String            @db.Uuid @map("image_id")
+  imageId           String            @map("image_id") @db.Uuid
   publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
   isActive          Boolean           @default(true) @map("is_active")
   publishedAt       DateTime?         @map("published_at")
   deletedAt         DateTime?         @map("deleted_at")
   createdAt         DateTime          @default(now()) @map("created_at")
   updatedAt         DateTime          @updatedAt @map("updated_at")
-  image             MediaAsset        @relation("EcosystemImage", fields: [imageId], references: [id], onDelete: Restrict)
+  image             MediaAsset        @relation("PartnerBannerImage", fields: [imageId], references: [id], onDelete: Restrict)
 
   @@index([publicationStatus, isActive])
-  @@map("ecosystem_items")
+  @@map("partner_banners")
 }
 
-model HomeBlogLink {
+model ContentLink {
   id                String            @id @default(uuid()) @db.Uuid
   url               String
   label             String            @default("")
@@ -202,12 +202,12 @@ model HomeBlogLink {
   updatedAt         DateTime          @updatedAt @map("updated_at")
 
   @@index([publicationStatus, isActive])
-  @@map("home_blog_links")
+  @@map("links")
 }
 
-model ClientStory {
+model Feedback {
   id                String            @id @default(uuid()) @db.Uuid
-  imageId           String            @db.Uuid @map("image_id")
+  imageId           String            @map("image_id") @db.Uuid
   shortTitle        String            @map("short_title")
   longTitle         String            @map("long_title")
   description       String
@@ -218,57 +218,57 @@ model ClientStory {
   deletedAt         DateTime?         @map("deleted_at")
   createdAt         DateTime          @default(now()) @map("created_at")
   updatedAt         DateTime          @updatedAt @map("updated_at")
-  image             MediaAsset        @relation("ClientStoryImage", fields: [imageId], references: [id], onDelete: Restrict)
+  image             MediaAsset        @relation("FeedbackImage", fields: [imageId], references: [id], onDelete: Restrict)
 
   @@index([language, publicationStatus, isActive])
-  @@map("client_stories")
+  @@map("feedbacks")
 }
 
-model Case {
-  id                String            @id @default(uuid()) @db.Uuid
+model Review {
+  id                String              @id @default(uuid()) @db.Uuid
   title             String
-  shortTitle        String            @default("") @map("short_title")
-  subtitle          String            @default("")
-  content           String            @default("")
-  industry          String            @default("")
-  country           String            @default("")
-  tag               String            @default("")
-  logoId            String?           @db.Uuid @map("logo_id")
-  language          Language          @default(PORTUGUESE)
-  publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
-  isActive          Boolean           @default(true) @map("is_active")
-  publishedAt       DateTime?         @map("published_at")
-  deletedAt         DateTime?         @map("deleted_at")
-  createdAt         DateTime          @default(now()) @map("created_at")
-  updatedAt         DateTime          @updatedAt @map("updated_at")
-  logo              MediaAsset?       @relation("CaseLogo", fields: [logoId], references: [id], onDelete: Restrict)
-  images            CaseImage[]
-  testimonials      CaseTestimonial[]
+  shortTitle        String              @default("") @map("short_title")
+  subtitle          String              @default("")
+  content           String              @default("")
+  industry          String              @default("")
+  country           String              @default("")
+  tag               String              @default("")
+  logoId            String?             @map("logo_id") @db.Uuid
+  language          Language            @default(PORTUGUESE)
+  publicationStatus PublicationStatus   @default(DRAFT) @map("publication_status")
+  isActive          Boolean             @default(true) @map("is_active")
+  publishedAt       DateTime?           @map("published_at")
+  deletedAt         DateTime?           @map("deleted_at")
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+  logo              MediaAsset?         @relation("ReviewLogo", fields: [logoId], references: [id], onDelete: Restrict)
+  images            ReviewImage[]
+  testimonials      ReviewTestimonial[]
 
   @@index([language, publicationStatus, isActive])
-  @@map("cases")
+  @@map("reviews")
 }
 
-model CaseImage {
+model ReviewImage {
   id        String     @id @default(uuid()) @db.Uuid
-  caseId    String     @db.Uuid @map("case_id")
-  imageId   String     @db.Uuid @map("image_id")
+  reviewId  String     @map("review_id") @db.Uuid
+  imageId   String     @map("image_id") @db.Uuid
   position  Int        @default(0)
   isActive  Boolean    @default(true) @map("is_active")
   deletedAt DateTime?  @map("deleted_at")
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
-  case      Case       @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  review    Review     @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   image     MediaAsset @relation(fields: [imageId], references: [id], onDelete: Restrict)
 
-  @@unique([caseId, imageId])
+  @@unique([reviewId, imageId])
   @@index([imageId])
-  @@map("case_images")
+  @@map("review_images")
 }
 
-model CaseTestimonial {
+model ReviewTestimonial {
   id                String            @id @default(uuid()) @db.Uuid
-  caseId            String            @db.Uuid @map("case_id")
+  reviewId          String            @map("review_id") @db.Uuid
   authorName        String            @map("author_name")
   role              String            @default("")
   company           String            @default("")
@@ -280,15 +280,15 @@ model CaseTestimonial {
   deletedAt         DateTime?         @map("deleted_at")
   createdAt         DateTime          @default(now()) @map("created_at")
   updatedAt         DateTime          @updatedAt @map("updated_at")
-  case              Case              @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  review            Review            @relation(fields: [reviewId], references: [id], onDelete: Cascade)
 
-  @@index([caseId, language, publicationStatus, isActive])
-  @@map("case_testimonials")
+  @@index([reviewId, language, publicationStatus, isActive])
+  @@map("review_testimonials")
 }
 
 model AboutMedia {
   id                String            @id @default(uuid()) @db.Uuid
-  mediaId           String            @db.Uuid @map("media_id")
+  mediaId           String            @map("media_id") @db.Uuid
   mediaType         AboutMediaType    @map("media_type")
   caption           String            @default("")
   sortOrder         Int               @default(0) @map("sort_order")
@@ -307,7 +307,7 @@ model AboutMedia {
 model Partner {
   id                String            @id @default(uuid()) @db.Uuid
   name              String
-  logoId            String?           @db.Uuid @map("logo_id")
+  logoId            String?           @map("logo_id") @db.Uuid
   website           String            @default("")
   publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
   isActive          Boolean           @default(true) @map("is_active")

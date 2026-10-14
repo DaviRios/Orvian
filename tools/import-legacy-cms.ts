@@ -132,7 +132,7 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.slide.createMany({
+    await db.product.createMany({
       data: rows('slides').map((item) => ({
         id: text(item, 'id'),
         logoId: text(item, 'logoId'),
@@ -144,7 +144,7 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.popup.createMany({
+    await db.information.createMany({
       data: rows('popups').map((item) => ({
         id: text(item, 'id'),
         title: text(item, 'title'),
@@ -166,7 +166,7 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.ecosystemItem.createMany({
+    await db.partnerBanner.createMany({
       data: rows('ecosystems').map((item) => ({
         id: text(item, 'id'),
         name: text(item, 'name'),
@@ -175,7 +175,7 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.homeBlogLink.createMany({
+    await db.contentLink.createMany({
       data: rows('homeBlogLinks').map((item) => ({
         id: text(item, 'id'),
         url: text(item, 'url'),
@@ -184,7 +184,7 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.clientStory.createMany({
+    await db.feedback.createMany({
       data: rows('clientStories').map((item) => ({
         id: text(item, 'id'),
         imageId: text(item, 'imageId'),
@@ -196,7 +196,7 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.case.createMany({
+    await db.review.createMany({
       data: rows('cases').map((item) => ({
         id: text(item, 'id'),
         title: text(item, 'title'),
@@ -212,10 +212,10 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.caseImage.createMany({
+    await db.reviewImage.createMany({
       data: rows('caseImages').map((item) => ({
         id: text(item, 'id'),
-        caseId: text(item, 'caseId'),
+        reviewId: text(item, 'caseId'),
         imageId: text(item, 'imageId'),
         position: number(item, 'position'),
         isActive: true,
@@ -224,10 +224,10 @@ async function main() {
       })),
       skipDuplicates: true,
     });
-    await db.caseTestimonial.createMany({
+    await db.reviewTestimonial.createMany({
       data: rows('caseTestimonials').map((item) => ({
         id: text(item, 'id'),
-        caseId: text(item, 'caseId'),
+        reviewId: text(item, 'caseId'),
         authorName: text(item, 'authorName'),
         role: text(item, 'role'),
         company: text(item, 'company'),

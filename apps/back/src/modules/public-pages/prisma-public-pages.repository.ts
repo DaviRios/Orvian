@@ -6,40 +6,40 @@ const published = { isActive: true, publicationStatus: 'PUBLISHED' as const };
 export class PrismaPublicPagesRepository implements PublicPagesRepository {
   constructor(private readonly database: DatabaseClient) {}
 
-  listSlides(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return this.database.slide.findMany({
+  listProducts(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return this.database.product.findMany({
       where: { ...published, ...(language ? { language } : {}) },
       orderBy: { createdAt: 'desc' },
     });
   }
-  listClientStories(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return this.database.clientStory.findMany({
+  listFeedbacks(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return this.database.feedback.findMany({
       where: { ...published, ...(language ? { language } : {}) },
       include: { image: true },
       orderBy: { createdAt: 'desc' },
     });
   }
-  listEcosystems() {
-    return this.database.ecosystemItem.findMany({
+  listPartnerBanners() {
+    return this.database.partnerBanner.findMany({
       where: published,
       include: { image: true },
       orderBy: { createdAt: 'desc' },
     });
   }
-  findPopup(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return this.database.popup.findFirst({
+  findInformation(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return this.database.information.findFirst({
       where: { ...published, ...(language ? { language } : {}) },
       orderBy: { publishedAt: 'desc' },
     });
   }
-  listBlogLinks() {
-    return this.database.homeBlogLink.findMany({
+  listLinks() {
+    return this.database.contentLink.findMany({
       where: published,
       orderBy: { createdAt: 'desc' },
     });
   }
-  listCases(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return this.database.case.findMany({
+  listReviews(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return this.database.review.findMany({
       where: { ...published, ...(language ? { language } : {}) },
       include: {
         images: { where: { isActive: true }, orderBy: { position: 'asc' } },

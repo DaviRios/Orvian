@@ -2,31 +2,33 @@ import type {
   AboutMedia,
   Author,
   BlogPost,
-  Case,
-  CaseImage,
-  ClientStory,
-  EcosystemItem,
-  HomeBlogLink,
+  Review,
+  ReviewImage,
+  Feedback,
+  PartnerBanner,
+  ContentLink,
   MediaAsset,
-  Popup,
-  Slide,
+  Information,
+  Product,
 } from '../../generated/prisma/client';
 
-export type ClientStoryWithImage = ClientStory & { image: MediaAsset };
-export type EcosystemWithImage = EcosystemItem & { image: MediaAsset };
+export type FeedbackWithImage = Feedback & { image: MediaAsset };
+export type PartnerBannerWithImage = PartnerBanner & { image: MediaAsset };
 export type AboutMediaWithAsset = AboutMedia & { media: MediaAsset };
 export type BlogPostWithAuthor = BlogPost & { author: Author };
-export type PublicCase = Case & { images: CaseImage[] };
+export type PublicReview = Review & { images: ReviewImage[] };
 
 export interface PublicPagesRepository {
-  listSlides(language?: 'ENGLISH' | 'PORTUGUESE'): Promise<Slide[]>;
-  listClientStories(
+  listProducts(language?: 'ENGLISH' | 'PORTUGUESE'): Promise<Product[]>;
+  listFeedbacks(
     language?: 'ENGLISH' | 'PORTUGUESE',
-  ): Promise<ClientStoryWithImage[]>;
-  listEcosystems(): Promise<EcosystemWithImage[]>;
-  findPopup(language?: 'ENGLISH' | 'PORTUGUESE'): Promise<Popup | null>;
-  listBlogLinks(): Promise<HomeBlogLink[]>;
-  listCases(language?: 'ENGLISH' | 'PORTUGUESE'): Promise<PublicCase[]>;
+  ): Promise<FeedbackWithImage[]>;
+  listPartnerBanners(): Promise<PartnerBannerWithImage[]>;
+  findInformation(
+    language?: 'ENGLISH' | 'PORTUGUESE',
+  ): Promise<Information | null>;
+  listLinks(): Promise<ContentLink[]>;
+  listReviews(language?: 'ENGLISH' | 'PORTUGUESE'): Promise<PublicReview[]>;
   listAboutMedia(): Promise<AboutMediaWithAsset[]>;
   listPosts(language?: 'ENGLISH' | 'PORTUGUESE'): Promise<BlogPostWithAuthor[]>;
   listAuthors(): Promise<Author[]>;

@@ -1,4 +1,4 @@
-export type DashboardResource = 'HOME' | 'CASE' | 'BLOG' | 'MEDIA' | 'ABOUT';
+export type DashboardResource = 'HOME' | 'REVIEW' | 'BLOG' | 'MEDIA' | 'ABOUT';
 
 export interface DashboardActivityCandidate {
   id: string;
@@ -12,7 +12,7 @@ export interface DashboardActivityCandidate {
 
 export interface DashboardSnapshot {
   publishedPages: number;
-  cases: number;
+  reviews: number;
   blogPosts: number;
   mediaAssets: number;
   activity: DashboardActivityCandidate[];

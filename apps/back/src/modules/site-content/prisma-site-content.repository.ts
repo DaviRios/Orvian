@@ -5,205 +5,183 @@ import {
   unpublishData,
 } from '../../core/lifecycle';
 import type {
-  CreateAboutMediaInput,
-  CreateCareerInput,
-  CreateClientStoryInput,
-  CreatePartnerInput,
-  CreateServiceItemInput,
+  CreatePartnerBannerInput,
+  CreateContentLinkInput,
+  CreateInformationInput,
+  CreateProductInput,
   SiteContentRepository,
-  UpdateAboutMediaInput,
-  UpdateCareerInput,
-  UpdateClientStoryInput,
-  UpdatePartnerInput,
-  UpdateServiceItemInput,
+  UpdatePartnerBannerInput,
+  UpdateContentLinkInput,
+  UpdateInformationInput,
+  UpdateProductInput,
 } from './site-content.repository';
-
-const publicationData = (published: boolean) =>
-  published ? publishData() : unpublishData();
 
 export class PrismaSiteContentRepository implements SiteContentRepository {
   constructor(private readonly database: DatabaseClient) {}
 
-  findMedia(id: string) {
-    return this.database.mediaAsset.findFirst({
-      where: { id, isActive: true },
-    });
+  async imageExists(id: string): Promise<boolean> {
+    return (
+      (await this.database.mediaAsset.count({
+        where: { id, kind: 'IMAGE', isActive: true },
+      })) > 0
+    );
   }
 
-  createClientStory(input: CreateClientStoryInput) {
-    return this.database.clientStory.create({ data: input });
-  }
-  listClientStories() {
-    return this.database.clientStory.findMany({
-      where: { isActive: true },
-      orderBy: { createdAt: 'desc' },
-    });
-  }
-  findClientStory(id: string) {
-    return this.database.clientStory.findFirst({
-      where: { id, isActive: true },
-    });
-  }
-  async updateClientStory(id: string, input: UpdateClientStoryInput) {
-    await this.database.clientStory.update({ where: { id }, data: input });
-  }
-  async setClientStoryPublished(id: string, published: boolean) {
-    await this.database.clientStory.update({
-      where: { id },
-      data: publicationData(published),
-    });
-  }
-  async deleteClientStory(id: string) {
-    await this.database.clientStory.update({
-      where: { id },
-      data: softDeleteData(),
-    });
-  }
-
-  createAboutMedia(input: CreateAboutMediaInput) {
-    return this.database.aboutMedia.create({
+  createProduct(input: CreateProductInput) {
+    return this.database.product.create({
       data: {
-        mediaId: input.imageId,
-        mediaType: input.mediaType,
-        caption: input.caption ?? '',
-        sortOrder: input.sortOrder,
-      },
-      include: { media: true },
-    });
-  }
-  listAboutMedia() {
-    return this.database.aboutMedia.findMany({
-      where: { isActive: true },
-      include: { media: true },
-      orderBy: { sortOrder: 'asc' },
-    });
-  }
-  findAboutMedia(id: string) {
-    return this.database.aboutMedia.findFirst({
-      where: { id, isActive: true },
-      include: { media: true },
-    });
-  }
-  async updateAboutMedia(id: string, input: UpdateAboutMediaInput) {
-    const { imageId, ...data } = input;
-    await this.database.aboutMedia.update({
-      where: { id },
-      data: { ...data, ...(imageId ? { mediaId: imageId } : {}) },
-    });
-  }
-  async setAboutMediaPublished(id: string, published: boolean) {
-    await this.database.aboutMedia.update({
-      where: { id },
-      data: publicationData(published),
-    });
-  }
-  async deleteAboutMedia(id: string) {
-    await this.database.aboutMedia.update({
-      where: { id },
-      data: softDeleteData(),
-    });
-  }
-
-  createPartner(input: CreatePartnerInput) {
-    return this.database.partner.create({
-      data: {
-        name: input.name,
         logoId: input.logoId,
-        website: input.website ?? '',
+        text: input.text,
+        buttonText: input.buttonText ?? '',
+        buttonUrl: input.buttonUrl ?? '',
+        language: input.language,
       },
     });
   }
-  listPartners() {
-    return this.database.partner.findMany({
-      where: { isActive: true },
+  listProducts(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return this.database.product.findMany({
+      where: { isActive: true, ...(language ? { language } : {}) },
       orderBy: { createdAt: 'desc' },
     });
   }
-  findPartner(id: string) {
-    return this.database.partner.findFirst({ where: { id, isActive: true } });
+  findProduct(id: string) {
+    return this.database.product.findFirst({ where: { id, isActive: true } });
   }
-  async updatePartner(id: string, input: UpdatePartnerInput) {
-    await this.database.partner.update({ where: { id }, data: input });
+  async updateProduct(id: string, input: UpdateProductInput) {
+    await this.database.product.update({ where: { id }, data: input });
   }
-  async setPartnerPublished(id: string, published: boolean) {
-    await this.database.partner.update({
+  async publishProduct(id: string) {
+    await this.database.product.update({ where: { id }, data: publishData() });
+  }
+  async unpublishProduct(id: string) {
+    await this.database.product.update({
       where: { id },
-      data: publicationData(published),
+      data: unpublishData(),
     });
   }
-  async deletePartner(id: string) {
-    await this.database.partner.update({
+  async deleteProduct(id: string) {
+    await this.database.product.update({
       where: { id },
       data: softDeleteData(),
     });
   }
 
-  createCareer(input: CreateCareerInput) {
-    return this.database.career.create({
+  createInformation(input: CreateInformationInput) {
+    return this.database.information.create({
       data: {
         title: input.title,
         description: input.description ?? '',
-        location: input.location ?? '',
+        buttonText: input.buttonText ?? '',
+        redirectUrl: input.redirectUrl ?? '',
+        buttonText2: input.buttonText2 ?? '',
+        redirectUrl2: input.redirectUrl2 ?? '',
+        style: input.style,
         language: input.language,
       },
     });
   }
-  listCareers(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return this.database.career.findMany({
+  listInformation(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return this.database.information.findMany({
       where: { isActive: true, ...(language ? { language } : {}) },
       orderBy: { createdAt: 'desc' },
     });
   }
-  findCareer(id: string) {
-    return this.database.career.findFirst({ where: { id, isActive: true } });
-  }
-  async updateCareer(id: string, input: UpdateCareerInput) {
-    await this.database.career.update({ where: { id }, data: input });
-  }
-  async setCareerPublished(id: string, published: boolean) {
-    await this.database.career.update({
-      where: { id },
-      data: publicationData(published),
+  findInformation(id: string) {
+    return this.database.information.findFirst({
+      where: { id, isActive: true },
     });
   }
-  async deleteCareer(id: string) {
-    await this.database.career.update({
+  async updateInformation(id: string, input: UpdateInformationInput) {
+    await this.database.information.update({ where: { id }, data: input });
+  }
+  async publishInformation(id: string) {
+    await this.database.information.update({
+      where: { id },
+      data: publishData(),
+    });
+  }
+  async unpublishInformation(id: string) {
+    await this.database.information.update({
+      where: { id },
+      data: unpublishData(),
+    });
+  }
+  async deleteInformation(id: string) {
+    await this.database.information.update({
       where: { id },
       data: softDeleteData(),
     });
   }
 
-  createServiceItem(input: CreateServiceItemInput) {
-    return this.database.serviceItem.create({
-      data: {
-        name: input.name,
-        description: input.description ?? '',
-        language: input.language,
-      },
-    });
+  createPartnerBanner(input: CreatePartnerBannerInput) {
+    return this.database.partnerBanner.create({ data: input });
   }
-  listServiceItems(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return this.database.serviceItem.findMany({
-      where: { isActive: true, ...(language ? { language } : {}) },
+  listPartnerBanners() {
+    return this.database.partnerBanner.findMany({
+      where: { isActive: true },
       orderBy: { createdAt: 'desc' },
     });
   }
-  findServiceItem(id: string) {
-    return this.database.serviceItem.findFirst({
+  findPartnerBanner(id: string) {
+    return this.database.partnerBanner.findFirst({
       where: { id, isActive: true },
     });
   }
-  async updateServiceItem(id: string, input: UpdateServiceItemInput) {
-    await this.database.serviceItem.update({ where: { id }, data: input });
+  async updatePartnerBanner(id: string, input: UpdatePartnerBannerInput) {
+    await this.database.partnerBanner.update({ where: { id }, data: input });
   }
-  async setServiceItemPublished(id: string, published: boolean) {
-    await this.database.serviceItem.update({
+  async publishPartnerBanner(id: string) {
+    await this.database.partnerBanner.update({
       where: { id },
-      data: publicationData(published),
+      data: publishData(),
     });
   }
-  async deleteServiceItem(id: string) {
-    await this.database.serviceItem.update({
+  async unpublishPartnerBanner(id: string) {
+    await this.database.partnerBanner.update({
+      where: { id },
+      data: unpublishData(),
+    });
+  }
+  async deletePartnerBanner(id: string) {
+    await this.database.partnerBanner.update({
+      where: { id },
+      data: softDeleteData(),
+    });
+  }
+
+  createContentLink(input: CreateContentLinkInput) {
+    return this.database.contentLink.create({
+      data: { url: input.url, label: input.label ?? '' },
+    });
+  }
+  listContentLinks() {
+    return this.database.contentLink.findMany({
+      where: { isActive: true },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+  findContentLink(id: string) {
+    return this.database.contentLink.findFirst({
+      where: { id, isActive: true },
+    });
+  }
+  async updateContentLink(id: string, input: UpdateContentLinkInput) {
+    await this.database.contentLink.update({ where: { id }, data: input });
+  }
+  async publishContentLink(id: string) {
+    await this.database.contentLink.update({
+      where: { id },
+      data: publishData(),
+    });
+  }
+  async unpublishContentLink(id: string) {
+    await this.database.contentLink.update({
+      where: { id },
+      data: unpublishData(),
+    });
+  }
+  async deleteContentLink(id: string) {
+    await this.database.contentLink.update({
       where: { id },
       data: softDeleteData(),
     });

@@ -38,15 +38,17 @@ export class PrismaMediaRepository implements MediaRepository {
 
   async countActiveReferences(id: string): Promise<number> {
     const counts = await Promise.all([
-      this.database.slide.count({ where: { logoId: id, isActive: true } }),
-      this.database.ecosystemItem.count({
+      this.database.product.count({ where: { logoId: id, isActive: true } }),
+      this.database.partnerBanner.count({
         where: { imageId: id, isActive: true },
       }),
-      this.database.clientStory.count({
+      this.database.feedback.count({
         where: { imageId: id, isActive: true },
       }),
-      this.database.case.count({ where: { logoId: id, isActive: true } }),
-      this.database.caseImage.count({ where: { imageId: id, isActive: true } }),
+      this.database.review.count({ where: { logoId: id, isActive: true } }),
+      this.database.reviewImage.count({
+        where: { imageId: id, isActive: true },
+      }),
       this.database.aboutMedia.count({
         where: { mediaId: id, isActive: true },
       }),

@@ -5,7 +5,7 @@ import {
   idSchema,
   languageSchema,
   lifecycleSchema,
-  popupStyleSchema,
+  informationStyleSchema,
 } from './common';
 
 const optionalText = z.string().trim().optional();
@@ -50,7 +50,7 @@ export const blogPostQuerySchema = z.object({
   language: languageSchema.optional(),
 });
 
-export const slideSchema = lifecycleSchema.extend({
+export const productSchema = lifecycleSchema.extend({
   id: idSchema,
   logoId: idSchema,
   text: z.string(),
@@ -58,16 +58,16 @@ export const slideSchema = lifecycleSchema.extend({
   buttonUrl: z.string(),
   language: languageSchema,
 });
-export const createSlideSchema = z.strictObject({
+export const createProductSchema = z.strictObject({
   logoId: idSchema,
   text: requiredText,
   buttonText: optionalText,
   buttonUrl: optionalText,
   language: languageSchema.default('PORTUGUESE'),
 });
-export const updateSlideSchema = createSlideSchema.partial();
+export const updateProductSchema = createProductSchema.partial();
 
-export const popupSchema = lifecycleSchema.extend({
+export const informationSchema = lifecycleSchema.extend({
   id: idSchema,
   title: z.string(),
   description: z.string(),
@@ -75,45 +75,45 @@ export const popupSchema = lifecycleSchema.extend({
   redirectUrl: z.string(),
   buttonText2: z.string(),
   redirectUrl2: z.string(),
-  style: popupStyleSchema,
+  style: informationStyleSchema,
   language: languageSchema,
 });
-export const createPopupSchema = z.strictObject({
+export const createInformationSchema = z.strictObject({
   title: requiredText,
   description: optionalText,
   buttonText: optionalText,
   redirectUrl: optionalText,
   buttonText2: optionalText,
   redirectUrl2: optionalText,
-  style: popupStyleSchema.default('ORANGE_WHITE'),
+  style: informationStyleSchema.default('ORANGE_WHITE'),
   language: languageSchema.default('PORTUGUESE'),
 });
-export const updatePopupSchema = createPopupSchema.partial();
+export const updateInformationSchema = createInformationSchema.partial();
 
-export const ecosystemSchema = lifecycleSchema.extend({
+export const partnerBannerSchema = lifecycleSchema.extend({
   id: idSchema,
   name: z.string(),
   imageId: idSchema,
   imageUrl: z.string(),
 });
-export const createEcosystemSchema = z.strictObject({
+export const createPartnerBannerSchema = z.strictObject({
   name: requiredText,
   imageId: idSchema,
 });
-export const updateEcosystemSchema = createEcosystemSchema.partial();
+export const updatePartnerBannerSchema = createPartnerBannerSchema.partial();
 
-export const homeBlogLinkSchema = lifecycleSchema.extend({
+export const contentLinkSchema = lifecycleSchema.extend({
   id: idSchema,
   url: z.string(),
   label: z.string(),
 });
-export const createHomeBlogLinkSchema = z.strictObject({
+export const createContentLinkSchema = z.strictObject({
   url: requiredText,
   label: optionalText,
 });
-export const updateHomeBlogLinkSchema = createHomeBlogLinkSchema.partial();
+export const updateContentLinkSchema = createContentLinkSchema.partial();
 
-export const clientStorySchema = lifecycleSchema.extend({
+export const feedbackSchema = lifecycleSchema.extend({
   id: idSchema,
   imageId: idSchema,
   imageUrl: z.string(),
@@ -122,16 +122,16 @@ export const clientStorySchema = lifecycleSchema.extend({
   description: z.string(),
   language: languageSchema,
 });
-export const createClientStorySchema = z.strictObject({
+export const createFeedbackSchema = z.strictObject({
   imageId: idSchema,
   shortTitle: requiredText,
   longTitle: requiredText,
   description: requiredText,
   language: languageSchema.default('PORTUGUESE'),
 });
-export const updateClientStorySchema = createClientStorySchema.partial();
+export const updateFeedbackSchema = createFeedbackSchema.partial();
 
-export const caseSchema = lifecycleSchema.extend({
+export const reviewSchema = lifecycleSchema.extend({
   id: idSchema,
   title: z.string(),
   shortTitle: z.string(),
@@ -144,7 +144,7 @@ export const caseSchema = lifecycleSchema.extend({
   imageIds: z.array(idSchema),
   language: languageSchema,
 });
-export const createCaseSchema = z.strictObject({
+export const createReviewSchema = z.strictObject({
   title: requiredText,
   shortTitle: optionalText,
   subtitle: optionalText,
@@ -155,28 +155,28 @@ export const createCaseSchema = z.strictObject({
   logoId: idSchema.optional(),
   language: languageSchema.default('PORTUGUESE'),
 });
-export const updateCaseSchema = createCaseSchema.partial();
-export const caseQuerySchema = z.object({ title: optionalText });
-export const caseImageSchema = z.strictObject({ imageId: idSchema });
-export const caseImageBatchSchema = z.array(caseImageSchema).max(20);
+export const updateReviewSchema = createReviewSchema.partial();
+export const reviewQuerySchema = z.object({ title: optionalText });
+export const reviewImageSchema = z.strictObject({ imageId: idSchema });
+export const reviewImageBatchSchema = z.array(reviewImageSchema).max(20);
 
-export const caseTestimonialSchema = lifecycleSchema.extend({
+export const reviewTestimonialSchema = lifecycleSchema.extend({
   id: idSchema,
-  caseId: idSchema,
+  reviewId: idSchema,
   authorName: z.string(),
   role: z.string(),
   company: z.string(),
   content: z.string(),
   language: languageSchema,
 });
-export const createCaseTestimonialSchema = z.strictObject({
+export const createReviewTestimonialSchema = z.strictObject({
   authorName: requiredText,
   role: optionalText,
   company: optionalText,
   content: requiredText,
   language: languageSchema.default('PORTUGUESE'),
 });
-export const caseTestimonialParamsSchema = idParamsSchema.extend({
+export const reviewTestimonialParamsSchema = idParamsSchema.extend({
   testimonialId: idSchema,
 });
 
@@ -239,9 +239,9 @@ export const updateServiceItemSchema = createServiceItemSchema.partial();
 
 export type AuthorDto = z.infer<typeof authorSchema>;
 export type BlogPostDto = z.infer<typeof blogPostSchema>;
-export type SlideDto = z.infer<typeof slideSchema>;
-export type PopupDto = z.infer<typeof popupSchema>;
-export type EcosystemDto = z.infer<typeof ecosystemSchema>;
-export type HomeBlogLinkDto = z.infer<typeof homeBlogLinkSchema>;
-export type ClientStoryDto = z.infer<typeof clientStorySchema>;
-export type CaseDto = z.infer<typeof caseSchema>;
+export type ProductDto = z.infer<typeof productSchema>;
+export type InformationDto = z.infer<typeof informationSchema>;
+export type PartnerBannerDto = z.infer<typeof partnerBannerSchema>;
+export type ContentLinkDto = z.infer<typeof contentLinkSchema>;
+export type FeedbackDto = z.infer<typeof feedbackSchema>;
+export type ReviewDto = z.infer<typeof reviewSchema>;

@@ -17,9 +17,9 @@ export const publicPagesRoutes: FastifyPluginAsync<
     (request) => service.home(request.query.language),
   );
   server.get(
-    '/public/pages/cases',
+    '/public/pages/feedbacks',
     { schema: { querystring: languageQuerySchema } },
-    (request) => service.cases(request.query.language),
+    (request) => service.feedbacks(request.query.language),
   );
   server.get('/public/pages/about', () => service.about());
   server.get(

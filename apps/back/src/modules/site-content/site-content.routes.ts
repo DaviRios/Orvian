@@ -2,26 +2,23 @@ import type { FastifyPluginAsync } from 'fastify';
 import type { ZodTypeProvider } from '@fastify/type-provider-zod';
 import { z } from 'zod';
 import {
-  aboutMediaSchema,
-  careerSchema,
-  clientStorySchema,
-  createAboutMediaSchema,
-  createCareerSchema,
-  createClientStorySchema,
-  createPartnerSchema,
-  createServiceItemSchema,
+  createPartnerBannerSchema,
+  createContentLinkSchema,
+  createInformationSchema,
+  createProductSchema,
+  partnerBannerSchema,
+  contentLinkSchema,
   idParamsSchema,
   languageQuerySchema,
-  partnerSchema,
-  serviceItemSchema,
-  updateAboutMediaSchema,
-  updateCareerSchema,
-  updateClientStorySchema,
-  updatePartnerSchema,
-  updateServiceItemSchema,
+  informationSchema,
+  productSchema,
+  updatePartnerBannerSchema,
+  updateContentLinkSchema,
+  updateInformationSchema,
+  updateProductSchema,
 } from '@orvian/contracts';
-import { requireAuth } from '../auth/auth.routes';
 import type { AuthService } from '../auth/auth.service';
+import { requireAuth } from '../auth/auth.routes';
 import type { SiteContentService } from './site-content.service';
 
 interface SiteContentRoutesOptions {
@@ -36,322 +33,267 @@ export const siteContentRoutes: FastifyPluginAsync<
   const authenticated = requireAuth(auth);
 
   server.post(
-    '/client-stories',
-    { preHandler: authenticated, schema: { body: createClientStorySchema } },
+    '/products',
+    { preHandler: authenticated, schema: { body: createProductSchema } },
     async (request, reply) => {
-      const item = await service.createClientStory(request.body);
+      const item = await service.createProduct(request.body);
       return reply
-        .header('Location', `/v1/client-stories/${item.id}`)
+        .header('Location', `/v1/products/${item.id}`)
         .code(201)
         .send();
     },
   );
   server.get(
-    '/client-stories',
-    {
-      preHandler: authenticated,
-      schema: { response: { 200: z.array(clientStorySchema) } },
-    },
-    () => service.listClientStories(),
-  );
-  server.get(
-    '/client-stories/:id',
-    {
-      preHandler: authenticated,
-      schema: { params: idParamsSchema, response: { 200: clientStorySchema } },
-    },
-    (request) => service.getClientStory(request.params.id),
-  );
-  server.patch(
-    '/client-stories/:id',
-    {
-      preHandler: authenticated,
-      schema: { params: idParamsSchema, body: updateClientStorySchema },
-    },
-    async (request, reply) => {
-      await service.updateClientStory(request.params.id, request.body);
-      return reply.code(204).send();
-    },
-  );
-  server.delete(
-    '/client-stories/:id',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.deleteClientStory(request.params.id);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/client-stories/:id/toggle',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.toggleClientStory(request.params.id);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/client-stories/:id/publish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setClientStoryPublished(request.params.id, true);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/client-stories/:id/unpublish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setClientStoryPublished(request.params.id, false);
-      return reply.code(204).send();
-    },
-  );
-
-  server.post(
-    '/about-media',
-    { preHandler: authenticated, schema: { body: createAboutMediaSchema } },
-    async (request, reply) => {
-      const item = await service.createAboutMedia(request.body);
-      return reply
-        .header('Location', `/v1/about-media/${item.id}`)
-        .code(201)
-        .send();
-    },
-  );
-  server.get(
-    '/about-media',
-    {
-      preHandler: authenticated,
-      schema: { response: { 200: z.array(aboutMediaSchema) } },
-    },
-    () => service.listAboutMedia(),
-  );
-  server.get(
-    '/about-media/:id',
-    {
-      preHandler: authenticated,
-      schema: { params: idParamsSchema, response: { 200: aboutMediaSchema } },
-    },
-    (request) => service.getAboutMedia(request.params.id),
-  );
-  server.patch(
-    '/about-media/:id',
-    {
-      preHandler: authenticated,
-      schema: { params: idParamsSchema, body: updateAboutMediaSchema },
-    },
-    async (request, reply) => {
-      await service.updateAboutMedia(request.params.id, request.body);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/about-media/:id/toggle',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.toggleAboutMedia(request.params.id);
-      return reply.code(204).send();
-    },
-  );
-  server.delete(
-    '/about-media/:id',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.deleteAboutMedia(request.params.id);
-      return reply.code(204).send();
-    },
-  );
-
-  server.post(
-    '/partners',
-    { preHandler: authenticated, schema: { body: createPartnerSchema } },
-    async (request, reply) => {
-      const item = await service.createPartner(request.body);
-      return reply
-        .header('Location', `/v1/partners/${item.id}`)
-        .code(201)
-        .send();
-    },
-  );
-  server.get(
-    '/partners',
-    {
-      preHandler: authenticated,
-      schema: { response: { 200: z.array(partnerSchema) } },
-    },
-    () => service.listPartners(),
-  );
-  server.get(
-    '/partners/:id',
-    {
-      preHandler: authenticated,
-      schema: { params: idParamsSchema, response: { 200: partnerSchema } },
-    },
-    (request) => service.getPartner(request.params.id),
-  );
-  server.patch(
-    '/partners/:id',
-    {
-      preHandler: authenticated,
-      schema: { params: idParamsSchema, body: updatePartnerSchema },
-    },
-    async (request, reply) => {
-      await service.updatePartner(request.params.id, request.body);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/partners/:id/publish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setPartnerPublished(request.params.id, true);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/partners/:id/unpublish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setPartnerPublished(request.params.id, false);
-      return reply.code(204).send();
-    },
-  );
-  server.delete(
-    '/partners/:id',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.deletePartner(request.params.id);
-      return reply.code(204).send();
-    },
-  );
-
-  server.post(
-    '/careers',
-    { preHandler: authenticated, schema: { body: createCareerSchema } },
-    async (request, reply) => {
-      const item = await service.createCareer(request.body);
-      return reply
-        .header('Location', `/v1/careers/${item.id}`)
-        .code(201)
-        .send();
-    },
-  );
-  server.get(
-    '/careers',
+    '/products',
     {
       preHandler: authenticated,
       schema: {
         querystring: languageQuerySchema,
-        response: { 200: z.array(careerSchema) },
+        response: { 200: z.array(productSchema) },
       },
     },
-    (request) => service.listCareers(request.query.language),
+    (request) => service.listProducts(request.query.language),
   );
   server.get(
-    '/careers/:id',
+    '/products/:id',
     {
       preHandler: authenticated,
-      schema: { params: idParamsSchema, response: { 200: careerSchema } },
+      schema: { params: idParamsSchema, response: { 200: productSchema } },
     },
-    (request) => service.getCareer(request.params.id),
+    (request) => service.getProduct(request.params.id),
   );
   server.patch(
-    '/careers/:id',
+    '/products/:id',
     {
       preHandler: authenticated,
-      schema: { params: idParamsSchema, body: updateCareerSchema },
+      schema: { params: idParamsSchema, body: updateProductSchema },
     },
     async (request, reply) => {
-      await service.updateCareer(request.params.id, request.body);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/careers/:id/publish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setCareerPublished(request.params.id, true);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/careers/:id/unpublish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setCareerPublished(request.params.id, false);
+      await service.updateProduct(request.params.id, request.body);
       return reply.code(204).send();
     },
   );
   server.delete(
-    '/careers/:id',
+    '/products/:id',
     { preHandler: authenticated, schema: { params: idParamsSchema } },
     async (request, reply) => {
-      await service.deleteCareer(request.params.id);
+      await service.deleteProduct(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/products/:id/toggle',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.toggleProduct(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/products/:id/publish',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.publishProduct(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/products/:id/unpublish',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.unpublishProduct(request.params.id);
       return reply.code(204).send();
     },
   );
 
   server.post(
-    '/services',
-    { preHandler: authenticated, schema: { body: createServiceItemSchema } },
+    '/information',
+    { preHandler: authenticated, schema: { body: createInformationSchema } },
     async (request, reply) => {
-      const item = await service.createServiceItem(request.body);
+      const item = await service.createInformation(request.body);
       return reply
-        .header('Location', `/v1/services/${item.id}`)
+        .header('Location', `/v1/information/${item.id}`)
         .code(201)
         .send();
     },
   );
   server.get(
-    '/services',
+    '/information',
     {
       preHandler: authenticated,
       schema: {
         querystring: languageQuerySchema,
-        response: { 200: z.array(serviceItemSchema) },
+        response: { 200: z.array(informationSchema) },
       },
     },
-    (request) => service.listServiceItems(request.query.language),
+    (request) => service.listInformation(request.query.language),
   );
   server.get(
-    '/services/:id',
+    '/information/:id',
     {
       preHandler: authenticated,
-      schema: { params: idParamsSchema, response: { 200: serviceItemSchema } },
+      schema: { params: idParamsSchema, response: { 200: informationSchema } },
     },
-    (request) => service.getServiceItem(request.params.id),
+    (request) => service.getInformation(request.params.id),
   );
   server.patch(
-    '/services/:id',
+    '/information/:id',
     {
       preHandler: authenticated,
-      schema: { params: idParamsSchema, body: updateServiceItemSchema },
+      schema: { params: idParamsSchema, body: updateInformationSchema },
     },
     async (request, reply) => {
-      await service.updateServiceItem(request.params.id, request.body);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/services/:id/publish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setServiceItemPublished(request.params.id, true);
-      return reply.code(204).send();
-    },
-  );
-  server.patch(
-    '/services/:id/unpublish',
-    { preHandler: authenticated, schema: { params: idParamsSchema } },
-    async (request, reply) => {
-      await service.setServiceItemPublished(request.params.id, false);
+      await service.updateInformation(request.params.id, request.body);
       return reply.code(204).send();
     },
   );
   server.delete(
-    '/services/:id',
+    '/information/:id',
     { preHandler: authenticated, schema: { params: idParamsSchema } },
     async (request, reply) => {
-      await service.deleteServiceItem(request.params.id);
+      await service.deleteInformation(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/information/:id/publish',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.publishInformation(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/information/:id/unpublish',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.unpublishInformation(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+
+  server.post(
+    '/partner-banners',
+    { preHandler: authenticated, schema: { body: createPartnerBannerSchema } },
+    async (request, reply) => {
+      const item = await service.createPartnerBanner(request.body);
+      return reply
+        .header('Location', `/v1/partner-banners/${item.id}`)
+        .code(201)
+        .send();
+    },
+  );
+  server.get(
+    '/partner-banners',
+    {
+      preHandler: authenticated,
+      schema: { response: { 200: z.array(partnerBannerSchema) } },
+    },
+    () => service.listPartnerBanners(),
+  );
+  server.get(
+    '/partner-banners/:id',
+    {
+      preHandler: authenticated,
+      schema: {
+        params: idParamsSchema,
+        response: { 200: partnerBannerSchema },
+      },
+    },
+    (request) => service.getPartnerBanner(request.params.id),
+  );
+  server.patch(
+    '/partner-banners/:id',
+    {
+      preHandler: authenticated,
+      schema: { params: idParamsSchema, body: updatePartnerBannerSchema },
+    },
+    async (request, reply) => {
+      await service.updatePartnerBanner(request.params.id, request.body);
+      return reply.code(204).send();
+    },
+  );
+  server.delete(
+    '/partner-banners/:id',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.deletePartnerBanner(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/partner-banners/:id/toggle',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.togglePartnerBanner(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/partner-banners/:id/publish',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.publishPartnerBanner(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/partner-banners/:id/unpublish',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.unpublishPartnerBanner(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+
+  server.post(
+    '/links',
+    { preHandler: authenticated, schema: { body: createContentLinkSchema } },
+    async (request, reply) => {
+      const item = await service.createContentLink(request.body);
+      return reply.header('Location', `/v1/links/${item.id}`).code(201).send();
+    },
+  );
+  server.get(
+    '/links',
+    {
+      preHandler: authenticated,
+      schema: { response: { 200: z.array(contentLinkSchema) } },
+    },
+    () => service.listContentLinks(),
+  );
+  server.get(
+    '/links/:id',
+    {
+      preHandler: authenticated,
+      schema: { params: idParamsSchema, response: { 200: contentLinkSchema } },
+    },
+    (request) => service.getContentLink(request.params.id),
+  );
+  server.patch(
+    '/links/:id',
+    {
+      preHandler: authenticated,
+      schema: { params: idParamsSchema, body: updateContentLinkSchema },
+    },
+    async (request, reply) => {
+      await service.updateContentLink(request.params.id, request.body);
+      return reply.code(204).send();
+    },
+  );
+  server.patch(
+    '/links/:id/toggle',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.toggleContentLink(request.params.id);
+      return reply.code(204).send();
+    },
+  );
+  server.delete(
+    '/links/:id',
+    { preHandler: authenticated, schema: { params: idParamsSchema } },
+    async (request, reply) => {
+      await service.deleteContentLink(request.params.id);
       return reply.code(204).send();
     },
   );

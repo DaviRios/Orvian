@@ -6,7 +6,7 @@ import type {
 
 interface MetricsRow {
   publishedPages: number;
-  cases: number;
+  reviews: number;
   blogPosts: number;
   mediaAssets: number;
 }
@@ -20,14 +20,14 @@ export class PrismaDashboardRepository implements DashboardRepository {
         SELECT
           (
             CASE WHEN
-              EXISTS (SELECT 1 FROM slides WHERE is_active AND publication_status = 'PUBLISHED') OR
-              EXISTS (SELECT 1 FROM popups WHERE is_active AND publication_status = 'PUBLISHED') OR
-              EXISTS (SELECT 1 FROM ecosystem_items WHERE is_active AND publication_status = 'PUBLISHED') OR
-              EXISTS (SELECT 1 FROM home_blog_links WHERE is_active AND publication_status = 'PUBLISHED') OR
-              EXISTS (SELECT 1 FROM client_stories WHERE is_active AND publication_status = 'PUBLISHED')
+              EXISTS (SELECT 1 FROM products WHERE is_active AND publication_status = 'PUBLISHED') OR
+              EXISTS (SELECT 1 FROM information WHERE is_active AND publication_status = 'PUBLISHED') OR
+              EXISTS (SELECT 1 FROM partner_banners WHERE is_active AND publication_status = 'PUBLISHED') OR
+              EXISTS (SELECT 1 FROM links WHERE is_active AND publication_status = 'PUBLISHED') OR
+              EXISTS (SELECT 1 FROM feedbacks WHERE is_active AND publication_status = 'PUBLISHED')
             THEN 1 ELSE 0 END +
             CASE WHEN EXISTS (
-              SELECT 1 FROM cases WHERE is_active AND publication_status = 'PUBLISHED'
+              SELECT 1 FROM reviews WHERE is_active AND publication_status = 'PUBLISHED'
             ) THEN 1 ELSE 0 END +
             CASE WHEN EXISTS (
               SELECT 1 FROM blog_posts WHERE is_active AND publication_status = 'PUBLISHED'
@@ -39,7 +39,7 @@ export class PrismaDashboardRepository implements DashboardRepository {
               EXISTS (SELECT 1 FROM service_items WHERE is_active AND publication_status = 'PUBLISHED')
             THEN 1 ELSE 0 END
           )::int AS "publishedPages",
-          (SELECT COUNT(*)::int FROM cases WHERE is_active) AS cases,
+          (SELECT COUNT(*)::int FROM reviews WHERE is_active) AS reviews,
           (SELECT COUNT(*)::int FROM blog_posts WHERE is_active) AS "blogPosts",
           (SELECT COUNT(*)::int FROM media_assets WHERE is_active) AS "mediaAssets"
       `,
@@ -48,17 +48,17 @@ export class PrismaDashboardRepository implements DashboardRepository {
         FROM (
           SELECT id::text, 'HOME' AS resource, text AS title, is_active AS "isActive",
             published_at AS "publishedAt", created_at AS "createdAt", updated_at AS "updatedAt"
-          FROM slides
+          FROM products
           UNION ALL
-          SELECT id::text, 'HOME', title, is_active, published_at, created_at, updated_at FROM popups
+          SELECT id::text, 'HOME', title, is_active, published_at, created_at, updated_at FROM information
           UNION ALL
-          SELECT id::text, 'HOME', name, is_active, published_at, created_at, updated_at FROM ecosystem_items
+          SELECT id::text, 'HOME', name, is_active, published_at, created_at, updated_at FROM partner_banners
           UNION ALL
-          SELECT id::text, 'HOME', COALESCE(NULLIF(label, ''), url), is_active, published_at, created_at, updated_at FROM home_blog_links
+          SELECT id::text, 'HOME', COALESCE(NULLIF(label, ''), url), is_active, published_at, created_at, updated_at FROM links
           UNION ALL
-          SELECT id::text, 'HOME', short_title, is_active, published_at, created_at, updated_at FROM client_stories
+          SELECT id::text, 'HOME', short_title, is_active, published_at, created_at, updated_at FROM feedbacks
           UNION ALL
-          SELECT id::text, 'CASE', title, is_active, published_at, created_at, updated_at FROM cases
+          SELECT id::text, 'REVIEW', title, is_active, published_at, created_at, updated_at FROM reviews
           UNION ALL
           SELECT id::text, 'BLOG', title, is_active, published_at, created_at, updated_at FROM blog_posts
           UNION ALL
@@ -78,14 +78,14 @@ export class PrismaDashboardRepository implements DashboardRepository {
     ]);
     const metrics = metricsRows[0] ?? {
       publishedPages: 0,
-      cases: 0,
+      reviews: 0,
       blogPosts: 0,
       mediaAssets: 0,
     };
 
     return {
       publishedPages: metrics.publishedPages,
-      cases: metrics.cases,
+      reviews: metrics.reviews,
       blogPosts: metrics.blogPosts,
       mediaAssets: metrics.mediaAssets,
       activity,

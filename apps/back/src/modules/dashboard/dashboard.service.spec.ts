@@ -6,14 +6,14 @@ describe('DashboardService', () => {
     const repository: DashboardRepository = {
       getSnapshot: jest.fn().mockResolvedValue({
         publishedPages: 3,
-        cases: 7,
+        reviews: 7,
         blogPosts: 12,
         mediaAssets: 31,
         activity: [
           {
-            id: 'case-1',
-            resource: 'CASE',
-            title: 'Case antigo',
+            id: 'review-1',
+            resource: 'REVIEW',
+            title: 'Avaliação antiga',
             isActive: true,
             publishedAt: null,
             createdAt: new Date('2026-09-01T10:00:00.000Z'),
@@ -40,7 +40,7 @@ describe('DashboardService', () => {
           {
             id: 'home-1',
             resource: 'HOME',
-            title: 'Slide removido',
+            title: 'Produto removido',
             isActive: false,
             publishedAt: null,
             createdAt: new Date('2026-10-01T10:00:00.000Z'),
@@ -54,7 +54,7 @@ describe('DashboardService', () => {
 
     expect(result.metrics).toEqual({
       publishedPages: 3,
-      cases: 7,
+      reviews: 7,
       blogPosts: 12,
       mediaAssets: 31,
     });

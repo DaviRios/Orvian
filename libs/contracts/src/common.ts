@@ -4,7 +4,7 @@ export const idSchema = z.uuid();
 export const languageSchema = z.enum(['ENGLISH', 'PORTUGUESE']);
 export const publicationStatusSchema = z.enum(['DRAFT', 'PUBLISHED']);
 export const userRoleSchema = z.enum(['ADMIN', 'EDITOR']);
-export const popupStyleSchema = z.enum([
+export const informationStyleSchema = z.enum([
   'ORANGE_WHITE',
   'WHITE_ORANGE',
   'PURPLE_WHITE',
@@ -41,4 +41,4 @@ export const apiErrorSchema = z.object({
 export type Language = z.infer<typeof languageSchema>;
 export type PublicationStatus = z.infer<typeof publicationStatusSchema>;
 export type UserRole = z.infer<typeof userRoleSchema>;
-export type PopupStyle = z.infer<typeof popupStyleSchema>;
+export type InformationStyle = z.infer<typeof informationStyleSchema>;

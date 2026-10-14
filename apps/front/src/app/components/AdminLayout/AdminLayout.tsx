@@ -38,8 +38,8 @@ interface NavigationItem {
 
 const navigationItems: NavigationItem[] = [
   { path: '/', label: 'Início', icon: HomeIcon },
-  { path: '/home-content', label: 'Conteúdo', icon: FolderIcon },
-  { path: '/cases', label: 'Cases', icon: BriefcaseIcon },
+  { path: '/site-content', label: 'Conteúdo Site', icon: FolderIcon },
+  { path: '/feedbacks', label: 'Feedbacks', icon: BriefcaseIcon },
   { path: '/blog-posts', label: 'Blog', icon: NewspaperIcon },
   { path: '/media', label: 'Mídias', icon: ImageIcon },
   { label: 'Configurações', description: 'Em breve', icon: SettingsIcon },
@@ -48,14 +48,14 @@ const navigationItems: NavigationItem[] = [
 const searchableModules = [
   { path: '/', label: 'Início', keywords: 'dashboard painel' },
   {
-    path: '/home-content',
-    label: 'Conteúdo da Home',
-    keywords: 'slides logos ecossistema popups links',
+    path: '/site-content',
+    label: 'Conteúdo Site',
+    keywords: 'produtos parceiros banner logos informações links',
   },
   {
-    path: '/cases',
-    label: 'Cases',
-    keywords: 'histórias clientes portfólio',
+    path: '/feedbacks',
+    label: 'Feedbacks',
+    keywords: 'avaliações clientes portfólio depoimentos',
   },
   {
     path: '/blog-posts',

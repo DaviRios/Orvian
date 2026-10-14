@@ -5,33 +5,35 @@ export class PublicPagesService {
   constructor(private readonly repository: PublicPagesRepository) {}
 
   async home(language?: 'ENGLISH' | 'PORTUGUESE') {
-    const [slides, clientStories, ecosystems, activePopup, blogLinks] =
+    const [products, feedbacks, partnerBanners, activeInformation, links] =
       await Promise.all([
-        this.repository.listSlides(language),
-        this.repository.listClientStories(language),
-        this.repository.listEcosystems(),
-        this.repository.findPopup(language),
-        this.repository.listBlogLinks(),
+        this.repository.listProducts(language),
+        this.repository.listFeedbacks(language),
+        this.repository.listPartnerBanners(),
+        this.repository.findInformation(language),
+        this.repository.listLinks(),
       ]);
     return {
-      slides: slides.map(lifecycleDto),
-      clientStories: clientStories.map(({ image, ...story }) => ({
-        ...lifecycleDto(story),
+      products: products.map(lifecycleDto),
+      feedbacks: feedbacks.map(({ image, ...feedback }) => ({
+        ...lifecycleDto(feedback),
         imageUrl: `/v1/images/${image.id}`,
       })),
-      ecosystemItems: ecosystems.map(({ image, ...item }) => ({
+      partnerBanners: partnerBanners.map(({ image, ...item }) => ({
         ...lifecycleDto(item),
         imageUrl: `/v1/images/${image.id}`,
       })),
-      activePopup: activePopup ? lifecycleDto(activePopup) : null,
-      blogLinks: blogLinks.map(lifecycleDto),
+      activeInformation: activeInformation
+        ? lifecycleDto(activeInformation)
+        : null,
+      links: links.map(lifecycleDto),
     };
   }
 
-  async cases(language?: 'ENGLISH' | 'PORTUGUESE') {
-    const items = await this.repository.listCases(language);
+  async feedbacks(language?: 'ENGLISH' | 'PORTUGUESE') {
+    const items = await this.repository.listReviews(language);
     return {
-      cases: items.map(({ images, ...item }) => ({
+      reviews: items.map(({ images, ...item }) => ({
         ...lifecycleDto(item),
         imageIds: images.map((image) => image.imageId),
       })),

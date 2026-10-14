@@ -5,14 +5,14 @@ import { AdminLayout } from './components/AdminLayout/AdminLayout';
 
 const Login = lazy(() => import('./pages/login/Login'));
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
-const HomeLogos = lazy(() => import('./pages/home-logos/HomeLogos'));
-const ClientStories = lazy(
-  () => import('./pages/client-stories/ClientStories'),
+const Logos = lazy(() => import('./pages/logos/Logos'));
+const CustomerFeedbacks = lazy(
+  () => import('./pages/customer-feedbacks/CustomerFeedbacks'),
 );
 const BlogPosts = lazy(() => import('./pages/blog-posts/BlogPosts'));
 const About = lazy(() => import('./pages/about/About'));
-const Cases = lazy(() => import('./pages/cases/Cases'));
-const HomeContent = lazy(() => import('./pages/home-content/HomeContent'));
+const Feedbacks = lazy(() => import('./pages/feedbacks/Feedbacks'));
+const SiteContent = lazy(() => import('./pages/site-content/SiteContent'));
 const MediaGallery = lazy(() => import('./pages/media/MediaGallery'));
 
 function Loading() {
@@ -29,12 +29,12 @@ function AppRoutes() {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route index element={<Dashboard />} />
-          <Route path="home-logos" element={<HomeLogos />} />
-          <Route path="client-stories" element={<ClientStories />} />
+          <Route path="logos" element={<Logos />} />
+          <Route path="customer-feedbacks" element={<CustomerFeedbacks />} />
           <Route path="blog-posts" element={<BlogPosts />} />
           <Route path="about" element={<About />} />
-          <Route path="cases" element={<Cases />} />
-          <Route path="home-content" element={<HomeContent />} />
+          <Route path="feedbacks" element={<Feedbacks />} />
+          <Route path="site-content" element={<SiteContent />} />
           <Route path="media" element={<MediaGallery />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

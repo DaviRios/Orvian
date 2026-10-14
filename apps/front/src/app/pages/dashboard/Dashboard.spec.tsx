@@ -13,7 +13,7 @@ describe('Dashboard', () => {
     jest.mocked(getDashboardSummary).mockResolvedValue({
       metrics: {
         publishedPages: 3,
-        cases: 8,
+        reviews: 8,
         blogPosts: 13,
         mediaAssets: 21,
       },

@@ -30,20 +30,20 @@ interface DashboardModule {
 
 const modules: DashboardModule[] = [
   {
-    path: '/home-content',
-    title: 'Conteúdo da Home',
-    description: 'Slides, ecossistema, logos e popups da página inicial.',
-    label: 'Home',
+    path: '/site-content',
+    title: 'Conteúdo Site',
+    description: 'Produtos, parceiros/banners, logos, informações e links.',
+    label: 'Site',
     icon: HomeIcon,
     iconClass: 'bg-orvian-primary/15 text-orvian-primary',
     labelClass:
       'border-orvian-primary/30 bg-orvian-primary/10 text-orvian-primary',
   },
   {
-    path: '/cases',
-    title: 'Cases',
-    description: 'Cases e histórias que mostram resultados dos clientes.',
-    label: 'Cases',
+    path: '/feedbacks',
+    title: 'Feedbacks',
+    description: 'Avaliações e feedbacks que mostram resultados dos clientes.',
+    label: 'Feedbacks',
     icon: BriefcaseIcon,
     iconClass: 'bg-orvian-secondary/25 text-orvian-lavender',
     labelClass:
@@ -93,8 +93,8 @@ const resourceStyles: Record<
     label: 'Home',
     className: 'bg-orvian-primary/15 text-orvian-primary',
   },
-  CASE: {
-    label: 'Case',
+  REVIEW: {
+    label: 'Avaliação',
     className: 'bg-orvian-secondary/25 text-orvian-lavender',
   },
   BLOG: { label: 'Blog', className: 'bg-orvian-gold/15 text-orvian-gold' },
@@ -150,9 +150,9 @@ export function Dashboard() {
       style: 'bg-orvian-primary/15 text-orvian-primary',
     },
     {
-      title: 'Cases cadastrados',
-      description: 'Cases ativos no Orvian',
-      value: metrics?.cases,
+      title: 'Avaliações cadastradas',
+      description: 'Avaliações ativas no Orvian',
+      value: metrics?.reviews,
       icon: BriefcaseIcon,
       style: 'bg-orvian-secondary/25 text-orvian-lavender',
     },
@@ -181,8 +181,8 @@ export function Dashboard() {
       style: 'bg-orvian-gold/15 text-orvian-gold',
     },
     {
-      label: 'Novo case',
-      path: '/cases',
+      label: 'Nova avaliação',
+      path: '/feedbacks',
       state: { create: true },
       icon: BriefcaseIcon,
       style: 'bg-orvian-secondary/25 text-orvian-lavender',
@@ -195,8 +195,8 @@ export function Dashboard() {
       style: 'bg-orvian-blue/15 text-orvian-blue',
     },
     {
-      label: 'Editar conteúdo da Home',
-      path: '/home-content',
+      label: 'Editar Conteúdo Site',
+      path: '/site-content',
       state: undefined,
       icon: HomeIcon,
       style: 'bg-orvian-primary/15 text-orvian-primary',
@@ -220,7 +220,7 @@ export function Dashboard() {
           </p>
           <button
             type="button"
-            onClick={() => navigate('/home-content')}
+            onClick={() => navigate('/site-content')}
             className="inline-flex h-[clamp(2rem,2.3vw,3.25rem)] items-center gap-2 rounded-[clamp(0.5rem,0.55vw,0.875rem)] border-0 bg-orvian-primary px-[clamp(0.875rem,1vw,1.75rem)] text-[clamp(0.68rem,0.65vw,1.05rem)] font-semibold text-white shadow-[0_5px_14px_rgba(239,89,40,0.26)] transition hover:bg-orvian-orange"
           >
             Começar agora

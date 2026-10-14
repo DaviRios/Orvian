@@ -14,6 +14,7 @@ import {
 } from '@fastify/type-provider-zod';
 import type { AppEnv } from './config/env';
 import { AppError } from './core/errors';
+import { isAllowedOrigin } from './core/origin-policy';
 import {
   createDatabase,
   type DatabaseClient,
@@ -25,18 +26,18 @@ import {
 import { AuthService } from './modules/auth/auth.service';
 import { PrismaAuthRepository } from './modules/auth/prisma-auth.repository';
 import { authRoutes } from './modules/auth/auth.routes';
-import { CasesService } from './modules/cases/cases.service';
-import { PrismaCasesRepository } from './modules/cases/prisma-cases.repository';
-import { casesRoutes } from './modules/cases/cases.routes';
+import { ReviewsService } from './modules/reviews/reviews.service';
+import { PrismaReviewsRepository } from './modules/reviews/prisma-reviews.repository';
+import { reviewsRoutes } from './modules/reviews/reviews.routes';
 import { DashboardService } from './modules/dashboard/dashboard.service';
 import { PrismaDashboardRepository } from './modules/dashboard/prisma-dashboard.repository';
 import { dashboardRoutes } from './modules/dashboard/dashboard.routes';
 import { EditorialService } from './modules/editorial/editorial.service';
 import { PrismaEditorialRepository } from './modules/editorial/prisma-editorial.repository';
 import { editorialRoutes } from './modules/editorial/editorial.routes';
-import { HomeContentService } from './modules/home-content/home-content.service';
-import { PrismaHomeContentRepository } from './modules/home-content/prisma-home-content.repository';
-import { homeContentRoutes } from './modules/home-content/home-content.routes';
+import { InstitutionalContentService } from './modules/institutional-content/institutional-content.service';
+import { PrismaInstitutionalContentRepository } from './modules/institutional-content/prisma-institutional-content.repository';
+import { institutionalContentRoutes } from './modules/institutional-content/institutional-content.routes';
 import { LocalMediaStorage } from './modules/media/local-media-storage';
 import { MediaService } from './modules/media/media.service';
 import { PrismaMediaRepository } from './modules/media/prisma-media.repository';
@@ -87,7 +88,7 @@ export async function buildApp(
   app.addHook('onRequest', async (request) => {
     if (['GET', 'HEAD', 'OPTIONS'].includes(request.method)) return;
     const origin = request.headers.origin;
-    if (origin && origin !== env.APP_ORIGIN) {
+    if (!isAllowedOrigin(origin, env.APP_ORIGIN, env.NODE_ENV)) {
       throw new AppError(403, 'ORIGIN_NOT_ALLOWED', 'Origem não permitida');
     }
   });
@@ -135,10 +136,10 @@ export async function buildApp(
   const editorial = new EditorialService(
     new PrismaEditorialRepository(database),
   );
-  const homeContent = new HomeContentService(
-    new PrismaHomeContentRepository(database),
+  const institutionalContent = new InstitutionalContentService(
+    new PrismaInstitutionalContentRepository(database),
   );
-  const cases = new CasesService(new PrismaCasesRepository(database));
+  const reviews = new ReviewsService(new PrismaReviewsRepository(database));
   const dashboard = new DashboardService(
     new PrismaDashboardRepository(database),
   );
@@ -167,20 +168,20 @@ export async function buildApp(
     service: editorial,
     auth,
   });
-  await app.register(homeContentRoutes, {
+  await app.register(siteContentRoutes, {
     prefix: '/v1',
-    service: homeContent,
+    service: siteContent,
     auth,
   });
-  await app.register(casesRoutes, { prefix: '/v1', service: cases, auth });
+  await app.register(reviewsRoutes, { prefix: '/v1', service: reviews, auth });
   await app.register(dashboardRoutes, {
     prefix: '/v1',
     service: dashboard,
     auth,
   });
-  await app.register(siteContentRoutes, {
+  await app.register(institutionalContentRoutes, {
     prefix: '/v1',
-    service: siteContent,
+    service: institutionalContent,
     auth,
   });
   await app.register(mediaRoutes, { prefix: '/v1', service: media, auth });

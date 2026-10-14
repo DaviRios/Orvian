@@ -20,7 +20,12 @@ export async function login(
   });
   if (response.status === 401) throw new Error('E-mail ou senha inválidos.');
   if (!response.ok) {
-    throw new Error('Erro ao conectar com o servidor. Tente novamente.');
+    const payload = (await response.json().catch(() => null)) as {
+      message?: string;
+    } | null;
+    throw new Error(
+      payload?.message ?? 'Erro ao conectar com o servidor. Tente novamente.',
+    );
   }
   return response.json() as Promise<AuthResponse>;
 }

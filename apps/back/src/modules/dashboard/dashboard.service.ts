@@ -30,7 +30,7 @@ export class DashboardService {
     return {
       metrics: {
         publishedPages: snapshot.publishedPages,
-        cases: snapshot.cases,
+        reviews: snapshot.reviews,
         blogPosts: snapshot.blogPosts,
         mediaAssets: snapshot.mediaAssets,
       },

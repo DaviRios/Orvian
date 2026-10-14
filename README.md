@@ -109,29 +109,29 @@ No frontend, `VITE_API_ORVIAN_URL` pode apontar para outra API. No desenvolvimen
 
 Rotas administrativas usam os cookies seguros criados por `POST /v1/users/auth`. O cliente renova automaticamente o access token por `POST /v1/users/auth/refresh`.
 
-| Recurso               | Base                  |
-| --------------------- | --------------------- |
-| Autenticação          | `/v1/users/auth`      |
-| Slides                | `/v1/slides`          |
-| Pop-ups               | `/v1/popups`          |
-| Ecossistema           | `/v1/ecosystems`      |
-| Links da home         | `/v1/home-blog-links` |
-| Cases                 | `/v1/cases`           |
-| Histórias de clientes | `/v1/client-stories`  |
-| Blog                  | `/v1/blog-posts`      |
-| Autores               | `/v1/authors`         |
-| Imagens               | `/v1/images`          |
-| Vídeos                | `/v1/videos`          |
-| Mídias Sobre          | `/v1/about-media`     |
-| Parceiros             | `/v1/partners`        |
-| Carreiras             | `/v1/careers`         |
-| Serviços              | `/v1/services`        |
+| Recurso                | Base                  |
+| ---------------------- | --------------------- |
+| Autenticação           | `/v1/users/auth`      |
+| Produtos               | `/v1/products`        |
+| Saiba mais/informações | `/v1/information`     |
+| Parceiros/Banner       | `/v1/partner-banners` |
+| Links                  | `/v1/links`           |
+| Avaliações             | `/v1/reviews`         |
+| Feedbacks              | `/v1/feedbacks`       |
+| Blog                   | `/v1/blog-posts`      |
+| Autores                | `/v1/authors`         |
+| Imagens                | `/v1/images`          |
+| Vídeos                 | `/v1/videos`          |
+| Mídias Sobre           | `/v1/about-media`     |
+| Parceiros              | `/v1/partners`        |
+| Carreiras              | `/v1/careers`         |
+| Serviços               | `/v1/services`        |
 
 Rotas públicas:
 
 ```text
 GET /v1/public/pages/home?language=PORTUGUESE
-GET /v1/public/pages/cases?language=PORTUGUESE
+GET /v1/public/pages/feedbacks?language=PORTUGUESE
 GET /v1/public/pages/about
 GET /v1/public/pages/blog?language=PORTUGUESE
 ```

@@ -1,184 +1,158 @@
 import { NotFoundError } from '../../core/errors';
 import { lifecycleDto } from '../../core/lifecycle';
 import type {
-  AboutMediaWithAsset,
-  CreateAboutMediaInput,
-  CreateCareerInput,
-  CreateClientStoryInput,
-  CreatePartnerInput,
-  CreateServiceItemInput,
+  CreatePartnerBannerInput,
+  CreateContentLinkInput,
+  CreateInformationInput,
+  CreateProductInput,
   SiteContentRepository,
-  UpdateAboutMediaInput,
-  UpdateCareerInput,
-  UpdateClientStoryInput,
-  UpdatePartnerInput,
-  UpdateServiceItemInput,
+  UpdatePartnerBannerInput,
+  UpdateContentLinkInput,
+  UpdateInformationInput,
+  UpdateProductInput,
 } from './site-content.repository';
 
 export class SiteContentService {
   constructor(private readonly repository: SiteContentRepository) {}
 
-  private async requireMedia(id: string, kind?: 'IMAGE' | 'VIDEO') {
-    const media = await this.repository.findMedia(id);
-    if (!media || (kind && media.kind !== kind))
-      throw new NotFoundError('Mídia');
-    return media;
+  async ensureImage(id: string) {
+    if (!(await this.repository.imageExists(id)))
+      throw new NotFoundError('Imagem');
   }
 
-  async createClientStory(input: CreateClientStoryInput) {
-    await this.requireMedia(input.imageId, 'IMAGE');
-    return this.clientStoryDto(await this.repository.createClientStory(input));
+  async createProduct(input: CreateProductInput) {
+    await this.ensureImage(input.logoId);
+    return lifecycleDto(await this.repository.createProduct(input));
   }
-  async listClientStories() {
-    return (await this.repository.listClientStories()).map((item) =>
-      this.clientStoryDto(item),
+  async listProducts(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return (await this.repository.listProducts(language)).map(lifecycleDto);
+  }
+  async getProduct(id: string) {
+    const item = await this.repository.findProduct(id);
+    if (!item) throw new NotFoundError('Produto');
+    return lifecycleDto(item);
+  }
+  async updateProduct(id: string, input: UpdateProductInput) {
+    await this.getProduct(id);
+    if (input.logoId) await this.ensureImage(input.logoId);
+    await this.repository.updateProduct(id, input);
+  }
+  async publishProduct(id: string) {
+    await this.getProduct(id);
+    await this.repository.publishProduct(id);
+  }
+  async unpublishProduct(id: string) {
+    await this.getProduct(id);
+    await this.repository.unpublishProduct(id);
+  }
+  async toggleProduct(id: string) {
+    const item = await this.getProduct(id);
+    return item.isPublished
+      ? this.unpublishProduct(id)
+      : this.publishProduct(id);
+  }
+  async deleteProduct(id: string) {
+    await this.getProduct(id);
+    await this.repository.deleteProduct(id);
+  }
+
+  async createInformation(input: CreateInformationInput) {
+    return lifecycleDto(await this.repository.createInformation(input));
+  }
+  async listInformation(language?: 'ENGLISH' | 'PORTUGUESE') {
+    return (await this.repository.listInformation(language)).map(lifecycleDto);
+  }
+  async getInformation(id: string) {
+    const item = await this.repository.findInformation(id);
+    if (!item) throw new NotFoundError('Informação');
+    return lifecycleDto(item);
+  }
+  async updateInformation(id: string, input: UpdateInformationInput) {
+    await this.getInformation(id);
+    await this.repository.updateInformation(id, input);
+  }
+  async publishInformation(id: string) {
+    await this.getInformation(id);
+    await this.repository.publishInformation(id);
+  }
+  async unpublishInformation(id: string) {
+    await this.getInformation(id);
+    await this.repository.unpublishInformation(id);
+  }
+  async deleteInformation(id: string) {
+    await this.getInformation(id);
+    await this.repository.deleteInformation(id);
+  }
+
+  async createPartnerBanner(input: CreatePartnerBannerInput) {
+    await this.ensureImage(input.imageId);
+    return this.partnerBannerDto(
+      await this.repository.createPartnerBanner(input),
     );
   }
-  async getClientStory(id: string) {
-    const item = await this.repository.findClientStory(id);
-    if (!item) throw new NotFoundError('História de cliente');
-    return this.clientStoryDto(item);
-  }
-  async updateClientStory(id: string, input: UpdateClientStoryInput) {
-    await this.getClientStory(id);
-    if (input.imageId) await this.requireMedia(input.imageId, 'IMAGE');
-    await this.repository.updateClientStory(id, input);
-  }
-  async setClientStoryPublished(id: string, published: boolean) {
-    await this.getClientStory(id);
-    await this.repository.setClientStoryPublished(id, published);
-  }
-  async toggleClientStory(id: string) {
-    const item = await this.getClientStory(id);
-    await this.setClientStoryPublished(id, !item.isPublished);
-  }
-  async deleteClientStory(id: string) {
-    await this.getClientStory(id);
-    await this.repository.deleteClientStory(id);
-  }
-
-  async createAboutMedia(input: CreateAboutMediaInput) {
-    await this.requireMedia(input.imageId, input.mediaType);
-    return this.aboutMediaDto(await this.repository.createAboutMedia(input));
-  }
-  async listAboutMedia() {
-    return (await this.repository.listAboutMedia()).map((item) =>
-      this.aboutMediaDto(item),
+  async listPartnerBanners() {
+    return (await this.repository.listPartnerBanners()).map((item) =>
+      this.partnerBannerDto(item),
     );
   }
-  async getAboutMedia(id: string) {
-    const item = await this.repository.findAboutMedia(id);
-    if (!item) throw new NotFoundError('Mídia institucional');
-    return this.aboutMediaDto(item);
+  async getPartnerBanner(id: string) {
+    const item = await this.repository.findPartnerBanner(id);
+    if (!item) throw new NotFoundError('Item de parceiros/banner');
+    return this.partnerBannerDto(item);
   }
-  async updateAboutMedia(id: string, input: UpdateAboutMediaInput) {
-    await this.getAboutMedia(id);
-    if (input.imageId) await this.requireMedia(input.imageId, input.mediaType);
-    await this.repository.updateAboutMedia(id, input);
+  async updatePartnerBanner(id: string, input: UpdatePartnerBannerInput) {
+    await this.getPartnerBanner(id);
+    if (input.imageId) await this.ensureImage(input.imageId);
+    await this.repository.updatePartnerBanner(id, input);
   }
-  async toggleAboutMedia(id: string) {
-    const item = await this.getAboutMedia(id);
-    await this.repository.setAboutMediaPublished(id, !item.isPublished);
+  async publishPartnerBanner(id: string) {
+    await this.getPartnerBanner(id);
+    await this.repository.publishPartnerBanner(id);
   }
-  async deleteAboutMedia(id: string) {
-    await this.getAboutMedia(id);
-    await this.repository.deleteAboutMedia(id);
+  async unpublishPartnerBanner(id: string) {
+    await this.getPartnerBanner(id);
+    await this.repository.unpublishPartnerBanner(id);
+  }
+  async togglePartnerBanner(id: string) {
+    const item = await this.getPartnerBanner(id);
+    return item.isPublished
+      ? this.unpublishPartnerBanner(id)
+      : this.publishPartnerBanner(id);
+  }
+  async deletePartnerBanner(id: string) {
+    await this.getPartnerBanner(id);
+    await this.repository.deletePartnerBanner(id);
   }
 
-  async createPartner(input: CreatePartnerInput) {
-    if (input.logoId) await this.requireMedia(input.logoId, 'IMAGE');
-    return lifecycleDto(await this.repository.createPartner(input));
+  async createContentLink(input: CreateContentLinkInput) {
+    return lifecycleDto(await this.repository.createContentLink(input));
   }
-  async listPartners() {
-    return (await this.repository.listPartners()).map(lifecycleDto);
+  async listContentLinks() {
+    return (await this.repository.listContentLinks()).map(lifecycleDto);
   }
-  async getPartner(id: string) {
-    const item = await this.repository.findPartner(id);
-    if (!item) throw new NotFoundError('Parceiro');
+  async getContentLink(id: string) {
+    const item = await this.repository.findContentLink(id);
+    if (!item) throw new NotFoundError('Link');
     return lifecycleDto(item);
   }
-  async updatePartner(id: string, input: UpdatePartnerInput) {
-    await this.getPartner(id);
-    if (input.logoId) await this.requireMedia(input.logoId, 'IMAGE');
-    await this.repository.updatePartner(id, input);
+  async updateContentLink(id: string, input: UpdateContentLinkInput) {
+    await this.getContentLink(id);
+    await this.repository.updateContentLink(id, input);
   }
-  async setPartnerPublished(id: string, published: boolean) {
-    await this.getPartner(id);
-    await this.repository.setPartnerPublished(id, published);
+  async toggleContentLink(id: string) {
+    const item = await this.getContentLink(id);
+    return item.isPublished
+      ? this.repository.unpublishContentLink(id)
+      : this.repository.publishContentLink(id);
   }
-  async deletePartner(id: string) {
-    await this.getPartner(id);
-    await this.repository.deletePartner(id);
-  }
-
-  async createCareer(input: CreateCareerInput) {
-    return lifecycleDto(await this.repository.createCareer(input));
-  }
-  async listCareers(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return (await this.repository.listCareers(language)).map(lifecycleDto);
-  }
-  async getCareer(id: string) {
-    const item = await this.repository.findCareer(id);
-    if (!item) throw new NotFoundError('Vaga');
-    return lifecycleDto(item);
-  }
-  async updateCareer(id: string, input: UpdateCareerInput) {
-    await this.getCareer(id);
-    await this.repository.updateCareer(id, input);
-  }
-  async setCareerPublished(id: string, published: boolean) {
-    await this.getCareer(id);
-    await this.repository.setCareerPublished(id, published);
-  }
-  async deleteCareer(id: string) {
-    await this.getCareer(id);
-    await this.repository.deleteCareer(id);
+  async deleteContentLink(id: string) {
+    await this.getContentLink(id);
+    await this.repository.deleteContentLink(id);
   }
 
-  async createServiceItem(input: CreateServiceItemInput) {
-    return lifecycleDto(await this.repository.createServiceItem(input));
-  }
-  async listServiceItems(language?: 'ENGLISH' | 'PORTUGUESE') {
-    return (await this.repository.listServiceItems(language)).map(lifecycleDto);
-  }
-  async getServiceItem(id: string) {
-    const item = await this.repository.findServiceItem(id);
-    if (!item) throw new NotFoundError('Serviço');
-    return lifecycleDto(item);
-  }
-  async updateServiceItem(id: string, input: UpdateServiceItemInput) {
-    await this.getServiceItem(id);
-    await this.repository.updateServiceItem(id, input);
-  }
-  async setServiceItemPublished(id: string, published: boolean) {
-    await this.getServiceItem(id);
-    await this.repository.setServiceItemPublished(id, published);
-  }
-  async deleteServiceItem(id: string) {
-    await this.getServiceItem(id);
-    await this.repository.deleteServiceItem(id);
-  }
-
-  private clientStoryDto<
-    T extends {
-      imageId: string;
-      publicationStatus: 'DRAFT' | 'PUBLISHED';
-      isActive: boolean;
-      publishedAt: Date | null;
-      createdAt: Date;
-      updatedAt: Date;
-    },
+  private partnerBannerDto<
+    T extends Parameters<typeof lifecycleDto>[0] & { imageId: string },
   >(item: T) {
     return { ...lifecycleDto(item), imageUrl: `/v1/images/${item.imageId}` };
-  }
-  private aboutMediaDto(item: AboutMediaWithAsset) {
-    const dto = lifecycleDto(item);
-    const { media, mediaId, ...data } = dto;
-    const endpoint = item.mediaType === 'VIDEO' ? 'videos' : 'images';
-    return {
-      ...data,
-      imageId: mediaId,
-      imageUrl: `/v1/${endpoint}/${media.id}`,
-    };
   }
 }
