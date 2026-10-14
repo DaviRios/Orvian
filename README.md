@@ -1,6 +1,6 @@
-# Soir
+# Orvian
 
-CMS institucional independente, criado em Node.js e TypeScript.
+Plataforma institucional de gestão de conteúdo, criada em Node.js e TypeScript.
 
 **Autoria:** Davi Rios
 
@@ -51,11 +51,11 @@ O comando `npm run dev` usa dois processos independentes e propaga `Ctrl+C` para
 Credenciais iniciais de desenvolvimento:
 
 ```text
-E-mail: valor de `CMS_ADMIN_EMAIL`
-Senha:  valor de `CMS_ADMIN_PASSWORD`
+E-mail: valor de `ORVIAN_ADMIN_EMAIL`
+Senha:  valor de `ORVIAN_ADMIN_PASSWORD`
 ```
 
-Defina um `CMS_ADMIN_PASSWORD` próprio antes da primeira execução e um `JWT_SECRET` aleatório com pelo menos 32 caracteres. O usuário administrador só é criado quando a tabela de usuários está vazia.
+Defina um `ORVIAN_ADMIN_PASSWORD` próprio antes da primeira execução e um `JWT_SECRET` aleatório com pelo menos 32 caracteres. O usuário administrador só é criado quando a tabela de usuários está vazia.
 
 ## Comandos
 
@@ -83,27 +83,27 @@ Os testes de integração não abrem nem alteram banco algum: usam `Fastify.inje
 
 ## Configuração
 
-| Variável               | Padrão                  | Uso                                    |
-| ---------------------- | ----------------------- | -------------------------------------- |
-| `PORT`                 | `3000`                  | porta da API                           |
-| `APP_ORIGIN`           | `http://localhost:4200` | origem aceita para mutações            |
-| `LOG_LEVEL`            | `warn`                  | nível de log no desenvolvimento        |
-| `DATABASE_URL`         | obrigatória             | conexão PostgreSQL                     |
-| `POSTGRES_PORT`        | `5433`                  | porta PostgreSQL exposta no host       |
-| `JWT_SECRET`           | obrigatória             | assinatura do access token             |
-| `CMS_ADMIN_USER`       | `admin`                 | usuário inicial                        |
-| `CMS_ADMIN_EMAIL`      | `admin@soir.local`      | e-mail inicial                         |
-| `CMS_ADMIN_PASSWORD`   | obrigatório             | senha inicial (mínimo de 8 caracteres) |
-| `MEDIA_STORAGE`        | `local`                 | `local` ou `s3`                        |
-| `CMS_UPLOAD_DIR`       | `data/uploads`          | raiz do adaptador local                |
-| `S3_REGION`            | `us-east-1`             | região S3                              |
-| `S3_BUCKET`            | —                       | bucket obrigatório no modo S3          |
-| `S3_ENDPOINT`          | —                       | endpoint compatível com S3, opcional   |
-| `S3_ACCESS_KEY_ID`     | —                       | credencial opcional                    |
-| `S3_SECRET_ACCESS_KEY` | —                       | credencial opcional                    |
-| `S3_FORCE_PATH_STYLE`  | `false`                 | compatibilidade com MinIO e similares  |
+| Variável                | Padrão                  | Uso                                    |
+| ----------------------- | ----------------------- | -------------------------------------- |
+| `PORT`                  | `3000`                  | porta da API                           |
+| `APP_ORIGIN`            | `http://localhost:4200` | origem aceita para mutações            |
+| `LOG_LEVEL`             | `warn`                  | nível de log no desenvolvimento        |
+| `DATABASE_URL`          | obrigatória             | conexão PostgreSQL                     |
+| `POSTGRES_PORT`         | `5433`                  | porta PostgreSQL exposta no host       |
+| `JWT_SECRET`            | obrigatória             | assinatura do access token             |
+| `ORVIAN_ADMIN_USER`     | `admin`                 | usuário inicial                        |
+| `ORVIAN_ADMIN_EMAIL`    | `admin@orvian.local`    | e-mail inicial                         |
+| `ORVIAN_ADMIN_PASSWORD` | obrigatório             | senha inicial (mínimo de 8 caracteres) |
+| `MEDIA_STORAGE`         | `local`                 | `local` ou `s3`                        |
+| `ORVIAN_UPLOAD_DIR`     | `data/uploads`          | raiz do adaptador local                |
+| `S3_REGION`             | `us-east-1`             | região S3                              |
+| `S3_BUCKET`             | —                       | bucket obrigatório no modo S3          |
+| `S3_ENDPOINT`           | —                       | endpoint compatível com S3, opcional   |
+| `S3_ACCESS_KEY_ID`      | —                       | credencial opcional                    |
+| `S3_SECRET_ACCESS_KEY`  | —                       | credencial opcional                    |
+| `S3_FORCE_PATH_STYLE`   | `false`                 | compatibilidade com MinIO e similares  |
 
-No frontend, `VITE_API_CMS_URL` pode apontar para outra API. No desenvolvimento padrão, o proxy do Vite encaminha `/v1` para `http://localhost:3000`.
+No frontend, `VITE_API_ORVIAN_URL` pode apontar para outra API. No desenvolvimento padrão, o proxy do Vite encaminha `/v1` para `http://localhost:3000`.
 
 ## Rotas
 

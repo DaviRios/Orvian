@@ -4,7 +4,7 @@ import type {
   createBlogPostSchema,
   updateAuthorSchema,
   updateBlogPostSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import type { Author, BlogPost } from '../../generated/prisma/client';
 
 export type CreateAuthorInput = z.infer<typeof createAuthorSchema>;

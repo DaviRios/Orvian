@@ -6,7 +6,7 @@ import {
   ValidationError,
 } from '../../core/errors';
 import type { MediaKind } from '../../generated/prisma/client';
-import type { ImageSearchResult } from '@soir/contracts';
+import type { ImageSearchResult } from '@orvian/contracts';
 import type { MediaRepository, SearchMediaInput } from './media.repository';
 import type { MediaStorage } from './media-storage';
 

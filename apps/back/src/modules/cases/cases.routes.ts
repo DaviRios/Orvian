@@ -13,7 +13,7 @@ import {
   idParamsSchema,
   languageQuerySchema,
   updateCaseSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import { requireAuth } from '../auth/auth.routes';
 import type { AuthService } from '../auth/auth.service';
 import type { CasesService } from './cases.service';

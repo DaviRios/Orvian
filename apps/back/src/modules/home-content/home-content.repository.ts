@@ -8,7 +8,7 @@ import type {
   updateHomeBlogLinkSchema,
   updatePopupSchema,
   updateSlideSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import type {
   EcosystemItem,
   HomeBlogLink,

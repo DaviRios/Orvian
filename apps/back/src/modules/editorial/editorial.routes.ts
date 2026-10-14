@@ -9,7 +9,7 @@ import {
   idParamsSchema,
   updateAuthorSchema,
   updateBlogPostSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import { z } from 'zod';
 import type { AuthService } from '../auth/auth.service';
 import { requireAuth } from '../auth/auth.routes';

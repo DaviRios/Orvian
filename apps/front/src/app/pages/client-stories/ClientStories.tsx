@@ -124,15 +124,15 @@ export function ClientStories() {
   }
 
   return (
-    <div className={'min-h-screen [background:#f8f7fc] flex flex-col'}>
+    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
       <div
         className={
-          'flex items-center justify-between [padding:18px_40px] [background:#ffffff] [border-bottom:1px_solid_#C5EDF8] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
         }
       >
         <button
           className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#EBF9FD] hover:[color:#3783D1]'
+            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
           }
           onClick={() => navigate('/')}
         >
@@ -154,7 +154,7 @@ export function ClientStories() {
 
         <button
           className={
-            '[background:#3783D1] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
+            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
           }
           onClick={() => {
             setShowForm(true);
@@ -176,19 +176,19 @@ export function ClientStories() {
           <div>
             <h1
               className={
-                '[font-size:22px] font-bold [color:#1e1b2e] [margin:0_0_4px] [letter-spacing:-0.01em]'
+                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
               }
             >
               Histórias de Clientes
             </h1>
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Gerencie as histórias de sucesso exibidas no site
             </p>
           </div>
           {stories.length > 0 && (
             <span
               className={
-                '[background:#C5EDF8] [color:#3783D1] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
+                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
               }
             >
               {stories.length} história{stories.length > 1 ? 's' : ''}
@@ -217,7 +217,7 @@ export function ClientStories() {
         {showForm && (
           <div
             className={
-              '[background:#ffffff] [border-radius:20px] [border:1px_solid_#C5EDF8] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
+              '[background:#302638] [border-radius:20px] [border:1px_solid_#68577E] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
             }
           >
             <div
@@ -228,18 +228,18 @@ export function ClientStories() {
               <div>
                 <h2
                   className={
-                    '[font-size:17px] font-bold [color:#1e1b2e] [margin:0_0_4px]'
+                    '[font-size:17px] font-bold [color:#F7F2FA] [margin:0_0_4px]'
                   }
                 >
                   Nova História
                 </h2>
-                <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+                <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
                   Preencha os campos para criar uma nova história
                 </p>
               </div>
               <button
                 className={
-                  '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#C5EDF8] [background:#f0fcff] [color:#7c6fa0] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                  '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
                 }
                 onClick={closeForm}
                 title="Fechar"
@@ -287,13 +287,13 @@ export function ClientStories() {
                 <div className={'flex flex-col [gap:8px]'}>
                   <label
                     className={
-                      '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                      '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                     }
                   >
                     Imagem
                   </label>
                   <div
-                    className={`${'[aspect-ratio:4_/_3] [border:2px_dashed_#A0BEE8] [border-radius:16px] [background:#f0fcff] flex items-center justify-center cursor-pointer overflow-hidden [transition:border-color_0.2s,_background_0.2s] hover:[border-color:#3783D1] hover:[background:#EBF9FD]'} ${imagePreview ? '[border-style:solid] [border-color:#A0BEE8]' : ''}`}
+                    className={`${'[aspect-ratio:4_/_3] [border:2px_dashed_#A1C8FA] [border-radius:16px] [background:#25232C] flex items-center justify-center cursor-pointer overflow-hidden [transition:border-color_0.2s,_background_0.2s] hover:[border-color:#EF5928] hover:[background:#302638]'} ${imagePreview ? '[border-style:solid] [border-color:#A1C8FA]' : ''}`}
                     onClick={() => fileRef.current?.click()}
                   >
                     <input
@@ -317,7 +317,7 @@ export function ClientStories() {
                       >
                         <div
                           className={
-                            '[width:48px] [height:48px] [border-radius:14px] [background:#C5EDF8] flex items-center justify-center [color:#3783D1]'
+                            '[width:48px] [height:48px] [border-radius:14px] [background:#68577E] flex items-center justify-center [color:#EF5928]'
                           }
                         >
                           <svg
@@ -344,12 +344,12 @@ export function ClientStories() {
                         </div>
                         <span
                           className={
-                            '[font-size:14px] font-medium [color:#4b5563]'
+                            '[font-size:14px] font-medium [color:#D2C9D7]'
                           }
                         >
                           Clique para adicionar
                         </span>
-                        <span className={'[font-size:14px] [color:#6BA3E3]'}>
+                        <span className={'[font-size:14px] [color:#A1C8FA]'}>
                           PNG, JPG, WebP
                         </span>
                       </div>
@@ -359,7 +359,7 @@ export function ClientStories() {
                     <button
                       type="button"
                       className={
-                        'border-0 [background:none] [font-size:14px] font-semibold [color:#3783D1] cursor-pointer [padding:0] [font-family:inherit] [transition:color_0.15s] hover:[color:#2B6BB5]'
+                        'border-0 [background:none] [font-size:14px] font-semibold [color:#EF5928] cursor-pointer [padding:0] [font-family:inherit] [transition:color_0.15s] hover:[color:#FF892B]'
                       }
                       onClick={() => fileRef.current?.click()}
                     >
@@ -372,7 +372,7 @@ export function ClientStories() {
                   <div className={'flex flex-col [gap:6px]'}>
                     <label
                       className={
-                        '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                        '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                       }
                       htmlFor="shortTitle"
                     >
@@ -382,7 +382,7 @@ export function ClientStories() {
                       id="shortTitle"
                       type="text"
                       className={
-                        'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                        'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                       }
                       placeholder="Ex: Caso de sucesso"
                       value={shortTitle}
@@ -394,7 +394,7 @@ export function ClientStories() {
                   <div className={'flex flex-col [gap:6px]'}>
                     <label
                       className={
-                        '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                        '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                       }
                       htmlFor="longTitle"
                     >
@@ -404,7 +404,7 @@ export function ClientStories() {
                       id="longTitle"
                       type="text"
                       className={
-                        'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                        'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                       }
                       placeholder="Ex: Como aumentamos o engajamento em 3x"
                       value={longTitle}
@@ -416,7 +416,7 @@ export function ClientStories() {
                   <div className={'flex flex-col [gap:6px]'}>
                     <label
                       className={
-                        '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                        '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                       }
                       htmlFor="description"
                     >
@@ -424,7 +424,7 @@ export function ClientStories() {
                     </label>
                     <textarea
                       id="description"
-                      className={`${'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'} ${'[resize:vertical] [min-height:108px] [line-height:1.6]'}`}
+                      className={`${'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'} ${'[resize:vertical] [min-height:108px] [line-height:1.6]'}`}
                       placeholder="Descreva a história do cliente..."
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
@@ -436,7 +436,7 @@ export function ClientStories() {
                   <div className={'flex flex-col [gap:6px]'}>
                     <label
                       className={
-                        '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                        '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                       }
                       htmlFor="language"
                     >
@@ -445,7 +445,7 @@ export function ClientStories() {
                     <select
                       id="language"
                       className={
-                        'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                        'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                       }
                       value={language}
                       onChange={(e) =>
@@ -461,13 +461,13 @@ export function ClientStories() {
 
               <div
                 className={
-                  'flex justify-end [gap:12px] [padding-top:16px] [border-top:1px_solid_#EBF9FD]'
+                  'flex justify-end [gap:12px] [padding-top:16px] [border-top:1px_solid_#302638]'
                 }
               >
                 <button
                   type="button"
                   className={
-                    '[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_border-color_0.15s] hover:[background:#EBF9FD] hover:[border-color:#A0BEE8] hover:[color:#3783D1]'
+                    '[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_border-color_0.15s] hover:[background:#302638] hover:[border-color:#A1C8FA] hover:[color:#EF5928]'
                   }
                   onClick={closeForm}
                 >
@@ -476,7 +476,7 @@ export function ClientStories() {
                 <button
                   type="submit"
                   className={
-                    '[background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
+                    '[background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
                   }
                   disabled={saving}
                 >
@@ -502,10 +502,10 @@ export function ClientStories() {
           >
             <div
               className={
-                '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+                '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
               }
             />
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Carregando histórias...
             </p>
           </div>
@@ -519,12 +519,12 @@ export function ClientStories() {
               <div
                 key={story.id}
                 className={
-                  '[background:#ffffff] [border-radius:18px] [border:1px_solid_#C5EDF8] overflow-hidden [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_28px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
+                  '[background:#302638] [border-radius:18px] [border:1px_solid_#68577E] overflow-hidden [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_28px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
                 }
               >
                 <div
                   className={
-                    '[height:176px] overflow-hidden [background:#EBF9FD]'
+                    '[height:176px] overflow-hidden [background:#302638]'
                   }
                 >
                   {story.imageUrl ? (
@@ -536,7 +536,7 @@ export function ClientStories() {
                   ) : (
                     <div
                       className={
-                        'w-full h-full flex items-center justify-center [color:#A0BEE8]'
+                        'w-full h-full flex items-center justify-center [color:#A1C8FA]'
                       }
                     >
                       <svg
@@ -565,21 +565,21 @@ export function ClientStories() {
                 <div className={'[padding:18px_20px] flex flex-col [gap:6px]'}>
                   <span
                     className={
-                      '[font-size:14px] font-bold [color:#3783D1] uppercase [letter-spacing:0.08em]'
+                      '[font-size:14px] font-bold [color:#EF5928] uppercase [letter-spacing:0.08em]'
                     }
                   >
                     {story.shortTitle}
                   </span>
                   <h3
                     className={
-                      '[font-size:15px] font-bold [color:#1e1b2e] [margin:0] [line-height:1.35]'
+                      '[font-size:15px] font-bold [color:#F7F2FA] [margin:0] [line-height:1.35]'
                     }
                   >
                     {story.longTitle}
                   </h3>
                   <p
                     className={
-                      '[font-size:14px] [color:#6b7280] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] overflow-hidden'
+                      '[font-size:14px] [color:#AFA5B6] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] overflow-hidden'
                     }
                   >
                     {story.description}
@@ -587,16 +587,16 @@ export function ClientStories() {
 
                   <div
                     className={
-                      'flex items-center justify-between [margin-top:10px] [padding-top:14px] [border-top:1px_solid_#EBF9FD]'
+                      'flex items-center justify-between [margin-top:10px] [padding-top:14px] [border-top:1px_solid_#302638]'
                     }
                   >
                     <span
-                      className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${story.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#f0fcff] [color:#7c6fa0] [border:1px_solid_#BAE8F6]'}`}
+                      className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${story.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#25232C] [color:#9981AE] [border:1px_solid_#68577E]'}`}
                     >
                       {story.isPublished ? 'Publicado' : 'Rascunho'}
                     </span>
                     <button
-                      className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${story.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#3783D1] [background:#EBF9FD] hover:[background:#C5EDF8]'}`}
+                      className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${story.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#EF5928] [background:#302638] hover:[background:#68577E]'}`}
                       onClick={() => handlePublishToggle(story)}
                     >
                       {story.isPublished ? 'Despublicar' : 'Publicar'}
@@ -615,7 +615,7 @@ export function ClientStories() {
             >
               <div
                 className={
-                  '[width:68px] [height:68px] [border-radius:20px] [background:#EBF9FD] flex items-center justify-center [color:#6BA3E3] [margin-bottom:8px]'
+                  '[width:68px] [height:68px] [border-radius:20px] [background:#302638] flex items-center justify-center [color:#A1C8FA] [margin-bottom:8px]'
                 }
               >
                 <svg
@@ -637,21 +637,21 @@ export function ClientStories() {
               </div>
               <p
                 className={
-                  '[font-size:15.5px] font-semibold [color:#1e1b2e] [margin:0]'
+                  '[font-size:15.5px] font-semibold [color:#F7F2FA] [margin:0]'
                 }
               >
                 Nenhuma história cadastrada
               </p>
               <p
                 className={
-                  '[font-size:14px] [color:#7c6fa0] [margin:0] [max-width:300px] [line-height:1.6]'
+                  '[font-size:14px] [color:#9981AE] [margin:0] [max-width:300px] [line-height:1.6]'
                 }
               >
                 Crie a primeira história de cliente para exibir no site
               </p>
               <button
                 className={
-                  '[margin-top:8px] [background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)]'
+                  '[margin-top:8px] [background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#FF892B] hover:[transform:translateY(-1px)]'
                 }
                 onClick={() => setShowForm(true)}
               >

@@ -56,7 +56,7 @@ export function RichTextEditor({
       editorProps: {
         attributes: {
           class:
-            '[padding:12px_14px] outline-none [font-size:14px] [color:#1e1b2e] [line-height:1.65] [font-family:inherit] [box-sizing:border-box] w-full [&_p]:[margin:0_0_8px] [&_p:last-child]:[margin-bottom:0] [&_strong]:font-bold [&_em]:[font-style:italic] [&_s]:[text-decoration:line-through] [&_h2]:[font-size:18px] [&_h2]:font-bold [&_h2]:[color:#1e1b2e] [&_h2]:[margin:12px_0_6px] [&_h2]:[line-height:1.3] [&_h3]:[font-size:15px] [&_h3]:font-bold [&_h3]:[color:#1e1b2e] [&_h3]:[margin:10px_0_4px] [&_h3]:[line-height:1.3] [&_ul]:[padding-left:22px] [&_ul]:[margin:6px_0] [&_ol]:[padding-left:22px] [&_ol]:[margin:6px_0] [&_li]:[margin:3px_0] [&_li]:[line-height:1.6] [&_blockquote]:[border-left:3px_solid_#6BA3E3] [&_blockquote]:[margin:8px_0] [&_blockquote]:[padding:4px_12px] [&_blockquote]:[color:#5b4b8a] [&_blockquote]:[font-style:italic] [&_blockquote]:[background:#EBF9FD] [&_blockquote]:[border-radius:0_6px_6px_0]',
+            '[padding:12px_14px] outline-none [font-size:14px] [color:#F7F2FA] [line-height:1.65] [font-family:inherit] [box-sizing:border-box] w-full [&_p]:[margin:0_0_8px] [&_p:last-child]:[margin-bottom:0] [&_strong]:font-bold [&_em]:[font-style:italic] [&_s]:[text-decoration:line-through] [&_h2]:[font-size:18px] [&_h2]:font-bold [&_h2]:[color:#F7F2FA] [&_h2]:[margin:12px_0_6px] [&_h2]:[line-height:1.3] [&_h3]:[font-size:15px] [&_h3]:font-bold [&_h3]:[color:#F7F2FA] [&_h3]:[margin:10px_0_4px] [&_h3]:[line-height:1.3] [&_ul]:[padding-left:22px] [&_ul]:[margin:6px_0] [&_ol]:[padding-left:22px] [&_ol]:[margin:6px_0] [&_li]:[margin:3px_0] [&_li]:[line-height:1.6] [&_blockquote]:[border-left:3px_solid_#A1C8FA] [&_blockquote]:[margin:8px_0] [&_blockquote]:[padding:4px_12px] [&_blockquote]:[color:#9981AE] [&_blockquote]:[font-style:italic] [&_blockquote]:[background:#302638] [&_blockquote]:[border-radius:0_6px_6px_0]',
           style: `min-height:${minHeight}px`,
         },
       },
@@ -97,7 +97,7 @@ export function RichTextEditor({
     <button
       type="button"
       title={title}
-      className={`${'inline-flex items-center justify-center [min-width:30px] [height:28px] [padding:0_6px] border-0 [background:transparent] [color:#5b4b8a] [border-radius:6px] [font-size:14px] [font-family:inherit] cursor-pointer [transition:background_0.12s,_color_0.12s] [line-height:1] hover:[background:#C5EDF8] hover:[color:#3783D1]'} ${active ? '[background:#C5EDF8] [color:#3783D1]' : ''}`}
+      className={`${'inline-flex items-center justify-center [min-width:30px] [height:28px] [padding:0_6px] border-0 [background:transparent] [color:#9981AE] [border-radius:6px] [font-size:14px] [font-family:inherit] cursor-pointer [transition:background_0.12s,_color_0.12s] [line-height:1] hover:[background:#68577E] hover:[color:#EF5928]'} ${active ? '[background:#68577E] [color:#EF5928]' : ''}`}
       onMouseDown={(e) => {
         e.preventDefault();
         onClick();
@@ -110,12 +110,12 @@ export function RichTextEditor({
   return (
     <div
       className={
-        'flex flex-col [border:1px_solid_#BAE8F6] [border-radius:10px] [background:#f0fcff] overflow-hidden [transition:border-color_0.2s,_box-shadow_0.2s] focus-within:[border-color:#3783D1] focus-within:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus-within:[background:#ffffff]'
+        'flex flex-col [border:1px_solid_#68577E] [border-radius:10px] [background:#25232C] overflow-hidden [transition:border-color_0.2s,_box-shadow_0.2s] focus-within:[border-color:#EF5928] focus-within:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus-within:[background:#302638]'
       }
     >
       <div
         className={
-          'flex items-center [gap:2px] [padding:8px_10px] [border-bottom:1px_solid_#C5EDF8] [background:#EBF9FD] [flex-wrap:wrap]'
+          'flex items-center [gap:2px] [padding:8px_10px] [border-bottom:1px_solid_#68577E] [background:#302638] [flex-wrap:wrap]'
         }
       >
         <ToolBtn
@@ -142,7 +142,7 @@ export function RichTextEditor({
 
         <span
           className={
-            '[width:1px] [height:18px] [background:#BAE8F6] [margin:0_4px] shrink-0'
+            '[width:1px] [height:18px] [background:#68577E] [margin:0_4px] shrink-0'
           }
         />
 
@@ -163,7 +163,7 @@ export function RichTextEditor({
 
         <span
           className={
-            '[width:1px] [height:18px] [background:#BAE8F6] [margin:0_4px] shrink-0'
+            '[width:1px] [height:18px] [background:#68577E] [margin:0_4px] shrink-0'
           }
         />
 
@@ -241,7 +241,7 @@ export function RichTextEditor({
 
         <span
           className={
-            '[width:1px] [height:18px] [background:#BAE8F6] [margin:0_4px] shrink-0'
+            '[width:1px] [height:18px] [background:#68577E] [margin:0_4px] shrink-0'
           }
         />
 
@@ -279,7 +279,7 @@ export function RichTextEditor({
 
       <div
         className={
-          'relative flex-1 before:[content:attr(data-placeholder)] before:absolute before:[top:12px] before:[left:14px] before:[color:#6BA3E3] before:[font-size:14px] before:pointer-events-none before:[user-select:none]'
+          'relative flex-1 before:[content:attr(data-placeholder)] before:absolute before:[top:12px] before:[left:14px] before:[color:#A1C8FA] before:[font-size:14px] before:pointer-events-none before:[user-select:none]'
         }
         data-placeholder={!value ? placeholder : undefined}
       >

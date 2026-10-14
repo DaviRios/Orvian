@@ -84,15 +84,15 @@ export function BlogPosts() {
   }
 
   return (
-    <div className={'min-h-screen [background:#f8f7fc] flex flex-col'}>
+    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
       <div
         className={
-          'flex items-center justify-between [padding:18px_40px] [background:#ffffff] [border-bottom:1px_solid_#C5EDF8] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
         }
       >
         <button
           className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#EBF9FD] hover:[color:#3783D1]'
+            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
           }
           onClick={() => navigate('/')}
         >
@@ -113,7 +113,7 @@ export function BlogPosts() {
         </button>
         <button
           className={
-            '[background:#3783D1] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
+            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
           }
           onClick={() => openForm()}
         >
@@ -132,19 +132,19 @@ export function BlogPosts() {
           <div>
             <h1
               className={
-                '[font-size:22px] font-bold [color:#1e1b2e] [margin:0_0_4px] [letter-spacing:-0.01em]'
+                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
               }
             >
               Blog e Notícias
             </h1>
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Gerencie os posts publicados no blog do site
             </p>
           </div>
           {posts.length > 0 && (
             <span
               className={
-                '[background:#C5EDF8] [color:#3783D1] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
+                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
               }
             >
               {posts.length} post{posts.length > 1 ? 's' : ''}
@@ -197,10 +197,10 @@ export function BlogPosts() {
           >
             <div
               className={
-                '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+                '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
               }
             />
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Carregando posts...
             </p>
           </div>
@@ -214,12 +214,12 @@ export function BlogPosts() {
               <div
                 key={post.id}
                 className={
-                  '[background:#ffffff] [border-radius:18px] [border:1px_solid_#C5EDF8] overflow-hidden [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_28px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
+                  '[background:#302638] [border-radius:18px] [border:1px_solid_#68577E] overflow-hidden [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_28px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
                 }
               >
                 <div
                   className={
-                    '[height:160px] overflow-hidden [background:#EBF9FD] relative'
+                    '[height:160px] overflow-hidden [background:#302638] relative'
                   }
                 >
                   {post.imageUrl ? (
@@ -232,7 +232,7 @@ export function BlogPosts() {
                   ) : (
                     <div
                       className={
-                        'w-full h-full flex items-center justify-center [color:#A0BEE8]'
+                        'w-full h-full flex items-center justify-center [color:#A1C8FA]'
                       }
                     >
                       <svg
@@ -267,7 +267,7 @@ export function BlogPosts() {
                 <div className={'[padding:16px_18px] flex flex-col [gap:6px]'}>
                   <h3
                     className={
-                      '[font-size:15px] font-bold [color:#1e1b2e] [margin:0] [line-height:1.35]'
+                      '[font-size:15px] font-bold [color:#F7F2FA] [margin:0] [line-height:1.35]'
                     }
                   >
                     {post.title}
@@ -275,7 +275,7 @@ export function BlogPosts() {
                   {post.description && (
                     <p
                       className={
-                        '[font-size:14px] [color:#6b7280] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden'
+                        '[font-size:14px] [color:#AFA5B6] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden'
                       }
                     >
                       {post.description.replace(/<[^>]*>/g, '')}
@@ -284,7 +284,7 @@ export function BlogPosts() {
                   {post.authorName && (
                     <p
                       className={
-                        'flex items-center [gap:5px] [font-size:14px] [color:#9ca3af] [margin:0]'
+                        'flex items-center [gap:5px] [font-size:14px] [color:#9981AE] [margin:0]'
                       }
                     >
                       <svg
@@ -303,11 +303,11 @@ export function BlogPosts() {
                   )}
                   <div
                     className={
-                      'flex items-center justify-between [margin-top:8px] [padding-top:12px] [border-top:1px_solid_#EBF9FD]'
+                      'flex items-center justify-between [margin-top:8px] [padding-top:12px] [border-top:1px_solid_#302638]'
                     }
                   >
                     <span
-                      className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${post.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#f0fcff] [color:#7c6fa0] [border:1px_solid_#BAE8F6]'}`}
+                      className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${post.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#25232C] [color:#9981AE] [border:1px_solid_#68577E]'}`}
                     >
                       {post.isPublished ? 'Publicado' : 'Rascunho'}
                     </span>
@@ -315,7 +315,7 @@ export function BlogPosts() {
                       {!post.isPublished && (
                         <button
                           className={
-                            '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#C5EDF8] [background:#f0fcff] [color:#9ca3af] flex items-center justify-center cursor-pointer [transition:background_0.15s,_color_0.15s] [padding:0] hover:[background:#eff6ff] hover:[color:#2563eb] hover:[border-color:#bfdbfe]'
+                            '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer [transition:background_0.15s,_color_0.15s] [padding:0] hover:[background:#302638] hover:[color:#EF5928] hover:[border-color:#68577E]'
                           }
                           onClick={() => openForm(post)}
                           title="Editar rascunho"
@@ -336,13 +336,13 @@ export function BlogPosts() {
                         </button>
                       )}
                       <button
-                        className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${post.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#3783D1] [background:#EBF9FD] hover:[background:#C5EDF8]'}`}
+                        className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${post.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#EF5928] [background:#302638] hover:[background:#68577E]'}`}
                         onClick={() => handlePublishToggle(post)}
                       >
                         {post.isPublished ? 'Despublicar' : 'Publicar'}
                       </button>
                       <button
-                        className={`${'[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#C5EDF8] [background:#f0fcff] [color:#9ca3af] flex items-center justify-center cursor-pointer [transition:background_0.15s,_color_0.15s] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'} ${confirmingId === post.id ? '[width:auto] [padding:0_10px] [font-size:14px] font-semibold [background:#fef2f2] [color:#dc2626] [border-color:#fecaca] hover:[background:#fee2e2]' : ''}`}
+                        className={`${'[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer [transition:background_0.15s,_color_0.15s] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'} ${confirmingId === post.id ? '[width:auto] [padding:0_10px] [font-size:14px] font-semibold [background:#fef2f2] [color:#dc2626] [border-color:#fecaca] hover:[background:#fee2e2]' : ''}`}
                         onClick={() => handleDelete(post)}
                         title={
                           confirmingId === post.id
@@ -381,7 +381,7 @@ export function BlogPosts() {
             >
               <div
                 className={
-                  '[width:68px] [height:68px] [border-radius:20px] [background:#EBF9FD] flex items-center justify-center [color:#6BA3E3] [margin-bottom:8px]'
+                  '[width:68px] [height:68px] [border-radius:20px] [background:#302638] flex items-center justify-center [color:#A1C8FA] [margin-bottom:8px]'
                 }
               >
                 <svg
@@ -402,21 +402,21 @@ export function BlogPosts() {
               </div>
               <p
                 className={
-                  '[font-size:15.5px] font-semibold [color:#1e1b2e] [margin:0]'
+                  '[font-size:15.5px] font-semibold [color:#F7F2FA] [margin:0]'
                 }
               >
                 Nenhum post cadastrado
               </p>
               <p
                 className={
-                  '[font-size:14px] [color:#7c6fa0] [margin:0] [max-width:300px] [line-height:1.6]'
+                  '[font-size:14px] [color:#9981AE] [margin:0] [max-width:300px] [line-height:1.6]'
                 }
               >
                 Crie o primeiro post para publicar no blog
               </p>
               <button
                 className={
-                  '[margin-top:8px] [background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)]'
+                  '[margin-top:8px] [background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#FF892B] hover:[transform:translateY(-1px)]'
                 }
                 onClick={() => openForm()}
               >

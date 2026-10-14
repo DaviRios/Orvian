@@ -169,10 +169,10 @@ export function PopupsTab({
       >
         <div
           className={
-            '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+            '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
           }
         />
-        <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+        <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
           Carregando...
         </p>
       </div>
@@ -184,7 +184,7 @@ export function PopupsTab({
       {showForm && (
         <div
           className={
-            '[background:#ffffff] [border-radius:20px] [border:1px_solid_#C5EDF8] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
+            '[background:#302638] [border-radius:20px] [border:1px_solid_#68577E] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
           }
         >
           <div
@@ -193,12 +193,12 @@ export function PopupsTab({
             <div>
               <h2
                 className={
-                  '[font-size:17px] font-bold [color:#1e1b2e] [margin:0_0_4px]'
+                  '[font-size:17px] font-bold [color:#F7F2FA] [margin:0_0_4px]'
                 }
               >
                 {editingPopup ? 'Editar Popup' : 'Novo Popup'}
               </h2>
-              <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+              <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
                 {editingPopup
                   ? 'Atualize os campos do popup'
                   : 'Configure um popup para exibir no site'}
@@ -206,7 +206,7 @@ export function PopupsTab({
             </div>
             <button
               className={
-                '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#C5EDF8] [background:#f0fcff] [color:#7c6fa0] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
               }
               onClick={() => {
                 setShowForm(false);
@@ -239,7 +239,7 @@ export function PopupsTab({
               <div className={'flex flex-col [gap:6px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                   htmlFor="ppTitle"
                 >
@@ -249,7 +249,7 @@ export function PopupsTab({
                   id="ppTitle"
                   type="text"
                   className={
-                    'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                    'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                   }
                   placeholder="Título do popup"
                   value={ppTitle}
@@ -260,7 +260,7 @@ export function PopupsTab({
               <div className={'flex flex-col [gap:6px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                   htmlFor="ppLang"
                 >
@@ -269,7 +269,7 @@ export function PopupsTab({
                 <select
                   id="ppLang"
                   className={
-                    'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                    'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                   }
                   value={ppLang}
                   onChange={(e) =>
@@ -284,7 +284,7 @@ export function PopupsTab({
             <div className={'flex flex-col [gap:6px]'}>
               <label
                 className={
-                  '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                  '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                 }
                 htmlFor="ppDesc"
               >
@@ -292,7 +292,7 @@ export function PopupsTab({
               </label>
               <textarea
                 id="ppDesc"
-                className={`${'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'} ${'[resize:vertical] [min-height:88px] [line-height:1.6]'}`}
+                className={`${'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'} ${'[resize:vertical] [min-height:88px] [line-height:1.6]'}`}
                 placeholder="Mensagem exibida no popup..."
                 value={ppDesc}
                 onChange={(e) => setPpDesc(e.target.value)}
@@ -303,7 +303,7 @@ export function PopupsTab({
               <div className={'flex flex-col [gap:6px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                   htmlFor="ppBtnText"
                 >
@@ -313,7 +313,7 @@ export function PopupsTab({
                   id="ppBtnText"
                   type="text"
                   className={
-                    'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                    'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                   }
                   placeholder="Ex: Saiba mais"
                   value={ppBtnText}
@@ -323,7 +323,7 @@ export function PopupsTab({
               <div className={'flex flex-col [gap:6px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                   htmlFor="ppRedirectUrl"
                 >
@@ -333,7 +333,7 @@ export function PopupsTab({
                   id="ppRedirectUrl"
                   type="text"
                   className={
-                    'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                    'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                   }
                   placeholder="https://..."
                   value={ppRedirectUrl}
@@ -345,13 +345,13 @@ export function PopupsTab({
               <div className={'flex flex-col [gap:6px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                   htmlFor="ppBtnText2"
                 >
                   Texto do botão 2{' '}
                   <span
-                    className={'[font-size:12px] font-normal [color:#9ca3af]'}
+                    className={'[font-size:12px] font-normal [color:#9981AE]'}
                   >
                     (opcional)
                   </span>
@@ -360,7 +360,7 @@ export function PopupsTab({
                   id="ppBtnText2"
                   type="text"
                   className={
-                    'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                    'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                   }
                   placeholder="Ex: Fechar"
                   value={ppBtnText2}
@@ -370,7 +370,7 @@ export function PopupsTab({
               <div className={'flex flex-col [gap:6px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                   htmlFor="ppRedirectUrl2"
                 >
@@ -380,7 +380,7 @@ export function PopupsTab({
                   id="ppRedirectUrl2"
                   type="text"
                   className={
-                    'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                    'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                   }
                   placeholder="https://..."
                   value={ppRedirectUrl2}
@@ -391,7 +391,7 @@ export function PopupsTab({
             <div className={'flex flex-col [gap:6px]'}>
               <label
                 className={
-                  '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                  '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                 }
                 htmlFor="ppStyle"
               >
@@ -400,7 +400,7 @@ export function PopupsTab({
               <div className={'flex items-center [gap:10px]'}>
                 <div
                   className={
-                    '[width:36px] [height:36px] [border-radius:8px] [border:1px_solid_#C5EDF8] shrink-0'
+                    '[width:36px] [height:36px] [border-radius:8px] [border:1px_solid_#68577E] shrink-0'
                   }
                   style={{
                     background: `linear-gradient(90deg, ${POPUP_STYLE_COLORS[ppStyle][0]} 50%, ${POPUP_STYLE_COLORS[ppStyle][1]} 50%)`,
@@ -408,7 +408,7 @@ export function PopupsTab({
                 />
                 <select
                   id="ppStyle"
-                  className={`${'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'} ${'flex-1'}`}
+                  className={`${'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'} ${'flex-1'}`}
                   value={ppStyle}
                   onChange={(e) => setPpStyle(e.target.value as PopupStyle)}
                 >
@@ -424,13 +424,13 @@ export function PopupsTab({
             </div>
             <div
               className={
-                'flex justify-end [gap:12px] [padding-top:14px] [border-top:1px_solid_#EBF9FD]'
+                'flex justify-end [gap:12px] [padding-top:14px] [border-top:1px_solid_#302638]'
               }
             >
               <button
                 type="button"
                 className={
-                  '[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#EBF9FD] hover:[border-color:#A0BEE8] hover:[color:#3783D1]'
+                  '[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#302638] hover:[border-color:#A1C8FA] hover:[color:#EF5928]'
                 }
                 onClick={() => {
                   setShowForm(false);
@@ -442,7 +442,7 @@ export function PopupsTab({
               <button
                 type="submit"
                 className={
-                  '[background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
+                  '[background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
                 }
                 disabled={saving}
               >
@@ -474,26 +474,26 @@ export function PopupsTab({
             <div
               key={popup.id}
               className={
-                '[background:#ffffff] [border-radius:18px] [border:1px_solid_#C5EDF8] [padding:22px] flex flex-col [gap:10px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_24px_rgba(84,_200,_232,_0.1)] hover:[transform:translateY(-2px)]'
+                '[background:#302638] [border-radius:18px] [border:1px_solid_#68577E] [padding:22px] flex flex-col [gap:10px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_24px_rgba(84,_200,_232,_0.1)] hover:[transform:translateY(-2px)]'
               }
             >
               <div className={'flex items-center justify-between'}>
                 <span
                   className={
-                    '[font-size:14px] font-bold [color:#3783D1] [background:#EBF9FD] [border:1px_solid_#BAE8F6] [padding:3px_9px] [border-radius:6px] [letter-spacing:0.05em]'
+                    '[font-size:14px] font-bold [color:#EF5928] [background:#302638] [border:1px_solid_#68577E] [padding:3px_9px] [border-radius:6px] [letter-spacing:0.05em]'
                   }
                 >
                   {LANG_LABEL[popup.language] ?? popup.language}
                 </span>
                 <span
-                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${popup.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#f0fcff] [color:#7c6fa0] [border:1px_solid_#BAE8F6]'}`}
+                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${popup.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#25232C] [color:#9981AE] [border:1px_solid_#68577E]'}`}
                 >
                   {popup.isPublished ? 'Publicado' : 'Rascunho'}
                 </span>
               </div>
               <h3
                 className={
-                  '[font-size:15px] font-bold [color:#1e1b2e] [margin:0]'
+                  '[font-size:15px] font-bold [color:#F7F2FA] [margin:0]'
                 }
               >
                 {popup.title}
@@ -509,7 +509,7 @@ export function PopupsTab({
                     }}
                   />
                   <span
-                    className={'[font-size:14px] font-semibold [color:#6b7280]'}
+                    className={'[font-size:14px] font-semibold [color:#AFA5B6]'}
                   >
                     {POPUP_STYLE_LABELS[popup.style]}
                   </span>
@@ -518,7 +518,7 @@ export function PopupsTab({
               {popup.description && (
                 <p
                   className={
-                    '[font-size:14px] [color:#6b7280] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] overflow-hidden flex-1'
+                    '[font-size:14px] [color:#AFA5B6] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] overflow-hidden flex-1'
                   }
                 >
                   {popup.description}
@@ -527,14 +527,14 @@ export function PopupsTab({
               {popup.buttonText && (
                 <div
                   className={
-                    'flex flex-col [gap:2px] [background:#f0fcff] [border:1px_solid_#C5EDF8] [border-radius:10px] [padding:8px_12px] [font-size:14px] font-semibold [color:#3783D1]'
+                    'flex flex-col [gap:2px] [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:8px_12px] [font-size:14px] font-semibold [color:#EF5928]'
                   }
                 >
                   <span>{popup.buttonText}</span>
                   {popup.redirectUrl && (
                     <span
                       className={
-                        '[font-size:14px] [color:#9ca3af] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
+                        '[font-size:14px] [color:#9981AE] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
                       }
                     >
                       {popup.redirectUrl}
@@ -545,14 +545,14 @@ export function PopupsTab({
               {popup.buttonText2 && (
                 <div
                   className={
-                    'flex flex-col [gap:2px] [background:#f0fcff] [border:1px_solid_#C5EDF8] [border-radius:10px] [padding:8px_12px] [font-size:14px] font-semibold [color:#3783D1]'
+                    'flex flex-col [gap:2px] [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:8px_12px] [font-size:14px] font-semibold [color:#EF5928]'
                   }
                 >
                   <span>{popup.buttonText2}</span>
                   {popup.redirectUrl2 && (
                     <span
                       className={
-                        '[font-size:14px] [color:#9ca3af] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
+                        '[font-size:14px] [color:#9981AE] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
                       }
                     >
                       {popup.redirectUrl2}
@@ -562,14 +562,14 @@ export function PopupsTab({
               )}
               <div
                 className={
-                  'flex justify-end [padding-top:10px] [border-top:1px_solid_#EBF9FD]'
+                  'flex justify-end [padding-top:10px] [border-top:1px_solid_#302638]'
                 }
               >
                 <div className={'flex items-center [gap:6px]'}>
                   {!popup.isPublished && (
                     <button
                       className={
-                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#eff6ff] hover:[color:#2563eb] hover:[border-color:#bfdbfe]'
+                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#302638] hover:[color:#EF5928] hover:[border-color:#68577E]'
                       }
                       onClick={() => openPopupForm(popup)}
                       title="Editar rascunho"
@@ -590,14 +590,14 @@ export function PopupsTab({
                     </button>
                   )}
                   <button
-                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${popup.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#3783D1] [background:#EBF9FD] hover:[background:#C5EDF8]'}`}
+                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${popup.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#EF5928] [background:#302638] hover:[background:#68577E]'}`}
                     onClick={() => handleTogglePublish(popup)}
                   >
                     {popup.isPublished ? 'Despublicar' : 'Publicar'}
                   </button>
                   <button
                     className={
-                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
                     }
                     onClick={() => handleDelete(popup)}
                     title="Remover"

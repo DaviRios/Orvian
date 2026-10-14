@@ -7,7 +7,6 @@ import {
   deleteSlide,
   publishSlide,
   unpublishSlide,
-  toggleSlide,
   SlideDTO,
 } from '../../../services/slides.service';
 import { uploadImage } from '../../../services/images.service';
@@ -153,19 +152,6 @@ export function SlidesTab({
     }
   }
 
-  async function handleToggleActive(slide: SlideDTO) {
-    try {
-      await toggleSlide(slide.id);
-      const data = await listSlides();
-      queryClient.setQueryData(['slides'], data);
-      onCountChange(data.length);
-    } catch (reason) {
-      setError(
-        reason instanceof Error ? reason.message : 'Erro ao alterar o slide.',
-      );
-    }
-  }
-
   function handleDelete(slide: SlideDTO) {
     setPendingDelete({
       label: slide.text,
@@ -185,10 +171,10 @@ export function SlidesTab({
       >
         <div
           className={
-            '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+            '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
           }
         />
-        <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+        <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
           Carregando...
         </p>
       </div>
@@ -200,7 +186,7 @@ export function SlidesTab({
       {showForm && (
         <div
           className={
-            '[background:#ffffff] [border-radius:20px] [border:1px_solid_#C5EDF8] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
+            '[background:#302638] [border-radius:20px] [border:1px_solid_#68577E] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
           }
         >
           <div
@@ -209,12 +195,12 @@ export function SlidesTab({
             <div>
               <h2
                 className={
-                  '[font-size:17px] font-bold [color:#1e1b2e] [margin:0_0_4px]'
+                  '[font-size:17px] font-bold [color:#F7F2FA] [margin:0_0_4px]'
                 }
               >
                 {editingSlide ? 'Editar Slide' : 'Novo Slide'}
               </h2>
-              <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+              <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
                 {editingSlide
                   ? 'Atualize os campos do slide'
                   : 'Configure o slide do hero da página inicial'}
@@ -222,7 +208,7 @@ export function SlidesTab({
             </div>
             <button
               className={
-                '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#C5EDF8] [background:#f0fcff] [color:#7c6fa0] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
               }
               onClick={() => {
                 setShowForm(false);
@@ -259,13 +245,13 @@ export function SlidesTab({
               <div className={'flex flex-col [gap:8px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                 >
                   Logo do slide (opcional)
                 </label>
                 <div
-                  className={`${'[aspect-ratio:1] [border:2px_dashed_#A0BEE8] [border-radius:14px] [background:#f0fcff] flex items-center justify-center cursor-pointer overflow-hidden [transition:border-color_0.2s,_background_0.2s] hover:[border-color:#3783D1] hover:[background:#EBF9FD]'} ${slLogoPreview ? '[border-style:solid] [border-color:#A0BEE8]' : ''}`}
+                  className={`${'[aspect-ratio:1] [border:2px_dashed_#A1C8FA] [border-radius:14px] [background:#25232C] flex items-center justify-center cursor-pointer overflow-hidden [transition:border-color_0.2s,_background_0.2s] hover:[border-color:#EF5928] hover:[background:#302638]'} ${slLogoPreview ? '[border-style:solid] [border-color:#A1C8FA]' : ''}`}
                   onClick={() => slLogoRef.current?.click()}
                 >
                   <input
@@ -291,7 +277,7 @@ export function SlidesTab({
                     >
                       <div
                         className={
-                          '[width:40px] [height:40px] [border-radius:11px] [background:#C5EDF8] flex items-center justify-center [color:#3783D1]'
+                          '[width:40px] [height:40px] [border-radius:11px] [background:#68577E] flex items-center justify-center [color:#EF5928]'
                         }
                       >
                         <svg
@@ -309,7 +295,7 @@ export function SlidesTab({
                       </div>
                       <span
                         className={
-                          '[font-size:14px] font-medium [color:#4b5563]'
+                          '[font-size:14px] font-medium [color:#D2C9D7]'
                         }
                       >
                         Clique para adicionar
@@ -321,7 +307,7 @@ export function SlidesTab({
                   <button
                     type="button"
                     className={
-                      'border-0 [background:none] [font-size:14px] font-semibold [color:#3783D1] cursor-pointer [padding:0] [font-family:inherit]'
+                      'border-0 [background:none] [font-size:14px] font-semibold [color:#EF5928] cursor-pointer [padding:0] [font-family:inherit]'
                     }
                     onClick={() => slLogoRef.current?.click()}
                   >
@@ -333,7 +319,7 @@ export function SlidesTab({
                 <div className={'flex flex-col [gap:6px]'}>
                   <label
                     className={
-                      '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                      '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                     }
                     htmlFor="slText"
                   >
@@ -341,7 +327,7 @@ export function SlidesTab({
                   </label>
                   <textarea
                     id="slText"
-                    className={`${'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'} ${'[resize:vertical] [min-height:88px] [line-height:1.6]'}`}
+                    className={`${'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'} ${'[resize:vertical] [min-height:88px] [line-height:1.6]'}`}
                     placeholder="Texto principal exibido no slide..."
                     value={slText}
                     onChange={(e) => setSlText(e.target.value)}
@@ -355,7 +341,7 @@ export function SlidesTab({
                   <div className={'flex flex-col [gap:6px]'}>
                     <label
                       className={
-                        '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                        '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                       }
                       htmlFor="slBtnText"
                     >
@@ -365,7 +351,7 @@ export function SlidesTab({
                       id="slBtnText"
                       type="text"
                       className={
-                        'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                        'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                       }
                       placeholder="Ex: Saiba mais"
                       value={slBtnText}
@@ -375,7 +361,7 @@ export function SlidesTab({
                   <div className={'flex flex-col [gap:6px]'}>
                     <label
                       className={
-                        '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                        '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                       }
                       htmlFor="slLang"
                     >
@@ -384,7 +370,7 @@ export function SlidesTab({
                     <select
                       id="slLang"
                       className={
-                        'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                        'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                       }
                       value={slLang}
                       onChange={(e) =>
@@ -399,7 +385,7 @@ export function SlidesTab({
                 <div className={'flex flex-col [gap:6px]'}>
                   <label
                     className={
-                      '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                      '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                     }
                     htmlFor="slBtnUrl"
                   >
@@ -409,7 +395,7 @@ export function SlidesTab({
                     id="slBtnUrl"
                     type="text"
                     className={
-                      'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                      'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                     }
                     placeholder="https://..."
                     value={slBtnUrl}
@@ -420,13 +406,13 @@ export function SlidesTab({
             </div>
             <div
               className={
-                'flex justify-end [gap:12px] [padding-top:14px] [border-top:1px_solid_#EBF9FD]'
+                'flex justify-end [gap:12px] [padding-top:14px] [border-top:1px_solid_#302638]'
               }
             >
               <button
                 type="button"
                 className={
-                  '[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#EBF9FD] hover:[border-color:#A0BEE8] hover:[color:#3783D1]'
+                  '[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#302638] hover:[border-color:#A1C8FA] hover:[color:#EF5928]'
                 }
                 onClick={() => {
                   setShowForm(false);
@@ -438,7 +424,7 @@ export function SlidesTab({
               <button
                 type="submit"
                 className={
-                  '[background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
+                  '[background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
                 }
                 disabled={saving}
               >
@@ -470,26 +456,26 @@ export function SlidesTab({
             <div
               key={slide.id}
               className={
-                '[background:#ffffff] [border-radius:18px] [border:1px_solid_#C5EDF8] [padding:22px] flex flex-col [gap:12px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_24px_rgba(84,_200,_232,_0.1)] hover:[transform:translateY(-2px)]'
+                '[background:#302638] [border-radius:18px] [border:1px_solid_#68577E] [padding:22px] flex flex-col [gap:12px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_8px_24px_rgba(84,_200,_232,_0.1)] hover:[transform:translateY(-2px)]'
               }
             >
               <div className={'flex items-center justify-between'}>
                 <span
                   className={
-                    '[font-size:14px] font-bold [color:#3783D1] [background:#EBF9FD] [border:1px_solid_#BAE8F6] [padding:3px_9px] [border-radius:6px] [letter-spacing:0.05em]'
+                    '[font-size:14px] font-bold [color:#EF5928] [background:#302638] [border:1px_solid_#68577E] [padding:3px_9px] [border-radius:6px] [letter-spacing:0.05em]'
                   }
                 >
                   {LANG_LABEL[slide.language] ?? slide.language}
                 </span>
                 <span
-                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${slide.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#f0fcff] [color:#7c6fa0] [border:1px_solid_#BAE8F6]'}`}
+                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${slide.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#25232C] [color:#9981AE] [border:1px_solid_#68577E]'}`}
                 >
                   {slide.isPublished ? 'Publicado' : 'Rascunho'}
                 </span>
               </div>
               <p
                 className={
-                  '[font-size:14px] [color:#1e1b2e] [margin:0] [line-height:1.6] flex-1'
+                  '[font-size:14px] [color:#F7F2FA] [margin:0] [line-height:1.6] flex-1'
                 }
               >
                 {slide.text}
@@ -497,13 +483,13 @@ export function SlidesTab({
               {(slide.buttonText || slide.buttonUrl) && (
                 <div
                   className={
-                    'flex flex-col [gap:2px] [background:#f0fcff] [border:1px_solid_#C5EDF8] [border-radius:10px] [padding:10px_12px]'
+                    'flex flex-col [gap:2px] [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:10px_12px]'
                   }
                 >
                   {slide.buttonText && (
                     <span
                       className={
-                        '[font-size:14px] font-semibold [color:#3783D1]'
+                        '[font-size:14px] font-semibold [color:#EF5928]'
                       }
                     >
                       {slide.buttonText}
@@ -512,7 +498,7 @@ export function SlidesTab({
                   {slide.buttonUrl && (
                     <span
                       className={
-                        '[font-size:14px] [color:#9ca3af] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
+                        '[font-size:14px] [color:#9981AE] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
                       }
                     >
                       {slide.buttonUrl}
@@ -522,14 +508,14 @@ export function SlidesTab({
               )}
               <div
                 className={
-                  'flex justify-end [padding-top:10px] [border-top:1px_solid_#EBF9FD]'
+                  'flex justify-end [padding-top:10px] [border-top:1px_solid_#302638]'
                 }
               >
                 <div className={'flex items-center [gap:6px]'}>
                   {!slide.isPublished && (
                     <button
                       className={
-                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#eff6ff] hover:[color:#2563eb] hover:[border-color:#bfdbfe]'
+                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#302638] hover:[color:#EF5928] hover:[border-color:#68577E]'
                       }
                       onClick={() => openSlideForm(slide)}
                       title="Editar rascunho"
@@ -550,14 +536,14 @@ export function SlidesTab({
                     </button>
                   )}
                   <button
-                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${slide.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#3783D1] [background:#EBF9FD] hover:[background:#C5EDF8]'}`}
+                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${slide.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#EF5928] [background:#302638] hover:[background:#68577E]'}`}
                     onClick={() => handleTogglePublish(slide)}
                   >
                     {slide.isPublished ? 'Despublicar' : 'Publicar'}
                   </button>
                   <button
                     className={
-                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
                     }
                     onClick={() => handleDelete(slide)}
                     title="Remover"

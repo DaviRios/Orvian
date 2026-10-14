@@ -1,4 +1,4 @@
-import type { AuthenticatedUser } from '@soir/contracts';
+import type { AuthenticatedUser } from '@orvian/contracts';
 
 declare module 'fastify' {
   interface FastifyRequest {

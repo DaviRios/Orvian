@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { ZodTypeProvider } from '@fastify/type-provider-zod';
-import { dashboardSummarySchema } from '@soir/contracts';
+import { dashboardSummarySchema } from '@orvian/contracts';
 import type { AuthService } from '../auth/auth.service';
 import { requireAuth } from '../auth/auth.routes';
 import type { DashboardService } from './dashboard.service';

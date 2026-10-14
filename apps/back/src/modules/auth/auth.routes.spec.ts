@@ -85,7 +85,7 @@ describe('auth API integration', () => {
     const service = new AuthService(repository);
     await service.bootstrapAdmin({
       username: 'admin',
-      email: 'admin@soir.local',
+      email: 'admin@orvian.local',
       password: 'admin123',
     });
     const app = Fastify({ logger: false });
@@ -118,7 +118,7 @@ describe('auth API integration', () => {
     );
     await app.register(jwt, {
       secret: 'a-secure-test-secret-with-at-least-32-chars',
-      cookie: { cookieName: 'soir_access_token', signed: false },
+      cookie: { cookieName: 'orvian_access_token', signed: false },
     });
     await app.register(authRoutes, {
       prefix: '/v1',
@@ -129,10 +129,10 @@ describe('auth API integration', () => {
         APP_ORIGIN: 'http://localhost:4200',
         DATABASE_URL: 'memory://',
         JWT_SECRET: 'a-secure-test-secret-with-at-least-32-chars',
-        CMS_ADMIN_USER: 'admin',
-        CMS_ADMIN_EMAIL: 'admin@soir.local',
-        CMS_ADMIN_PASSWORD: 'admin123',
-        CMS_UPLOAD_DIR: 'data/uploads',
+        ORVIAN_ADMIN_USER: 'admin',
+        ORVIAN_ADMIN_EMAIL: 'admin@orvian.local',
+        ORVIAN_ADMIN_PASSWORD: 'admin123',
+        ORVIAN_UPLOAD_DIR: 'data/uploads',
         MEDIA_STORAGE: 'local',
         S3_REGION: 'us-east-1',
         S3_FORCE_PATH_STYLE: false,
@@ -149,7 +149,7 @@ describe('auth API integration', () => {
     const login = await app.inject({
       method: 'POST',
       url: '/v1/users/auth',
-      payload: { email: 'admin@soir.local', password: 'admin123' },
+      payload: { email: 'admin@orvian.local', password: 'admin123' },
     });
     expect(login.statusCode).toBe(200);
     expect(login.json()).toMatchObject({
@@ -158,7 +158,7 @@ describe('auth API integration', () => {
     const setCookies = login.headers['set-cookie'];
     const cookies = Array.isArray(setCookies) ? setCookies : [setCookies ?? ''];
     const accessCookie = cookies.find((value) =>
-      value.startsWith('soir_access_token='),
+      value.startsWith('orvian_access_token='),
     );
     expect(accessCookie).toContain('HttpOnly');
     const cookieHeader = accessCookie?.split(';', 1)[0];

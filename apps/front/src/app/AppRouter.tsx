@@ -17,7 +17,7 @@ const MediaGallery = lazy(() => import('./pages/media/MediaGallery'));
 
 function Loading() {
   return (
-    <div className="grid min-h-screen place-items-center text-slate-500">
+    <div className="grid min-h-screen place-items-center bg-orvian-charcoal text-orvian-lavender">
       Carregando…
     </div>
   );

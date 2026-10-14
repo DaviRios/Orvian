@@ -1,8 +1,8 @@
 import { createContext, type ReactNode, useContext } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import type { AuthenticatedUser } from '@soir/contracts';
+import type { AuthenticatedUser } from '@orvian/contracts';
 
-const API_BASE_URL = (import.meta.env.VITE_API_CMS_URL ?? '/v1').replace(
+const API_BASE_URL = (import.meta.env.VITE_API_ORVIAN_URL ?? '/v1').replace(
   /\/$/,
   '',
 );
@@ -12,10 +12,10 @@ async function getProfile(): Promise<AuthenticatedUser | null> {
     return {
       sub: '00000000-0000-4000-8000-000000000000',
       username: 'dev',
-      email: 'dev@soir.local',
+      email: 'dev@orvian.local',
       name: 'Davi Rios',
       role: 'ADMIN',
-      groups: ['Soir_admins'],
+      groups: ['Orvian_admins'],
     };
   }
   const response = await fetch(`${API_BASE_URL}/users/profile`, {
@@ -82,7 +82,7 @@ export function AuthRouterMiddleware({
   });
   if (profile.isPending) {
     return (
-      <div className="grid min-h-screen place-items-center text-slate-500">
+      <div className="grid min-h-screen place-items-center bg-orvian-charcoal text-orvian-lavender">
         Carregando…
       </div>
     );

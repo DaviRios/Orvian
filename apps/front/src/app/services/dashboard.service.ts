@@ -1,4 +1,4 @@
-import type { DashboardSummaryDto } from '@soir/contracts';
+import type { DashboardSummaryDto } from '@orvian/contracts';
 import { httpClient } from '../factories/http-client.factory';
 
 export async function getDashboardSummary(

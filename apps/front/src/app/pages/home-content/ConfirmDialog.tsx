@@ -29,20 +29,20 @@ export function ConfirmDialog({
     >
       <div
         className={
-          '[background:#ffffff] [border-radius:18px] [padding:28px_32px] [max-width:420px] [width:calc(100%_-_48px)] [box-shadow:0_12px_40px_rgba(0,_0,_0,_0.18)]'
+          '[background:#302638] [border-radius:18px] [padding:28px_32px] [max-width:420px] [width:calc(100%_-_48px)] [box-shadow:0_12px_40px_rgba(0,_0,_0,_0.18)]'
         }
         onClick={(e) => e.stopPropagation()}
       >
         <p
           className={
-            '[font-size:17px] font-bold [color:#1e1b2e] [margin:0_0_10px]'
+            '[font-size:17px] font-bold [color:#F7F2FA] [margin:0_0_10px]'
           }
         >
           Confirmar exclusão
         </p>
         <p
           className={
-            '[font-size:14px] [color:#4b5563] [line-height:1.6] [margin:0_0_24px]'
+            '[font-size:14px] [color:#D2C9D7] [line-height:1.6] [margin:0_0_24px]'
           }
         >
           Tem certeza que deseja excluir <strong>"{label}"</strong>? Esta ação
@@ -51,7 +51,7 @@ export function ConfirmDialog({
         <div className={'flex justify-end [gap:10px]'}>
           <button
             className={
-              '[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#EBF9FD]'
+              '[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#302638]'
             }
             onClick={onCancel}
           >

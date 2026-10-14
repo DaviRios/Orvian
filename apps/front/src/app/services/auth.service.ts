@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_CMS_URL ?? '/v1';
+const API_BASE_URL = import.meta.env.VITE_API_ORVIAN_URL ?? '/v1';
 
 export interface LoginCredentials {
   email: string;

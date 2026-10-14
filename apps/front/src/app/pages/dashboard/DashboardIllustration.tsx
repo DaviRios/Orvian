@@ -14,19 +14,19 @@ export function DashboardIllustration({
     >
       <defs>
         <linearGradient id="windowTop" x1="0" x2="1">
-          <stop stopColor="#2563EB" />
-          <stop offset="1" stopColor="#60A5FA" />
+          <stop stopColor="#EF5928" />
+          <stop offset="1" stopColor="#FF892B" />
         </linearGradient>
         <linearGradient id="windowBody" x1="0" y1="0" x2="1" y2="1">
-          <stop stopColor="#FFFFFF" />
-          <stop offset="1" stopColor="#EFF6FF" />
+          <stop stopColor="#F7F2F8" />
+          <stop offset="1" stopColor="#D9CCE2" />
         </linearGradient>
         <filter id="panelShadow" x="-30%" y="-30%" width="170%" height="190%">
           <feDropShadow
             dx="0"
             dy="12"
             stdDeviation="10"
-            floodColor="#1D4ED8"
+            floodColor="#25232C"
             floodOpacity="0.2"
           />
         </filter>
@@ -37,7 +37,7 @@ export function DashboardIllustration({
         cy="147"
         rx="124"
         ry="15"
-        fill="#60A5FA"
+        fill="#F9B82D"
         opacity="0.18"
       />
       <g
@@ -55,14 +55,14 @@ export function DashboardIllustration({
 
         <path
           d="M0 30h67v84a12 12 0 0 0 12 12H12a12 12 0 0 1-12-12Z"
-          fill="#DBEAFE"
+          fill="#68577E"
         />
-        <g fill="#3B82F6">
+        <g fill="#EF5928">
           <circle cx="17" cy="47" r="7" />
           <circle cx="17" cy="70" r="7" opacity="0.72" />
           <circle cx="17" cy="93" r="7" opacity="0.5" />
         </g>
-        <g fill="#93C5FD">
+        <g fill="#9981AE">
           <rect x="29" y="43" width="28" height="5" rx="2.5" />
           <rect x="29" y="51" width="19" height="3" rx="1.5" opacity="0.7" />
           <rect x="29" y="66" width="25" height="5" rx="2.5" />
@@ -71,19 +71,19 @@ export function DashboardIllustration({
           <rect x="29" y="97" width="20" height="3" rx="1.5" opacity="0.7" />
         </g>
 
-        <rect x="84" y="44" width="91" height="8" rx="4" fill="#60A5FA" />
-        <rect x="84" y="59" width="151" height="5" rx="2.5" fill="#BFDBFE" />
-        <rect x="84" y="69" width="131" height="5" rx="2.5" fill="#DBEAFE" />
-        <rect x="84" y="79" width="143" height="5" rx="2.5" fill="#DBEAFE" />
-        <rect x="84" y="94" width="66" height="23" rx="5" fill="#DBEAFE" />
-        <circle cx="137" cy="101" r="3" fill="#60A5FA" />
-        <path d="m91 113 12-11 8 7 8-7 19 15H91Z" fill="#93C5FD" />
-        <rect x="161" y="94" width="74" height="6" rx="3" fill="#BFDBFE" />
-        <rect x="161" y="106" width="58" height="5" rx="2.5" fill="#DBEAFE" />
+        <rect x="84" y="44" width="91" height="8" rx="4" fill="#EF5928" />
+        <rect x="84" y="59" width="151" height="5" rx="2.5" fill="#9981AE" />
+        <rect x="84" y="69" width="131" height="5" rx="2.5" fill="#C6B5D2" />
+        <rect x="84" y="79" width="143" height="5" rx="2.5" fill="#C6B5D2" />
+        <rect x="84" y="94" width="66" height="23" rx="5" fill="#E2D8E8" />
+        <circle cx="137" cy="101" r="3" fill="#F9B82D" />
+        <path d="m91 113 12-11 8 7 8-7 19 15H91Z" fill="#B84B55" />
+        <rect x="161" y="94" width="74" height="6" rx="3" fill="#9981AE" />
+        <rect x="161" y="106" width="58" height="5" rx="2.5" fill="#C6B5D2" />
       </g>
 
-      <circle cx="325" cy="46" r="7" fill="#3B82F6" opacity="0.18" />
-      <path d="m27 35 11-11 11 11-11 11Z" fill="#60A5FA" opacity="0.2" />
+      <circle cx="325" cy="46" r="7" fill="#F9B82D" opacity="0.55" />
+      <path d="m27 35 11-11 11 11-11 11Z" fill="#EF5928" opacity="0.45" />
     </svg>
   );
 }

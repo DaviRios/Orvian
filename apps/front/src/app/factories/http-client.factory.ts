@@ -1,4 +1,7 @@
-const BASE_URL = (import.meta.env.VITE_API_CMS_URL ?? '/v1').replace(/\/$/, '');
+const BASE_URL = (import.meta.env.VITE_API_ORVIAN_URL ?? '/v1').replace(
+  /\/$/,
+  '',
+);
 
 export class HttpClient {
   get<T>(path: string, signal?: AbortSignal): Promise<T> {

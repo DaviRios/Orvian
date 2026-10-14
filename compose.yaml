@@ -47,10 +47,10 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-warn}
       DATABASE_URL: postgresql://soir:soir@postgres:5432/soir?schema=public
       JWT_SECRET: ${JWT_SECRET:-local-development-secret-change-before-production}
-      CMS_ADMIN_USER: ${CMS_ADMIN_USER:-admin}
-      CMS_ADMIN_EMAIL: ${CMS_ADMIN_EMAIL:-admin@soir.local}
-      CMS_ADMIN_PASSWORD: ${CMS_ADMIN_PASSWORD:-change-me-before-running}
-      CMS_UPLOAD_DIR: /workspace/data/uploads
+      ORVIAN_ADMIN_USER: ${ORVIAN_ADMIN_USER:-admin}
+      ORVIAN_ADMIN_EMAIL: ${ORVIAN_ADMIN_EMAIL:-admin@orvian.local}
+      ORVIAN_ADMIN_PASSWORD: ${ORVIAN_ADMIN_PASSWORD:-change-me-before-running}
+      ORVIAN_UPLOAD_DIR: /workspace/data/uploads
       MEDIA_STORAGE: local
       NX_DAEMON: 'true'
       WATCHPACK_POLLING: 'true'

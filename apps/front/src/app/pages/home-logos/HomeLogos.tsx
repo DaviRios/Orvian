@@ -90,15 +90,15 @@ export function HomeLogos() {
   }
 
   return (
-    <div className={'min-h-screen [background:#f8f7fc] flex flex-col'}>
+    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
       <div
         className={
-          'flex items-center justify-between [padding:18px_40px] [background:#ffffff] [border-bottom:1px_solid_#C5EDF8] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
         }
       >
         <button
           className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#EBF9FD] hover:[color:#3783D1]'
+            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
           }
           onClick={() => navigate('/')}
         >
@@ -120,7 +120,7 @@ export function HomeLogos() {
 
         <button
           className={
-            '[background:#3783D1] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)] disabled:[opacity:0.6] disabled:cursor-not-allowed'
+            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)] disabled:[opacity:0.6] disabled:cursor-not-allowed'
           }
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
@@ -140,19 +140,19 @@ export function HomeLogos() {
           <div>
             <h1
               className={
-                '[font-size:22px] font-bold [color:#1e1b2e] [margin:0_0_4px] [letter-spacing:-0.01em]'
+                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
               }
             >
               Logos da Home
             </h1>
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Gerencie as logos de parceiros exibidas na página inicial
             </p>
           </div>
           {logos.length > 0 && (
             <span
               className={
-                '[background:#C5EDF8] [color:#3783D1] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
+                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
               }
             >
               {logos.length} logo{logos.length > 1 ? 's' : ''}
@@ -199,7 +199,7 @@ export function HomeLogos() {
         )}
 
         <div
-          className={`${'[border:2px_dashed_#A0BEE8] [border-radius:20px] [background:#f0fcff] [padding:52px_40px] flex flex-col items-center justify-center text-center [gap:10px] cursor-pointer [transition:border-color_0.2s,_background_0.2s,_transform_0.15s] [margin-bottom:36px] hover:[border-color:#3783D1] hover:[background:#EBF9FD]'} ${isDragging ? '[border-color:#3783D1] [background:#EBF9FD] [transform:scale(1.01)] [box-shadow:0_0_0_4px_rgba(84,_200,_232,_0.1)]' : ''} ${uploading ? '[cursor:default] pointer-events-none' : ''}`}
+          className={`${'[border:2px_dashed_#A1C8FA] [border-radius:20px] [background:#25232C] [padding:52px_40px] flex flex-col items-center justify-center text-center [gap:10px] cursor-pointer [transition:border-color_0.2s,_background_0.2s,_transform_0.15s] [margin-bottom:36px] hover:[border-color:#EF5928] hover:[background:#302638]'} ${isDragging ? '[border-color:#EF5928] [background:#302638] [transform:scale(1.01)] [box-shadow:0_0_0_4px_rgba(84,_200,_232,_0.1)]' : ''} ${uploading ? '[cursor:default] pointer-events-none' : ''}`}
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
@@ -218,17 +218,17 @@ export function HomeLogos() {
             <>
               <div
                 className={
-                  '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin [margin-bottom:8px]'
+                  '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin [margin-bottom:8px]'
                 }
               />
               <p
                 className={
-                  '[font-size:15px] font-semibold [color:#1e1b2e] [margin:0]'
+                  '[font-size:15px] font-semibold [color:#F7F2FA] [margin:0]'
                 }
               >
                 Enviando logos...
               </p>
-              <p className={'[font-size:14px] [color:#6BA3E3] [margin:0]'}>
+              <p className={'[font-size:14px] [color:#A1C8FA] [margin:0]'}>
                 Aguarde um momento
               </p>
             </>
@@ -236,7 +236,7 @@ export function HomeLogos() {
             <>
               <div
                 className={
-                  '[width:60px] [height:60px] [border-radius:16px] [background:#C5EDF8] flex items-center justify-center [color:#3783D1] [margin-bottom:4px]'
+                  '[width:60px] [height:60px] [border-radius:16px] [background:#68577E] flex items-center justify-center [color:#EF5928] [margin-bottom:4px]'
                 }
               >
                 <svg
@@ -256,18 +256,18 @@ export function HomeLogos() {
               </div>
               <p
                 className={
-                  '[font-size:15px] font-semibold [color:#1e1b2e] [margin:0]'
+                  '[font-size:15px] font-semibold [color:#F7F2FA] [margin:0]'
                 }
               >
                 {isDragging ? 'Solte as logos aqui' : 'Arraste logos aqui'}
               </p>
-              <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+              <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
                 ou{' '}
-                <span className={'[color:#3783D1] font-semibold'}>
+                <span className={'[color:#EF5928] font-semibold'}>
                   clique para selecionar
                 </span>
               </p>
-              <p className={'[font-size:14px] [color:#6BA3E3] [margin:0]'}>
+              <p className={'[font-size:14px] [color:#A1C8FA] [margin:0]'}>
                 PNG, JPG, SVG, WebP · Múltiplos arquivos
               </p>
             </>
@@ -278,13 +278,13 @@ export function HomeLogos() {
           <section className={'mt-8'}>
             <h2
               className={
-                '[font-size:14px] font-semibold [color:#9ca3af] uppercase [letter-spacing:0.07em] [margin:0_0_16px] flex items-center [gap:10px]'
+                '[font-size:14px] font-semibold [color:#9981AE] uppercase [letter-spacing:0.07em] [margin:0_0_16px] flex items-center [gap:10px]'
               }
             >
               Logos enviadas
               <span
                 className={
-                  '[background:#C5EDF8] [color:#3783D1] [font-size:14px] font-bold [padding:2px_9px] [border-radius:999px] [text-transform:none] [letter-spacing:0]'
+                  '[background:#68577E] [color:#EF5928] [font-size:14px] font-bold [padding:2px_9px] [border-radius:999px] [text-transform:none] [letter-spacing:0]'
                 }
               >
                 {logos.length}
@@ -299,12 +299,12 @@ export function HomeLogos() {
                 <div
                   key={logo.id || idx}
                   className={
-                    '[background:#ffffff] [border-radius:16px] [border:1px_solid_#C5EDF8] overflow-hidden [box-shadow:0_1px_4px_rgba(84,_200,_232,_0.06)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
+                    '[background:#302638] [border-radius:16px] [border:1px_solid_#68577E] overflow-hidden [box-shadow:0_1px_4px_rgba(84,_200,_232,_0.06)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
                   }
                 >
                   <div
                     className={
-                      '[height:96px] flex items-center justify-center [background:#f0fcff] [padding:14px]'
+                      '[height:96px] flex items-center justify-center [background:#25232C] [padding:14px]'
                     }
                   >
                     <img
@@ -317,12 +317,12 @@ export function HomeLogos() {
                   </div>
                   <div
                     className={
-                      '[padding:8px_12px] flex items-center justify-between [gap:6px] [border-top:1px_solid_#EBF9FD]'
+                      '[padding:8px_12px] flex items-center justify-between [gap:6px] [border-top:1px_solid_#302638]'
                     }
                   >
                     <p
                       className={
-                        '[font-size:14px] font-medium [color:#4b5563] [margin:0] whitespace-nowrap overflow-hidden [text-overflow:ellipsis] flex-1'
+                        '[font-size:14px] font-medium [color:#D2C9D7] [margin:0] whitespace-nowrap overflow-hidden [text-overflow:ellipsis] flex-1'
                       }
                       title={logo.name}
                     >
@@ -330,7 +330,7 @@ export function HomeLogos() {
                     </p>
                     <button
                       className={
-                        '[width:22px] [height:22px] [border-radius:7px] border-0 [background:transparent] [color:#9ca3af] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626]'
+                        '[width:22px] [height:22px] [border-radius:7px] border-0 [background:transparent] [color:#9981AE] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626]'
                       }
                       onClick={() => setConfirmingId(logo.id)}
                       title="Remover"
@@ -362,7 +362,7 @@ export function HomeLogos() {
           >
             <div
               className={
-                '[width:68px] [height:68px] [border-radius:20px] [background:#EBF9FD] flex items-center justify-center [color:#6BA3E3] [margin-bottom:8px]'
+                '[width:68px] [height:68px] [border-radius:20px] [background:#302638] flex items-center justify-center [color:#A1C8FA] [margin-bottom:8px]'
               }
             >
               <svg
@@ -382,14 +382,14 @@ export function HomeLogos() {
             </div>
             <p
               className={
-                '[font-size:15.5px] font-semibold [color:#1e1b2e] [margin:0]'
+                '[font-size:15.5px] font-semibold [color:#F7F2FA] [margin:0]'
               }
             >
               Nenhuma logo cadastrada
             </p>
             <p
               className={
-                '[font-size:14px] [color:#7c6fa0] [margin:0] [max-width:300px] [line-height:1.6]'
+                '[font-size:14px] [color:#9981AE] [margin:0] [max-width:300px] [line-height:1.6]'
               }
             >
               Faça upload das logos de parceiros para exibição na página inicial
@@ -406,12 +406,12 @@ export function HomeLogos() {
         >
           <div
             className={
-              '[background:#fff] [border-radius:12px] [padding:28px_32px] [max-width:360px] [width:90%] [box-shadow:0_8px_32px_rgba(0,0,0,0.18)] flex flex-col [gap:20px]'
+              '[background:#302638] [border-radius:12px] [padding:28px_32px] [max-width:360px] [width:90%] [box-shadow:0_8px_32px_rgba(0,0,0,0.18)] flex flex-col [gap:20px]'
             }
           >
             <p
               className={
-                '[font-size:1rem] [color:#1e293b] text-center [margin:0]'
+                '[font-size:1rem] [color:#F7F2FA] text-center [margin:0]'
               }
             >
               Excluir esta logo permanentemente?
@@ -419,7 +419,7 @@ export function HomeLogos() {
             <div className={'flex [gap:10px] justify-center'}>
               <button
                 className={
-                  '[padding:8px_20px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#475569] [font-size:1rem] cursor-pointer [transition:background_0.15s] hover:[background:#f1f5f9]'
+                  '[padding:8px_20px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#C6B5D2] [font-size:1rem] cursor-pointer [transition:background_0.15s] hover:[background:#302638]'
                 }
                 onClick={() => setConfirmingId(null)}
               >

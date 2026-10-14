@@ -10,7 +10,7 @@ export default defineConfig(() => ({
   publicDir: 'public',
   resolve: {
     alias: {
-      '@soir/contracts': fileURLToPath(
+      '@orvian/contracts': fileURLToPath(
         new URL('../../libs/contracts/src/index.ts', import.meta.url),
       ),
     },

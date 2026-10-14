@@ -25,11 +25,11 @@ export function EmptyTabState({
           width: '64px',
           height: '64px',
           borderRadius: '18px',
-          background: '#EBF9FD',
+          background: '#302638',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#6BA3E3',
+          color: '#A1C8FA',
           marginBottom: '6px',
         }}
       >
@@ -52,7 +52,7 @@ export function EmptyTabState({
         style={{
           fontSize: '15px',
           fontWeight: '600',
-          color: '#1e1b2e',
+          color: '#F7F2FA',
           margin: '0',
         }}
       >
@@ -61,7 +61,7 @@ export function EmptyTabState({
       <p
         style={{
           fontSize: '13.5px',
-          color: '#7c6fa0',
+          color: '#9981AE',
           margin: '0',
           maxWidth: '280px',
           lineHeight: '1.6',
@@ -73,7 +73,7 @@ export function EmptyTabState({
         onClick={onAdd}
         style={{
           marginTop: '6px',
-          background: '#3783D1',
+          background: '#EF5928',
           color: '#fff',
           border: 'none',
           borderRadius: '10px',

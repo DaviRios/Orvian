@@ -7,7 +7,7 @@ describe('Login', () => {
   it('validates credentials before sending the form', async () => {
     render(<Login />);
     fireEvent.change(screen.getByLabelText('E-mail'), {
-      target: { value: 'admin@soir.local' },
+      target: { value: 'admin@orvian.local' },
     });
     fireEvent.change(screen.getByLabelText('Senha'), {
       target: { value: 'short' },

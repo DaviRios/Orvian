@@ -5,7 +5,6 @@ import {
   createEcosystemItem,
   updateEcosystemItem,
   deleteEcosystemItem,
-  toggleEcosystemItem,
   publishEcosystemItem,
   unpublishEcosystemItem,
   EcosystemDTO,
@@ -140,19 +139,6 @@ export function EcosystemTab({
     }
   }
 
-  async function handleToggleActive(item: EcosystemDTO) {
-    try {
-      await toggleEcosystemItem(item.id);
-      const data = await listEcosystemItems();
-      queryClient.setQueryData(['ecosystems'], data);
-      onCountChange(data.length);
-    } catch (reason) {
-      setError(
-        reason instanceof Error ? reason.message : 'Erro ao alterar o item.',
-      );
-    }
-  }
-
   function handleDelete(item: EcosystemDTO) {
     setPendingDelete({
       label: item.name,
@@ -172,10 +158,10 @@ export function EcosystemTab({
       >
         <div
           className={
-            '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+            '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
           }
         />
-        <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+        <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
           Carregando...
         </p>
       </div>
@@ -187,7 +173,7 @@ export function EcosystemTab({
       {showForm && (
         <div
           className={
-            '[background:#ffffff] [border-radius:20px] [border:1px_solid_#C5EDF8] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
+            '[background:#302638] [border-radius:20px] [border:1px_solid_#68577E] [box-shadow:0_4px_24px_rgba(84,_200,_232,_0.08)] [padding:28px_32px] [margin-bottom:32px]'
           }
         >
           <div
@@ -196,12 +182,12 @@ export function EcosystemTab({
             <div>
               <h2
                 className={
-                  '[font-size:17px] font-bold [color:#1e1b2e] [margin:0_0_4px]'
+                  '[font-size:17px] font-bold [color:#F7F2FA] [margin:0_0_4px]'
                 }
               >
                 {editingItem ? 'Editar Item' : 'Novo Item do Ecossistema'}
               </h2>
-              <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+              <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
                 {editingItem
                   ? 'Atualize os campos do item'
                   : 'Adicione uma empresa ao ecossistema exibido na home'}
@@ -209,7 +195,7 @@ export function EcosystemTab({
             </div>
             <button
               className={
-                '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#C5EDF8] [background:#f0fcff] [color:#7c6fa0] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                '[width:32px] [height:32px] [border-radius:9px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer shrink-0 [transition:background_0.15s,_color_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
               }
               onClick={() => {
                 setShowForm(false);
@@ -246,13 +232,13 @@ export function EcosystemTab({
               <div className={'flex flex-col [gap:8px]'}>
                 <label
                   className={
-                    '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                    '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                   }
                 >
                   Imagem
                 </label>
                 <div
-                  className={`${'[aspect-ratio:1] [border:2px_dashed_#A0BEE8] [border-radius:14px] [background:#f0fcff] flex items-center justify-center cursor-pointer overflow-hidden [transition:border-color_0.2s,_background_0.2s] hover:[border-color:#3783D1] hover:[background:#EBF9FD]'} ${ecoImagePreview ? '[border-style:solid] [border-color:#A0BEE8]' : ''}`}
+                  className={`${'[aspect-ratio:1] [border:2px_dashed_#A1C8FA] [border-radius:14px] [background:#25232C] flex items-center justify-center cursor-pointer overflow-hidden [transition:border-color_0.2s,_background_0.2s] hover:[border-color:#EF5928] hover:[background:#302638]'} ${ecoImagePreview ? '[border-style:solid] [border-color:#A1C8FA]' : ''}`}
                   onClick={() => ecoImageRef.current?.click()}
                 >
                   <input
@@ -278,7 +264,7 @@ export function EcosystemTab({
                     >
                       <div
                         className={
-                          '[width:40px] [height:40px] [border-radius:11px] [background:#C5EDF8] flex items-center justify-center [color:#3783D1]'
+                          '[width:40px] [height:40px] [border-radius:11px] [background:#68577E] flex items-center justify-center [color:#EF5928]'
                         }
                       >
                         <svg
@@ -296,12 +282,12 @@ export function EcosystemTab({
                       </div>
                       <span
                         className={
-                          '[font-size:14px] font-medium [color:#4b5563]'
+                          '[font-size:14px] font-medium [color:#D2C9D7]'
                         }
                       >
                         Clique para adicionar
                       </span>
-                      <span className={'[font-size:14px] [color:#6BA3E3]'}>
+                      <span className={'[font-size:14px] [color:#A1C8FA]'}>
                         PNG, SVG, WebP
                       </span>
                     </div>
@@ -311,7 +297,7 @@ export function EcosystemTab({
                   <button
                     type="button"
                     className={
-                      'border-0 [background:none] [font-size:14px] font-semibold [color:#3783D1] cursor-pointer [padding:0] [font-family:inherit]'
+                      'border-0 [background:none] [font-size:14px] font-semibold [color:#EF5928] cursor-pointer [padding:0] [font-family:inherit]'
                     }
                     onClick={() => ecoImageRef.current?.click()}
                   >
@@ -323,7 +309,7 @@ export function EcosystemTab({
                 <div className={'flex flex-col [gap:6px]'}>
                   <label
                     className={
-                      '[font-size:14px] font-semibold [color:#374151] [letter-spacing:0.01em]'
+                      '[font-size:14px] font-semibold [color:#E7E1EA] [letter-spacing:0.01em]'
                     }
                     htmlFor="ecoName"
                   >
@@ -333,7 +319,7 @@ export function EcosystemTab({
                     id="ecoName"
                     type="text"
                     className={
-                      'w-full [background:#f0fcff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#6BA3E3] placeholder:font-normal focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#ffffff]'
+                      'w-full [background:#25232C] [border:1px_solid_#68577E] [border-radius:10px] [padding:11px_14px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] [appearance:none] placeholder:[color:#A1C8FA] placeholder:font-normal focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)] focus:[background:#302638]'
                     }
                     placeholder="Nome da empresa ou tecnologia"
                     value={ecoName}
@@ -345,13 +331,13 @@ export function EcosystemTab({
             </div>
             <div
               className={
-                'flex justify-end [gap:12px] [padding-top:14px] [border-top:1px_solid_#EBF9FD]'
+                'flex justify-end [gap:12px] [padding-top:14px] [border-top:1px_solid_#302638]'
               }
             >
               <button
                 type="button"
                 className={
-                  '[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#EBF9FD] hover:[border-color:#A0BEE8] hover:[color:#3783D1]'
+                  '[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#302638] hover:[border-color:#A1C8FA] hover:[color:#EF5928]'
                 }
                 onClick={() => {
                   setShowForm(false);
@@ -363,7 +349,7 @@ export function EcosystemTab({
               <button
                 type="submit"
                 className={
-                  '[background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
+                  '[background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] flex items-center [gap:8px] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
                 }
                 disabled={saving}
               >
@@ -395,12 +381,12 @@ export function EcosystemTab({
             <div
               key={item.id}
               className={
-                '[background:#ffffff] [border-radius:18px] [border:1px_solid_#C5EDF8] [padding:22px] flex flex-col [gap:12px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
+                '[background:#302638] [border-radius:18px] [border:1px_solid_#68577E] [padding:22px] flex flex-col [gap:12px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
               }
             >
               <div
                 className={
-                  '[height:88px] flex items-center justify-center [background:#f0fcff] [padding:12px]'
+                  '[height:88px] flex items-center justify-center [background:#25232C] [padding:12px]'
                 }
               >
                 {item.imageUrl ? (
@@ -419,7 +405,7 @@ export function EcosystemTab({
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.5"
-                    style={{ color: '#A0BEE8' }}
+                    style={{ color: '#A1C8FA' }}
                   >
                     <rect x="3" y="3" width="18" height="18" rx="2" />
                     <circle cx="8.5" cy="8.5" r="1.5" />
@@ -429,32 +415,32 @@ export function EcosystemTab({
               </div>
               <div
                 className={
-                  '[padding:8px_12px] flex items-center justify-between [border-top:1px_solid_#EBF9FD]'
+                  '[padding:8px_12px] flex items-center justify-between [border-top:1px_solid_#302638]'
                 }
               >
                 <p
                   className={
-                    '[font-size:14px] font-medium [color:#4b5563] [margin:0] whitespace-nowrap overflow-hidden [text-overflow:ellipsis] flex-1'
+                    '[font-size:14px] font-medium [color:#D2C9D7] [margin:0] whitespace-nowrap overflow-hidden [text-overflow:ellipsis] flex-1'
                   }
                 >
                   {item.name}
                 </p>
                 <span
-                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${item.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#f0fcff] [color:#7c6fa0] [border:1px_solid_#BAE8F6]'}`}
+                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${item.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#25232C] [color:#9981AE] [border:1px_solid_#68577E]'}`}
                 >
                   {item.isPublished ? 'Publicado' : 'Rascunho'}
                 </span>
               </div>
               <div
                 className={
-                  'flex justify-end [padding-top:10px] [border-top:1px_solid_#EBF9FD]'
+                  'flex justify-end [padding-top:10px] [border-top:1px_solid_#302638]'
                 }
               >
                 <div className={'flex items-center [gap:6px]'}>
                   {!item.isPublished && (
                     <button
                       className={
-                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#eff6ff] hover:[color:#2563eb] hover:[border-color:#bfdbfe]'
+                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#302638] hover:[color:#EF5928] hover:[border-color:#68577E]'
                       }
                       onClick={() => openItemForm(item)}
                       title="Editar rascunho"
@@ -474,16 +460,16 @@ export function EcosystemTab({
                       </svg>
                     </button>
                   )}
-            
+
                   <button
-                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${item.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#3783D1] [background:#EBF9FD] hover:[background:#C5EDF8]'}`}
+                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${item.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#EF5928] [background:#302638] hover:[background:#68577E]'}`}
                     onClick={() => handleTogglePublish(item)}
                   >
                     {item.isPublished ? 'Despublicar' : 'Publicar'}
                   </button>
                   <button
                     className={
-                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
                     }
                     onClick={() => handleDelete(item)}
                     title="Remover"

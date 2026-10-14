@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "strict": true,
     "paths": {
-      "@soir/contracts": ["./libs/contracts/src/index.ts"]
+      "@orvian/contracts": ["./libs/contracts/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

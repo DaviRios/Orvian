@@ -23,7 +23,6 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
     isPending: loading,
     invalidate,
     remove,
-    toggleActive,
     togglePublication,
   } = useCases();
   useEffect(() => onCountChange(cases.length), [cases.length, onCountChange]);
@@ -42,16 +41,6 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
     setShowForm(false);
     setEditingCase(null);
     setError('');
-  }
-
-  async function handleToggleActive(c: CaseContentDTO) {
-    try {
-      await toggleActive(c);
-    } catch (reason) {
-      setError(
-        reason instanceof Error ? reason.message : 'Erro ao alterar o caso.',
-      );
-    }
   }
 
   async function handleTogglePublish(c: CaseContentDTO) {
@@ -88,10 +77,10 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
       >
         <div
           className={
-            '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+            '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
           }
         />
-        <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+        <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
           Carregando...
         </p>
       </div>
@@ -127,14 +116,14 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
             <div
               key={c.id}
               className={
-                '[background:#ffffff] [border-radius:20px] [border:1px_solid_#C5EDF8] [padding:24px] flex flex-col [gap:10px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_10px_30px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
+                '[background:#302638] [border-radius:20px] [border:1px_solid_#68577E] [padding:24px] flex flex-col [gap:10px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_10px_30px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
               }
             >
               <div className={'flex items-start justify-between [gap:8px]'}>
                 {c.tag && (
                   <span
                     className={
-                      '[font-size:14px] font-bold [color:#3783D1] uppercase [letter-spacing:0.08em] [background:#EBF9FD] [padding:3px_10px] [border-radius:6px]'
+                      '[font-size:14px] font-bold [color:#EF5928] uppercase [letter-spacing:0.08em] [background:#302638] [padding:3px_10px] [border-radius:6px]'
                     }
                   >
                     {c.tag}
@@ -144,7 +133,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
                   {c.industry && (
                     <span
                       className={
-                        '[font-size:14px] font-medium [color:#6b7280] [background:#f3f4f6] [border:1px_solid_#e5e7eb] [padding:2px_8px] [border-radius:6px]'
+                        '[font-size:14px] font-medium [color:#AFA5B6] [background:#302638] [border:1px_solid_#68577E] [padding:2px_8px] [border-radius:6px]'
                       }
                     >
                       {c.industry}
@@ -153,7 +142,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
                   {c.country && (
                     <span
                       className={
-                        '[font-size:14px] font-medium [color:#6b7280] [background:#f3f4f6] [border:1px_solid_#e5e7eb] [padding:2px_8px] [border-radius:6px]'
+                        '[font-size:14px] font-medium [color:#AFA5B6] [background:#302638] [border:1px_solid_#68577E] [padding:2px_8px] [border-radius:6px]'
                       }
                     >
                       {c.country}
@@ -164,7 +153,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
               {c.shortTitle && (
                 <span
                   className={
-                    '[font-size:14px] font-semibold [color:#6BA3E3] [letter-spacing:0.04em]'
+                    '[font-size:14px] font-semibold [color:#A1C8FA] [letter-spacing:0.04em]'
                   }
                 >
                   {c.shortTitle}
@@ -172,7 +161,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
               )}
               <h3
                 className={
-                  '[font-size:16px] font-bold [color:#1e1b2e] [margin:0] [line-height:1.35]'
+                  '[font-size:16px] font-bold [color:#F7F2FA] [margin:0] [line-height:1.35]'
                 }
               >
                 {c.title}
@@ -180,7 +169,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
               {c.subtitle && (
                 <p
                   className={
-                    '[font-size:14px] [color:#4b5563] [margin:0] [line-height:1.55] font-medium'
+                    '[font-size:14px] [color:#D2C9D7] [margin:0] [line-height:1.55] font-medium'
                   }
                 >
                   {c.subtitle}
@@ -189,7 +178,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
               {c.content && (
                 <p
                   className={
-                    '[font-size:14px] [color:#6b7280] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] overflow-hidden flex-1'
+                    '[font-size:14px] [color:#AFA5B6] [margin:0] [line-height:1.6] [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] overflow-hidden flex-1'
                   }
                 >
                   {stripHtml(c.content)}
@@ -203,7 +192,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
                       src={caseImageUrl(imgId)}
                       alt=""
                       className={
-                        '[width:56px] [height:56px] [border-radius:8px] object-cover [border:1px_solid_#C5EDF8] shrink-0'
+                        '[width:56px] [height:56px] [border-radius:8px] object-cover [border:1px_solid_#68577E] shrink-0'
                       }
                     />
                   ))}
@@ -211,11 +200,11 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
               )}
               <div
                 className={
-                  'flex items-center justify-between [padding-top:14px] [border-top:1px_solid_#EBF9FD] [margin-top:auto]'
+                  'flex items-center justify-between [padding-top:14px] [border-top:1px_solid_#302638] [margin-top:auto]'
                 }
               >
                 <span
-                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${c.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#f0fcff] [color:#7c6fa0] [border:1px_solid_#BAE8F6]'}`}
+                  className={`${'[font-size:14px] font-semibold [padding:3px_10px] [border-radius:999px]'} ${c.isPublished ? '[background:#f0fdf4] [color:#16a34a] [border:1px_solid_#bbf7d0]' : '[background:#25232C] [color:#9981AE] [border:1px_solid_#68577E]'}`}
                 >
                   {c.isPublished ? 'Publicado' : 'Rascunho'}
                 </span>
@@ -223,7 +212,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
                   {!c.isPublished && (
                     <button
                       className={
-                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#eff6ff] hover:[color:#2563eb] hover:[border-color:#bfdbfe]'
+                        '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#302638] hover:[color:#EF5928] hover:[border-color:#68577E]'
                       }
                       onClick={() => openCaseForm(c)}
                       title="Editar rascunho"
@@ -244,14 +233,14 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
                     </button>
                   )}
                   <button
-                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${c.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#3783D1] [background:#EBF9FD] hover:[background:#C5EDF8]'}`}
+                    className={`${'border-0 [background:none] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [padding:5px_12px] [border-radius:8px] [transition:background_0.15s]'} ${c.isPublished ? '[color:#dc2626] [background:#fef2f2] hover:[background:#fee2e2]' : '[color:#EF5928] [background:#302638] hover:[background:#68577E]'}`}
                     onClick={() => handleTogglePublish(c)}
                   >
                     {c.isPublished ? 'Despublicar' : 'Publicar'}
                   </button>
                   <button
                     className={
-                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#64748b] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
+                      '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#BBAFC3] cursor-pointer flex items-center justify-center [font-family:inherit] [padding:0] hover:[background:#fef2f2] hover:[color:#dc2626] hover:[border-color:#fecaca]'
                     }
                     onClick={() => handleDelete(c)}
                     title="Remover"
@@ -282,7 +271,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
           >
             <div
               className={
-                '[width:68px] [height:68px] [border-radius:20px] [background:#EBF9FD] flex items-center justify-center [color:#6BA3E3] [margin-bottom:8px]'
+                '[width:68px] [height:68px] [border-radius:20px] [background:#302638] flex items-center justify-center [color:#A1C8FA] [margin-bottom:8px]'
               }
             >
               <svg
@@ -302,21 +291,21 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
             </div>
             <p
               className={
-                '[font-size:15.5px] font-semibold [color:#1e1b2e] [margin:0]'
+                '[font-size:15.5px] font-semibold [color:#F7F2FA] [margin:0]'
               }
             >
               Nenhum caso cadastrado
             </p>
             <p
               className={
-                '[font-size:14px] [color:#7c6fa0] [margin:0] [max-width:300px] [line-height:1.6]'
+                '[font-size:14px] [color:#9981AE] [margin:0] [max-width:300px] [line-height:1.6]'
               }
             >
               Crie o primeiro caso de sucesso para exibir no site
             </p>
             <button
               className={
-                '[margin-top:8px] [background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)]'
+                '[margin-top:8px] [background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_24px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.3)] hover:[background:#FF892B] hover:[transform:translateY(-1px)]'
               }
               onClick={() => openCaseForm()}
             >
@@ -335,20 +324,20 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
         >
           <div
             className={
-              '[background:#ffffff] [border-radius:18px] [padding:28px_32px] [max-width:420px] [width:calc(100%_-_48px)] [box-shadow:0_12px_40px_rgba(0,_0,_0,_0.18)]'
+              '[background:#302638] [border-radius:18px] [padding:28px_32px] [max-width:420px] [width:calc(100%_-_48px)] [box-shadow:0_12px_40px_rgba(0,_0,_0,_0.18)]'
             }
             onClick={(e) => e.stopPropagation()}
           >
             <p
               className={
-                '[font-size:17px] font-bold [color:#1e1b2e] [margin:0_0_10px]'
+                '[font-size:17px] font-bold [color:#F7F2FA] [margin:0_0_10px]'
               }
             >
               Confirmar exclusão
             </p>
             <p
               className={
-                '[font-size:14px] [color:#4b5563] [line-height:1.6] [margin:0_0_24px]'
+                '[font-size:14px] [color:#D2C9D7] [line-height:1.6] [margin:0_0_24px]'
               }
             >
               Tem certeza que deseja excluir{' '}
@@ -358,7 +347,7 @@ export function CasesTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
             <div className={'flex justify-end [gap:10px]'}>
               <button
                 className={
-                  '[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#EBF9FD]'
+                  '[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:10px] [padding:10px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#302638]'
                 }
                 onClick={() => setPendingDelete(null)}
               >

@@ -22,7 +22,7 @@ describe('Dashboard', () => {
           id: 'BLOG:1',
           resource: 'BLOG',
           action: 'PUBLISHED',
-          title: 'Como construir um CMS',
+          title: 'Como organizar conteúdo',
           occurredAt: '2026-10-13T12:00:00.000Z',
         },
       ],
@@ -41,7 +41,7 @@ describe('Dashboard', () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByText('Como construir um CMS')).toBeTruthy();
+    expect(await screen.findByText('Como organizar conteúdo')).toBeTruthy();
     expect(screen.getByText('3')).toBeTruthy();
     expect(screen.getByText('8')).toBeTruthy();
     expect(screen.getByText('13')).toBeTruthy();

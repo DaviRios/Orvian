@@ -10,7 +10,7 @@ import type {
   updateClientStorySchema,
   updatePartnerSchema,
   updateServiceItemSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import type {
   AboutMedia,
   Career,

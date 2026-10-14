@@ -133,15 +133,15 @@ export function MediaGallery() {
   const isVideo = (ext: string) => ext?.toUpperCase() === 'MP4';
 
   return (
-    <div className={'min-h-screen [background:#f8f7fc] flex flex-col'}>
+    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
       <div
         className={
-          'flex items-center justify-between [padding:18px_40px] [background:#ffffff] [border-bottom:1px_solid_#C5EDF8] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
         }
       >
         <button
           className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#EBF9FD] hover:[color:#3783D1]'
+            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
           }
           onClick={() => navigate('/')}
         >
@@ -162,7 +162,7 @@ export function MediaGallery() {
         </button>
         <button
           className={
-            '[background:#3783D1] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
+            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)] disabled:[opacity:0.7] disabled:cursor-not-allowed'
           }
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
@@ -182,19 +182,19 @@ export function MediaGallery() {
           <div>
             <h1
               className={
-                '[font-size:22px] font-bold [color:#1e1b2e] [margin:0_0_4px] [letter-spacing:-0.01em]'
+                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
               }
             >
               Repositório de Mídias
             </h1>
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Gerencie todas as imagens e vídeos do sistema
             </p>
           </div>
           {!loading && images.length > 0 && (
             <span
               className={
-                '[background:#C5EDF8] [color:#3783D1] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
+                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
               }
             >
               {images.length} arquivo{images.length > 1 ? 's' : ''}
@@ -249,7 +249,7 @@ export function MediaGallery() {
           <div className={'relative flex-1 [min-width:200px]'}>
             <svg
               className={
-                'absolute [left:12px] [top:50%] [transform:translateY(-50%)] [color:#6BA3E3] pointer-events-none'
+                'absolute [left:12px] [top:50%] [transform:translateY(-50%)] [color:#A1C8FA] pointer-events-none'
               }
               width="15"
               height="15"
@@ -266,7 +266,7 @@ export function MediaGallery() {
             <input
               type="text"
               className={
-                'w-full [background:#ffffff] [border:1px_solid_#BAE8F6] [border-radius:10px] [padding:10px_14px_10px_36px] [font-size:14px] [color:#1e1b2e] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#6BA3E3] focus:[border-color:#3783D1] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)]'
+                'w-full [background:#302638] [border:1px_solid_#68577E] [border-radius:10px] [padding:10px_14px_10px_36px] [font-size:14px] [color:#F7F2FA] outline-none [transition:border-color_0.2s,_box-shadow_0.2s] [box-sizing:border-box] [font-family:inherit] placeholder:[color:#A1C8FA] focus:[border-color:#EF5928] focus:[box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.12)]'
               }
               placeholder="Buscar por nome..."
               value={query}
@@ -276,7 +276,7 @@ export function MediaGallery() {
           <button
             type="submit"
             className={
-              '[background:#3783D1] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_20px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.25)] hover:[background:#2B6BB5]'
+              '[background:#EF5928] [color:#ffffff] border-0 [border-radius:10px] [padding:10px_20px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.25)] hover:[background:#FF892B]'
             }
           >
             Buscar
@@ -284,7 +284,7 @@ export function MediaGallery() {
           <div className={'flex [gap:6px] [flex-wrap:wrap]'}>
             <button
               type="button"
-              className={`${'[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:8px] [padding:8px_14px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s,_border-color_0.15s] hover:[background:#EBF9FD] hover:[border-color:#A0BEE8] hover:[color:#3783D1]'} ${extFilter === '' ? '[background:#3783D1] [border-color:#3783D1] [color:#ffffff] hover:[background:#2B6BB5] hover:[color:#ffffff]' : ''}`}
+              className={`${'[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:8px] [padding:8px_14px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s,_border-color_0.15s] hover:[background:#302638] hover:[border-color:#A1C8FA] hover:[color:#EF5928]'} ${extFilter === '' ? '[background:#EF5928] [border-color:#EF5928] [color:#ffffff] hover:[background:#FF892B] hover:[color:#ffffff]' : ''}`}
               onClick={() => handleExtChange('')}
             >
               Todos
@@ -293,7 +293,7 @@ export function MediaGallery() {
               <button
                 key={ext}
                 type="button"
-                className={`${'[border:1px_solid_#BAE8F6] [background:#f0fcff] [color:#7c6fa0] [border-radius:8px] [padding:8px_14px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s,_border-color_0.15s] hover:[background:#EBF9FD] hover:[border-color:#A0BEE8] hover:[color:#3783D1]'} ${extFilter === ext ? '[background:#3783D1] [border-color:#3783D1] [color:#ffffff] hover:[background:#2B6BB5] hover:[color:#ffffff]' : ''}`}
+                className={`${'[border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] [border-radius:8px] [padding:8px_14px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s,_border-color_0.15s] hover:[background:#302638] hover:[border-color:#A1C8FA] hover:[color:#EF5928]'} ${extFilter === ext ? '[background:#EF5928] [border-color:#EF5928] [color:#ffffff] hover:[background:#FF892B] hover:[color:#ffffff]' : ''}`}
                 onClick={() => handleExtChange(ext)}
               >
                 {ext}
@@ -304,7 +304,7 @@ export function MediaGallery() {
 
         {/* Dropzone */}
         <div
-          className={`${'[border:2px_dashed_#A0BEE8] [border-radius:14px] [background:#f0fcff] [padding:24px_20px] flex flex-col items-center [gap:8px] cursor-pointer [transition:border-color_0.2s,_background_0.2s] [margin-bottom:28px] hover:[border-color:#3783D1] hover:[background:#EBF9FD]'} ${isDragging ? '[border-color:#3783D1] [background:#EBF9FD]' : ''} ${uploading ? '[cursor:default] pointer-events-none [opacity:0.8]' : ''}`}
+          className={`${'[border:2px_dashed_#A1C8FA] [border-radius:14px] [background:#25232C] [padding:24px_20px] flex flex-col items-center [gap:8px] cursor-pointer [transition:border-color_0.2s,_background_0.2s] [margin-bottom:28px] hover:[border-color:#EF5928] hover:[background:#302638]'} ${isDragging ? '[border-color:#EF5928] [background:#302638]' : ''} ${uploading ? '[cursor:default] pointer-events-none [opacity:0.8]' : ''}`}
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
@@ -322,12 +322,12 @@ export function MediaGallery() {
             <>
               <div
                 className={
-                  '[width:28px] [height:28px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+                  '[width:28px] [height:28px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
                 }
               />
               <p
                 className={
-                  '[font-size:14px] [color:#5b4b8a] [margin:0] font-medium'
+                  '[font-size:14px] [color:#9981AE] [margin:0] font-medium'
                 }
               >
                 Enviando arquivos...
@@ -337,7 +337,7 @@ export function MediaGallery() {
             <>
               <div
                 className={
-                  '[width:46px] [height:46px] [border-radius:14px] [background:#C5EDF8] flex items-center justify-center [color:#3783D1]'
+                  '[width:46px] [height:46px] [border-radius:14px] [background:#68577E] flex items-center justify-center [color:#EF5928]'
                 }
               >
                 <svg
@@ -357,21 +357,21 @@ export function MediaGallery() {
               </div>
               <p
                 className={
-                  '[font-size:14px] [color:#5b4b8a] [margin:0] font-medium'
+                  '[font-size:14px] [color:#9981AE] [margin:0] font-medium'
                 }
               >
                 {isDragging ? 'Solte aqui' : 'Arraste arquivos ou '}
                 {!isDragging && (
                   <span
                     className={
-                      '[color:#3783D1] font-semibold [text-decoration:underline] cursor-pointer'
+                      '[color:#EF5928] font-semibold [text-decoration:underline] cursor-pointer'
                     }
                   >
                     clique para selecionar
                   </span>
                 )}
               </p>
-              <p className={'[font-size:14px] [color:#6BA3E3] [margin:0]'}>
+              <p className={'[font-size:14px] [color:#A1C8FA] [margin:0]'}>
                 PNG, JPEG, GIF, MP4
               </p>
             </>
@@ -387,10 +387,10 @@ export function MediaGallery() {
           >
             <div
               className={
-                '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+                '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
               }
             />
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Carregando mídias...
             </p>
           </div>
@@ -403,7 +403,7 @@ export function MediaGallery() {
             {images.map((img, idx) => (
               <button
                 key={img.url + idx}
-                className={`${'[background:#ffffff] [border:2px_solid_#C5EDF8] [border-radius:14px] [padding:0] cursor-pointer [text-align:left] [transition:border-color_0.15s,_box-shadow_0.15s,_transform_0.12s] overflow-hidden [font-family:inherit] hover:[border-color:#6BA3E3] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)] group'} ${selected?.url === img.url ? '[border-color:#3783D1] [box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.18)]' : ''}`}
+                className={`${'[background:#302638] [border:2px_solid_#68577E] [border-radius:14px] [padding:0] cursor-pointer [text-align:left] [transition:border-color_0.15s,_box-shadow_0.15s,_transform_0.12s] overflow-hidden [font-family:inherit] hover:[border-color:#A1C8FA] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)] group'} ${selected?.url === img.url ? '[border-color:#EF5928] [box-shadow:0_0_0_3px_rgba(84,_200,_232,_0.18)]' : ''}`}
                 onClick={() =>
                   setSelected(selected?.url === img.url ? null : img)
                 }
@@ -411,13 +411,13 @@ export function MediaGallery() {
               >
                 <div
                   className={
-                    'relative w-full [aspect-ratio:4_/_3] [background:#EBF9FD] overflow-hidden'
+                    'relative w-full [aspect-ratio:4_/_3] [background:#302638] overflow-hidden'
                   }
                 >
                   {isVideo(img.extension) ? (
                     <div
                       className={
-                        'w-full h-full flex items-center justify-center [background:#1e1b2e] [color:#6BA3E3]'
+                        'w-full h-full flex items-center justify-center [background:#F7F2FA] [color:#A1C8FA]'
                       }
                     >
                       <svg
@@ -457,18 +457,18 @@ export function MediaGallery() {
                 </div>
                 <div
                   className={
-                    '[padding:10px_12px] [border-top:1px_solid_#EBF9FD]'
+                    '[padding:10px_12px] [border-top:1px_solid_#302638]'
                   }
                 >
                   <p
                     className={
-                      '[font-size:14px] font-semibold [color:#1e1b2e] [margin:0_0_3px] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
+                      '[font-size:14px] font-semibold [color:#F7F2FA] [margin:0_0_3px] whitespace-nowrap overflow-hidden [text-overflow:ellipsis]'
                     }
                     title={img.name}
                   >
                     {img.name}
                   </p>
-                  <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+                  <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
                     {formatBytes(img.size)}
                   </p>
                 </div>
@@ -483,7 +483,7 @@ export function MediaGallery() {
           >
             <div
               className={
-                '[width:68px] [height:68px] [border-radius:20px] [background:#EBF9FD] flex items-center justify-center [color:#6BA3E3] [margin-bottom:8px]'
+                '[width:68px] [height:68px] [border-radius:20px] [background:#302638] flex items-center justify-center [color:#A1C8FA] [margin-bottom:8px]'
               }
             >
               <svg
@@ -503,14 +503,14 @@ export function MediaGallery() {
             </div>
             <p
               className={
-                '[font-size:15.5px] font-semibold [color:#1e1b2e] [margin:0]'
+                '[font-size:15.5px] font-semibold [color:#F7F2FA] [margin:0]'
               }
             >
               Nenhuma mídia encontrada
             </p>
             <p
               className={
-                '[font-size:14px] [color:#7c6fa0] [margin:0] [max-width:300px] [line-height:1.6]'
+                '[font-size:14px] [color:#9981AE] [margin:0] [max-width:300px] [line-height:1.6]'
               }
             >
               Faça upload de imagens ou vídeos para o repositório
@@ -522,20 +522,20 @@ export function MediaGallery() {
         {selected && (
           <div
             className={
-              'fixed [right:24px] [bottom:24px] [width:280px] [background:#ffffff] [border:1px_solid_#C5EDF8] [border-radius:18px] [box-shadow:0_12px_40px_rgba(84,_200,_232,_0.16)] overflow-hidden [z-index:100] animate-[slide-up_.22s_ease]'
+              'fixed [right:24px] [bottom:24px] [width:280px] [background:#302638] [border:1px_solid_#68577E] [border-radius:18px] [box-shadow:0_12px_40px_rgba(84,_200,_232,_0.16)] overflow-hidden [z-index:100] animate-[slide-up_.22s_ease]'
             }
           >
             <div
               className={
-                'flex items-center justify-between [padding:14px_16px_12px] [border-bottom:1px_solid_#EBF9FD]'
+                'flex items-center justify-between [padding:14px_16px_12px] [border-bottom:1px_solid_#302638]'
               }
             >
-              <span className={'[font-size:14px] font-bold [color:#1e1b2e]'}>
+              <span className={'[font-size:14px] font-bold [color:#F7F2FA]'}>
                 Detalhes
               </span>
               <button
                 className={
-                  '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#C5EDF8] [background:#f0fcff] [color:#7c6fa0] flex items-center justify-center cursor-pointer [transition:background_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626]'
+                  '[width:28px] [height:28px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#9981AE] flex items-center justify-center cursor-pointer [transition:background_0.15s] hover:[background:#fef2f2] hover:[color:#dc2626]'
                 }
                 onClick={() => setSelected(null)}
               >
@@ -554,7 +554,7 @@ export function MediaGallery() {
             </div>
             <div
               className={
-                '[background:#EBF9FD] flex items-center justify-center [min-height:160px]'
+                '[background:#302638] flex items-center justify-center [min-height:160px]'
               }
             >
               {isVideo(selected.extension) ? (
@@ -573,7 +573,7 @@ export function MediaGallery() {
             </div>
             <dl
               className={
-                'grid [grid-template-columns:auto_1fr] [gap:6px_12px] [padding:14px_16px] [margin:0] [font-size:14px] [&_dt]:[color:#7c6fa0] [&_dt]:font-semibold [&_dt]:whitespace-nowrap [&_dd]:[margin:0] [&_dd]:[color:#1e1b2e] [&_dd]:font-medium [&_dd]:whitespace-nowrap [&_dd]:overflow-hidden [&_dd]:[text-overflow:ellipsis]'
+                'grid [grid-template-columns:auto_1fr] [gap:6px_12px] [padding:14px_16px] [margin:0] [font-size:14px] [&_dt]:[color:#9981AE] [&_dt]:font-semibold [&_dt]:whitespace-nowrap [&_dd]:[margin:0] [&_dd]:[color:#F7F2FA] [&_dd]:font-medium [&_dd]:whitespace-nowrap [&_dd]:overflow-hidden [&_dd]:[text-overflow:ellipsis]'
               }
             >
               <dt>Nome</dt>
@@ -592,7 +592,7 @@ export function MediaGallery() {
               <dd>
                 <button
                   className={
-                    'inline-flex items-center [gap:5px] [background:#EBF9FD] [border:1px_solid_#BAE8F6] [color:#3783D1] [border-radius:7px] [padding:4px_10px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#C5EDF8]'
+                    'inline-flex items-center [gap:5px] [background:#302638] [border:1px_solid_#68577E] [color:#EF5928] [border-radius:7px] [padding:4px_10px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s] hover:[background:#68577E]'
                   }
                   onClick={() => navigator.clipboard.writeText(selected.url)}
                   title="Copiar URL"
@@ -646,12 +646,12 @@ export function MediaGallery() {
           >
             <div
               className={
-                '[background:#fff] [border-radius:12px] [padding:28px_32px] [max-width:360px] [width:90%] [box-shadow:0_8px_32px_rgba(0,0,0,0.18)] flex flex-col [gap:20px]'
+                '[background:#302638] [border-radius:12px] [padding:28px_32px] [max-width:360px] [width:90%] [box-shadow:0_8px_32px_rgba(0,0,0,0.18)] flex flex-col [gap:20px]'
               }
             >
               <p
                 className={
-                  '[font-size:1rem] [color:#1e293b] text-center [margin:0]'
+                  '[font-size:1rem] [color:#F7F2FA] text-center [margin:0]'
                 }
               >
                 Excluir <strong>{selected.name}</strong> permanentemente?
@@ -659,7 +659,7 @@ export function MediaGallery() {
               <div className={'flex [gap:10px] justify-center'}>
                 <button
                   className={
-                    '[padding:8px_20px] [border-radius:8px] [border:1px_solid_#e2e8f0] [background:#f8fafc] [color:#475569] [font-size:1rem] cursor-pointer [transition:background_0.15s] hover:[background:#f1f5f9]'
+                    '[padding:8px_20px] [border-radius:8px] [border:1px_solid_#68577E] [background:#25232C] [color:#C6B5D2] [font-size:1rem] cursor-pointer [transition:background_0.15s] hover:[background:#302638]'
                   }
                   onClick={() => setConfirmingDelete(false)}
                 >

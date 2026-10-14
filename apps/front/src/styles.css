@@ -2,6 +2,21 @@
 
 @theme {
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --color-orvian-shadow: #302638;
+  --color-orvian-secondary: #68577e;
+  --color-orvian-lavender: #9981ae;
+  --color-orvian-slate: #4a506d;
+  --color-orvian-charcoal: #25232c;
+  --color-orvian-primary: #ef5928;
+  --color-orvian-orange: #ff892b;
+  --color-orvian-gold: #f9b82d;
+  --color-orvian-red: #b84b55;
+  --color-orvian-brown: #65402e;
+  --color-orvian-gray: #777580;
+  --color-orvian-blue: #a1c8fa;
+  --color-orvian-surface: #302638;
+  --color-orvian-ink: #f7f2fa;
+  --color-orvian-muted: #c6b5d2;
   --animate-slide-up: slide-up 220ms ease-out;
 
   @keyframes slide-up {
@@ -24,7 +39,7 @@
   }
 
   body {
-    @apply bg-slate-100 font-sans text-sm font-medium text-slate-800 antialiased;
+    @apply bg-orvian-charcoal font-sans text-sm font-medium text-slate-100 antialiased;
   }
 
   button,

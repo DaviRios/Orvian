@@ -19,7 +19,7 @@ import {
   updateClientStorySchema,
   updatePartnerSchema,
   updateServiceItemSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import { requireAuth } from '../auth/auth.routes';
 import type { AuthService } from '../auth/auth.service';
 import type { SiteContentService } from './site-content.service';

@@ -6,10 +6,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants = {
   primary:
-    'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500',
+    'bg-orvian-primary text-white hover:bg-orvian-orange focus-visible:ring-orvian-primary',
   secondary:
-    'border border-sky-200 bg-white text-blue-700 hover:bg-sky-50 focus-visible:ring-blue-500',
-  danger: 'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500',
+    'border border-orvian-secondary bg-orvian-shadow text-white hover:bg-orvian-secondary focus-visible:ring-orvian-secondary',
+  danger:
+    'bg-orvian-red text-white hover:bg-orvian-primary focus-visible:ring-orvian-red',
 };
 
 export function Button({

@@ -9,8 +9,8 @@ export function Alert({
 }) {
   const colors =
     tone === 'error'
-      ? 'border-red-200 bg-red-50 text-red-700'
-      : 'border-emerald-200 bg-emerald-50 text-emerald-700';
+      ? 'border-orvian-red/50 bg-orvian-red/15 text-red-200'
+      : 'border-orvian-gold/50 bg-orvian-gold/15 text-orvian-gold';
   return (
     <div role="alert" className={`rounded-xl border px-4 py-3 ${colors}`}>
       {children}

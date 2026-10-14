@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
-import { createBlogPostSchema } from '@soir/contracts';
+import { createBlogPostSchema } from '@orvian/contracts';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
@@ -30,8 +30,9 @@ interface BlogPostFormProps {
 }
 
 const inputClass =
-  'w-full rounded-xl border border-sky-200 bg-sky-50/50 px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-blue-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100';
-const labelClass = 'flex flex-col gap-1.5 text-sm font-semibold text-slate-700';
+  'w-full rounded-xl border border-orvian-secondary/70 bg-orvian-charcoal/70 px-3.5 py-2.5 text-sm text-orvian-ink outline-none transition placeholder:text-orvian-lavender focus:border-orvian-primary focus:bg-orvian-charcoal focus:ring-2 focus:ring-orvian-primary/20';
+const labelClass =
+  'flex flex-col gap-1.5 text-sm font-semibold text-orvian-ink';
 
 export function BlogPostForm({ item, onClose, onSaved }: BlogPostFormProps) {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -96,13 +97,13 @@ export function BlogPostForm({ item, onClose, onSaved }: BlogPostFormProps) {
   }
 
   return (
-    <section className="mb-8 rounded-2xl border border-sky-100 bg-white p-7 shadow-sm">
+    <section className="mb-8 rounded-2xl border border-orvian-secondary/60 bg-orvian-shadow p-7 text-orvian-ink shadow-sm">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h2 className="m-0 text-lg font-bold text-slate-900">
+          <h2 className="m-0 text-lg font-bold text-orvian-ink">
             {item ? 'Editar Post' : 'Novo Post'}
           </h2>
-          <p className="m-0 mt-1 text-sm text-slate-500">
+          <p className="m-0 mt-1 text-sm text-orvian-muted">
             {item
               ? 'Atualize os dados do post'
               : 'Preencha os campos para criar um novo post'}
@@ -174,7 +175,7 @@ export function BlogPostForm({ item, onClose, onSaved }: BlogPostFormProps) {
           />
           <button
             type="button"
-            className="flex min-h-32 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-blue-200 bg-sky-50 text-sm font-semibold text-blue-500 hover:border-blue-500"
+            className="flex min-h-32 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-orvian-secondary bg-orvian-charcoal/70 text-sm font-semibold text-orvian-orange hover:border-orvian-primary"
             onClick={() => fileRef.current?.click()}
           >
             {imagePreview ? (
@@ -191,7 +192,9 @@ export function BlogPostForm({ item, onClose, onSaved }: BlogPostFormProps) {
         <label className={labelClass}>
           Conteúdo
           <Suspense
-            fallback={<div className="min-h-52 rounded-xl bg-slate-100" />}
+            fallback={
+              <div className="min-h-52 rounded-xl bg-orvian-charcoal" />
+            }
           >
             <RichTextEditor
               value={watch('description') ?? ''}
@@ -202,7 +205,7 @@ export function BlogPostForm({ item, onClose, onSaved }: BlogPostFormProps) {
           </Suspense>
         </label>
 
-        <div className="flex justify-end gap-3 border-t border-sky-50 pt-4">
+        <div className="flex justify-end gap-3 border-t border-orvian-secondary/50 pt-4">
           <Button variant="secondary" onClick={onClose}>
             Cancelar
           </Button>

@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { ZodTypeProvider } from '@fastify/type-provider-zod';
-import { languageQuerySchema } from '@soir/contracts';
+import { languageQuerySchema } from '@orvian/contracts';
 import type { PublicPagesService } from './public-pages.service';
 
 interface PublicPagesRoutesOptions {

@@ -91,10 +91,10 @@ export function LogosTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
       >
         <div
           className={
-            '[width:38px] [height:38px] [border:3px_solid_#C5EDF8] [border-top-color:#3783D1] [border-radius:50%] animate-spin'
+            '[width:38px] [height:38px] [border:3px_solid_#68577E] [border-top-color:#EF5928] [border-radius:50%] animate-spin'
           }
         />
-        <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+        <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
           Carregando...
         </p>
       </div>
@@ -119,7 +119,7 @@ export function LogosTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
         </div>
       )}
       <div
-        className={`${'[border:2px_dashed_#A0BEE8] [border-radius:14px] [background:#f0fcff] flex items-center justify-center [gap:10px] [padding:20px_32px] cursor-pointer [transition:border-color_0.2s,_background_0.2s,_color_0.2s] [margin-bottom:24px] [color:#6BA3E3] [font-size:14px] font-medium hover:[border-color:#3783D1] hover:[background:#EBF9FD] hover:[color:#3783D1]'} ${isDragging ? '[border-color:#3783D1] [background:#EBF9FD] [color:#3783D1]' : ''}`}
+        className={`${'[border:2px_dashed_#A1C8FA] [border-radius:14px] [background:#25232C] flex items-center justify-center [gap:10px] [padding:20px_32px] cursor-pointer [transition:border-color_0.2s,_background_0.2s,_color_0.2s] [margin-bottom:24px] [color:#A1C8FA] [font-size:14px] font-medium hover:[border-color:#EF5928] hover:[background:#302638] hover:[color:#EF5928]'} ${isDragging ? '[border-color:#EF5928] [background:#302638] [color:#EF5928]' : ''}`}
         onDragOver={(e) => {
           e.preventDefault();
           setIsDragging(true);
@@ -173,12 +173,12 @@ export function LogosTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
             <div
               key={logo.id}
               className={
-                '[background:#ffffff] [border-radius:18px] [border:1px_solid_#C5EDF8] [padding:22px] flex flex-col [gap:12px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
+                '[background:#302638] [border-radius:18px] [border:1px_solid_#68577E] [padding:22px] flex flex-col [gap:12px] [box-shadow:0_2px_8px_rgba(84,_200,_232,_0.05)] [transition:box-shadow_0.2s,_transform_0.15s] hover:[box-shadow:0_6px_20px_rgba(84,_200,_232,_0.12)] hover:[transform:translateY(-2px)]'
               }
             >
               <div
                 className={
-                  '[height:88px] flex items-center justify-center [background:#f0fcff] [padding:12px]'
+                  '[height:88px] flex items-center justify-center [background:#25232C] [padding:12px]'
                 }
               >
                 <img
@@ -191,12 +191,12 @@ export function LogosTab({ openFormTrigger, onSuccess, onCountChange }: Props) {
               </div>
               <div
                 className={
-                  '[padding:8px_12px] flex items-center justify-between [border-top:1px_solid_#EBF9FD]'
+                  '[padding:8px_12px] flex items-center justify-between [border-top:1px_solid_#302638]'
                 }
               >
                 <p
                   className={
-                    '[font-size:14px] font-medium [color:#4b5563] [margin:0] whitespace-nowrap overflow-hidden [text-overflow:ellipsis] flex-1'
+                    '[font-size:14px] font-medium [color:#D2C9D7] [margin:0] whitespace-nowrap overflow-hidden [text-overflow:ellipsis] flex-1'
                   }
                 >
                   {logo.name}

@@ -73,13 +73,13 @@ export async function buildApp(
   await app.register(cookie);
   await app.register(jwt, {
     secret: env.JWT_SECRET,
-    cookie: { cookieName: 'soir_access_token', signed: false },
+    cookie: { cookieName: 'orvian_access_token', signed: false },
   });
   await app.register(multipart, {
     limits: { files: 20, fileSize: 25 * 1024 * 1024, parts: 60 },
   });
   await app.register(swagger, {
-    openapi: { info: { title: 'Soir CMS API', version: '1.0.0' } },
+    openapi: { info: { title: 'Orvian API', version: '1.0.0' } },
     transform: jsonSchemaTransform,
   });
   await app.register(swaggerUi, { routePrefix: '/docs' });
@@ -158,7 +158,7 @@ export async function buildApp(
           secretAccessKey: env.S3_SECRET_ACCESS_KEY,
           forcePathStyle: env.S3_FORCE_PATH_STYLE,
         })
-      : new LocalMediaStorage(env.CMS_UPLOAD_DIR);
+      : new LocalMediaStorage(env.ORVIAN_UPLOAD_DIR);
   const media = new MediaService(new PrismaMediaRepository(database), storage);
 
   await app.register(authRoutes, { prefix: '/v1', service: auth, env });
@@ -197,9 +197,9 @@ export async function buildApp(
   if (options.connectDatabase !== false) {
     await database.$connect();
     await auth.bootstrapAdmin({
-      username: env.CMS_ADMIN_USER,
-      email: env.CMS_ADMIN_EMAIL,
-      password: env.CMS_ADMIN_PASSWORD,
+      username: env.ORVIAN_ADMIN_USER,
+      email: env.ORVIAN_ADMIN_EMAIL,
+      password: env.ORVIAN_ADMIN_PASSWORD,
     });
   }
   app.addHook('onClose', async () => database.$disconnect());

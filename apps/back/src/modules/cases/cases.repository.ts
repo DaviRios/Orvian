@@ -3,7 +3,7 @@ import type {
   createCaseSchema,
   createCaseTestimonialSchema,
   updateCaseSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import type {
   Case,
   CaseImage,

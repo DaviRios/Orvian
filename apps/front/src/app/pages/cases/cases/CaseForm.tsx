@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
-import { createCaseSchema } from '@soir/contracts';
+import { createCaseSchema } from '@orvian/contracts';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import {
@@ -29,8 +29,9 @@ interface CaseFormProps {
 }
 
 const inputClass =
-  'w-full rounded-xl border border-sky-200 bg-sky-50/50 px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-blue-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100';
-const labelClass = 'flex flex-col gap-1.5 text-sm font-semibold text-slate-700';
+  'w-full rounded-xl border border-orvian-secondary/70 bg-orvian-charcoal/70 px-3.5 py-2.5 text-sm text-orvian-ink outline-none transition placeholder:text-orvian-lavender focus:border-orvian-primary focus:bg-orvian-charcoal focus:ring-2 focus:ring-orvian-primary/20';
+const labelClass =
+  'flex flex-col gap-1.5 text-sm font-semibold text-orvian-ink';
 
 export function CaseForm({ item, onClose, onSaved }: CaseFormProps) {
   const [error, setError] = useState('');
@@ -129,13 +130,13 @@ export function CaseForm({ item, onClose, onSaved }: CaseFormProps) {
   }
 
   return (
-    <section className="mb-8 rounded-2xl border border-sky-100 bg-white p-7 shadow-sm">
+    <section className="mb-8 rounded-2xl border border-orvian-secondary/60 bg-orvian-shadow p-7 text-orvian-ink shadow-sm">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h2 className="m-0 text-lg font-bold text-slate-900">
+          <h2 className="m-0 text-lg font-bold text-orvian-ink">
             {item ? 'Editar Caso' : 'Novo Caso'}
           </h2>
-          <p className="m-0 mt-1 text-sm text-slate-500">
+          <p className="m-0 mt-1 text-sm text-orvian-muted">
             {item
               ? 'Atualize os campos do caso'
               : 'Preencha os campos para criar um novo caso de sucesso'}
@@ -215,7 +216,9 @@ export function CaseForm({ item, onClose, onSaved }: CaseFormProps) {
         <label className={labelClass}>
           Conteúdo
           <Suspense
-            fallback={<div className="min-h-48 rounded-xl bg-slate-100" />}
+            fallback={
+              <div className="min-h-48 rounded-xl bg-orvian-charcoal" />
+            }
           >
             <RichTextEditor
               value={watch('content') ?? ''}
@@ -228,9 +231,9 @@ export function CaseForm({ item, onClose, onSaved }: CaseFormProps) {
 
         {!item && (
           <fieldset className="flex flex-col gap-2">
-            <legend className="text-sm font-semibold text-slate-700">
+            <legend className="text-sm font-semibold text-orvian-ink">
               Imagens do case{' '}
-              <span className="font-normal text-slate-400">(até 3)</span>
+              <span className="font-normal text-orvian-muted">(até 3)</span>
             </legend>
             <div className="flex flex-wrap gap-3">
               {([0, 1, 2] as const).map((index) => (
@@ -243,7 +246,7 @@ export function CaseForm({ item, onClose, onSaved }: CaseFormProps) {
                     onChange={(event) => changeImage(index, event)}
                   />
                   {previews[index] ? (
-                    <div className="relative h-full w-full overflow-hidden rounded-xl border border-sky-100">
+                    <div className="relative h-full w-full overflow-hidden rounded-xl border border-orvian-secondary/60">
                       <img
                         src={previews[index] ?? ''}
                         alt={`Imagem ${index + 1}`}
@@ -260,7 +263,7 @@ export function CaseForm({ item, onClose, onSaved }: CaseFormProps) {
                   ) : (
                     <button
                       type="button"
-                      className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-blue-200 bg-sky-50 text-sm font-semibold text-blue-500 hover:border-blue-500"
+                      className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-orvian-secondary bg-orvian-charcoal/70 text-sm font-semibold text-orvian-orange hover:border-orvian-primary"
                       onClick={() => imageRefs[index].current?.click()}
                     >
                       Imagem {index + 1}
@@ -272,7 +275,7 @@ export function CaseForm({ item, onClose, onSaved }: CaseFormProps) {
           </fieldset>
         )}
 
-        <div className="flex justify-end gap-3 border-t border-sky-50 pt-4">
+        <div className="flex justify-end gap-3 border-t border-orvian-secondary/50 pt-4">
           <Button variant="secondary" onClick={onClose}>
             Cancelar
           </Button>

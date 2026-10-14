@@ -16,7 +16,7 @@ import {
   updateHomeBlogLinkSchema,
   updatePopupSchema,
   updateSlideSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import type { AuthService } from '../auth/auth.service';
 import { requireAuth } from '../auth/auth.routes';
 import type { HomeContentService } from './home-content.service';

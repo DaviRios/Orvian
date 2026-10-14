@@ -6,7 +6,7 @@ async function bootstrap() {
   const env = loadEnv();
   const app = await buildApp({ env });
   await app.listen({ port: env.PORT, host: '0.0.0.0' });
-  app.log.info(`Soir CMS API disponível em http://localhost:${env.PORT}/v1`);
+  app.log.info(`Orvian API disponível em http://localhost:${env.PORT}/v1`);
 }
 
 void bootstrap();

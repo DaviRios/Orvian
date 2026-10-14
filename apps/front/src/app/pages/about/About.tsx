@@ -15,15 +15,15 @@ export function About() {
   const [activeTab, setActiveTab] = useState<Tab>('services');
 
   return (
-    <div className={'min-h-screen [background:#f8f7fc] flex flex-col'}>
+    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
       <div
         className={
-          'flex items-center justify-between [padding:18px_40px] [background:#ffffff] [border-bottom:1px_solid_#C5EDF8] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
         }
       >
         <button
           className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#EBF9FD] hover:[color:#3783D1]'
+            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
           }
           onClick={() => navigate('/')}
         >
@@ -55,12 +55,12 @@ export function About() {
           <div>
             <h1
               className={
-                '[font-size:22px] font-bold [color:#1e1b2e] [margin:0_0_4px] [letter-spacing:-0.01em]'
+                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
               }
             >
               Página Sobre
             </h1>
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Gerencie o conteúdo da página Sobre do site
             </p>
           </div>
@@ -68,13 +68,13 @@ export function About() {
 
         <div
           className={
-            'flex [gap:4px] [background:#E8F7FC] [border-radius:14px] [padding:5px] [margin-bottom:28px] [width:fit-content]'
+            'flex [gap:4px] [background:#302638] [border-radius:14px] [padding:5px] [margin-bottom:28px] [width:fit-content]'
           }
         >
           {(Object.keys(TAB_LABELS) as Tab[]).map((tab) => (
             <button
               key={tab}
-              className={`${'[padding:9px_22px] [border-radius:10px] border-0 [background:transparent] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s] hover:[color:#3783D1] hover:[background:rgba(255,_255,_255,_0.5)]'} ${activeTab === tab ? '[background:#ffffff] [color:#3783D1] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.12)]' : ''}`}
+              className={`${'[padding:9px_22px] [border-radius:10px] border-0 [background:transparent] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s] hover:[color:#EF5928] hover:[background:rgba(255,_255,_255,_0.5)]'} ${activeTab === tab ? '[background:#302638] [color:#EF5928] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.12)]' : ''}`}
               onClick={() => setActiveTab(tab)}
             >
               {TAB_LABELS[tab]}
@@ -105,11 +105,11 @@ function ComingSoon() {
           width: '68px',
           height: '68px',
           borderRadius: '20px',
-          background: '#EBF9FD',
+          background: '#302638',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#6BA3E3',
+          color: '#A1C8FA',
           marginBottom: '8px',
         }}
       >
@@ -131,7 +131,7 @@ function ComingSoon() {
         style={{
           fontSize: '16px',
           fontWeight: '700',
-          color: '#1e1b2e',
+          color: '#F7F2FA',
           margin: '0',
         }}
       >
@@ -140,7 +140,7 @@ function ComingSoon() {
       <p
         style={{
           fontSize: '14px',
-          color: '#7c6fa0',
+          color: '#9981AE',
           margin: '0',
           maxWidth: '300px',
           lineHeight: '1.6',

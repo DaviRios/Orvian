@@ -1,6 +1,10 @@
 import { createHash, randomBytes } from 'node:crypto';
 import * as argon2 from 'argon2';
-import type { AuthenticatedUser, PublicUser, UserRole } from '@soir/contracts';
+import type {
+  AuthenticatedUser,
+  PublicUser,
+  UserRole,
+} from '@orvian/contracts';
 import { UnauthorizedError } from '../../core/errors';
 import type {
   AuthRepository,
@@ -30,7 +34,7 @@ export class AuthService {
       name: 'Administrador',
       passwordHash: await argon2.hash(input.password),
       role: 'ADMIN',
-      groups: ['Soir_admins'],
+      groups: ['Orvian_admins'],
     });
     return true;
   }

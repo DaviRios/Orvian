@@ -6,14 +6,14 @@ import {
   loginSchema,
   type AuthenticatedUser,
   type UserRole,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import type { AppEnv } from '../../config/env';
 import { ForbiddenError, UnauthorizedError } from '../../core/errors';
 import type { AuthService } from './auth.service';
 import { hasRole } from './auth.service';
 
-const ACCESS_COOKIE = 'soir_access_token';
-const REFRESH_COOKIE = 'soir_refresh_token';
+const ACCESS_COOKIE = 'orvian_access_token';
+const REFRESH_COOKIE = 'orvian_refresh_token';
 const ACCESS_TTL_SECONDS = 15 * 60;
 const REFRESH_TTL_SECONDS = 7 * 24 * 60 * 60;
 

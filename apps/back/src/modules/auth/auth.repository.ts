@@ -1,4 +1,4 @@
-import type { UserRole } from '@soir/contracts';
+import type { UserRole } from '@orvian/contracts';
 
 export interface AuthUserRecord {
   id: string;

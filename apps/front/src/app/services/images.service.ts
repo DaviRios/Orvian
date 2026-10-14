@@ -1,7 +1,7 @@
 import { httpClient } from '../factories/http-client.factory';
 
 const BASE_URL =
-  (import.meta.env.VITE_API_CMS_URL ?? '/v1').replace(/\/$/, '') + '/';
+  (import.meta.env.VITE_API_ORVIAN_URL ?? '/v1').replace(/\/$/, '') + '/';
 
 export interface UploadedImage {
   id: string;

@@ -75,15 +75,15 @@ export function HomeContent() {
   };
 
   return (
-    <div className={'min-h-screen [background:#f8f7fc] flex flex-col'}>
+    <div className={'min-h-screen [background:#25232C] flex flex-col'}>
       <div
         className={
-          'flex items-center justify-between [padding:18px_40px] [background:#ffffff] [border-bottom:1px_solid_#C5EDF8] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
+          'flex items-center justify-between [padding:18px_40px] [background:#302638] [border-bottom:1px_solid_#68577E] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.04)]'
         }
       >
         <button
           className={
-            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#EBF9FD] hover:[color:#3783D1]'
+            'flex items-center [gap:7px] border-0 [background:none] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [padding:6px_10px] [border-radius:8px] [transition:background_0.15s,_color_0.15s] hover:[background:#302638] hover:[color:#EF5928]'
           }
           onClick={() => navigate('/')}
         >
@@ -104,7 +104,7 @@ export function HomeContent() {
         </button>
         <button
           className={
-            '[background:#3783D1] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#2B6BB5] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
+            '[background:#EF5928] [color:#ffffff] border-0 [border-radius:999px] [padding:9px_22px] [font-size:14px] font-semibold cursor-pointer [font-family:inherit] [transition:background_0.15s,_transform_0.1s,_box-shadow_0.15s] [box-shadow:0_2px_10px_rgba(84,_200,_232,_0.28)] hover:[background:#FF892B] hover:[transform:translateY(-1px)] hover:[box-shadow:0_4px_14px_rgba(84,_200,_232,_0.38)]'
           }
           onClick={() => setOpenFormTrigger((t) => t + 1)}
         >
@@ -123,12 +123,12 @@ export function HomeContent() {
           <div>
             <h1
               className={
-                '[font-size:22px] font-bold [color:#1e1b2e] [margin:0_0_4px] [letter-spacing:-0.01em]'
+                '[font-size:22px] font-bold [color:#F7F2FA] [margin:0_0_4px] [letter-spacing:-0.01em]'
               }
             >
               Conteúdo da Home
             </h1>
-            <p className={'[font-size:14px] [color:#7c6fa0] [margin:0]'}>
+            <p className={'[font-size:14px] [color:#9981AE] [margin:0]'}>
               Gerencie os slides, ecossistema, popups e links do blog da página
               inicial
             </p>
@@ -136,7 +136,7 @@ export function HomeContent() {
           {currentCount > 0 && (
             <span
               className={
-                '[background:#C5EDF8] [color:#3783D1] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
+                '[background:#68577E] [color:#EF5928] [font-size:14px] font-semibold [padding:4px_12px] [border-radius:999px] whitespace-nowrap'
               }
             >
               {currentCount} item{currentCount > 1 ? 's' : ''}
@@ -146,13 +146,13 @@ export function HomeContent() {
 
         <div
           className={
-            'flex [gap:4px] [background:#E8F7FC] [border-radius:14px] [padding:5px] [margin-bottom:28px] [width:fit-content]'
+            'flex [gap:4px] [background:#302638] [border-radius:14px] [padding:5px] [margin-bottom:28px] [width:fit-content]'
           }
         >
           {(Object.keys(TAB_LABELS) as Tab[]).map((tab) => (
             <button
               key={tab}
-              className={`${'[padding:9px_22px] [border-radius:10px] border-0 [background:transparent] [font-size:14px] font-semibold [color:#7c6fa0] cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s] hover:[color:#3783D1] hover:[background:rgba(255,_255,_255,_0.5)]'} ${activeTab === tab ? '[background:#ffffff] [color:#3783D1] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.12)]' : ''}`}
+              className={`${'[padding:9px_22px] [border-radius:10px] border-0 [background:transparent] [font-size:14px] font-semibold [color:#9981AE] cursor-pointer [font-family:inherit] [transition:background_0.15s,_color_0.15s] hover:[color:#EF5928] hover:[background:rgba(255,_255,_255,_0.5)]'} ${activeTab === tab ? '[background:#302638] [color:#EF5928] [box-shadow:0_1px_6px_rgba(84,_200,_232,_0.12)]' : ''}`}
               onClick={() => switchTab(tab)}
             >
               {TAB_LABELS[tab]}

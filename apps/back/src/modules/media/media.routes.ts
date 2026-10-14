@@ -7,7 +7,7 @@ import {
   imageSearchQuerySchema,
   imageSearchResultSchema,
   uploadBatchResponseSchema,
-} from '@soir/contracts';
+} from '@orvian/contracts';
 import { ValidationError } from '../../core/errors';
 import type { AuthService } from '../auth/auth.service';
 import { requireAuth } from '../auth/auth.routes';

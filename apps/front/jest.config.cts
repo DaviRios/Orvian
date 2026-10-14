@@ -3,9 +3,11 @@ module.exports = {
   preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }]
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  moduleNameMapper: { '^@soir/contracts$': '<rootDir>/../../libs/contracts/src/index.ts' },
-  coverageDirectory: '../../coverage/apps/front'
+  moduleNameMapper: {
+    '^@orvian/contracts$': '<rootDir>/../../libs/contracts/src/index.ts',
+  },
+  coverageDirectory: '../../coverage/apps/front',
 };
