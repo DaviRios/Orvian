@@ -1,10 +1,16 @@
-export function DashboardIllustration() {
+interface DashboardIllustrationProps {
+  className?: string;
+}
+
+export function DashboardIllustration({
+  className = 'h-[clamp(150px,12vw,280px)] w-[clamp(318px,25.4vw,593px)]',
+}: DashboardIllustrationProps) {
   return (
     <svg
       viewBox="0 0 360 170"
       role="img"
       aria-label="Painel de conteúdo flutuante"
-      className="h-[clamp(150px,12vw,280px)] w-[clamp(318px,25.4vw,593px)]"
+      className={className}
     >
       <defs>
         <linearGradient id="windowTop" x1="0" x2="1">
