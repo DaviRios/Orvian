@@ -49,6 +49,9 @@ import { publicPagesRoutes } from './modules/public-pages/public-pages.routes';
 import { PrismaSiteContentRepository } from './modules/site-content/prisma-site-content.repository';
 import { SiteContentService } from './modules/site-content/site-content.service';
 import { siteContentRoutes } from './modules/site-content/site-content.routes';
+import { LegalContentService } from './modules/legal-content/legal-content.service';
+import { PrismaLegalContentRepository } from './modules/legal-content/prisma-legal-content.repository';
+import { legalContentRoutes } from './modules/legal-content/legal-content.routes';
 
 export interface BuildAppOptions {
   env: AppEnv;
@@ -146,6 +149,9 @@ export async function buildApp(
   const siteContent = new SiteContentService(
     new PrismaSiteContentRepository(database),
   );
+  const legalContent = new LegalContentService(
+    new PrismaLegalContentRepository(database),
+  );
   const publicPages = new PublicPagesService(
     new PrismaPublicPagesRepository(database),
   );
@@ -171,6 +177,11 @@ export async function buildApp(
   await app.register(siteContentRoutes, {
     prefix: '/v1',
     service: siteContent,
+    auth,
+  });
+  await app.register(legalContentRoutes, {
+    prefix: '/v1',
+    service: legalContent,
     auth,
   });
   await app.register(reviewsRoutes, { prefix: '/v1', service: reviews, auth });

@@ -23,6 +23,11 @@ enum PublicationStatus {
   PUBLISHED
 }
 
+enum LegalDocumentType {
+  PRIVACY_POLICY
+  TERMS_OF_SERVICE
+}
+
 enum InformationStyle {
   ORANGE_WHITE
   WHITE_ORANGE
@@ -352,4 +357,22 @@ model ServiceItem {
 
   @@index([language, publicationStatus, isActive])
   @@map("service_items")
+}
+
+model LegalDocument {
+  id                String            @id @default(uuid()) @db.Uuid
+  type              LegalDocumentType
+  title             String
+  content           String
+  language          Language          @default(PORTUGUESE)
+  publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
+  isActive          Boolean           @default(true) @map("is_active")
+  publishedAt       DateTime?         @map("published_at")
+  deletedAt         DateTime?         @map("deleted_at")
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @updatedAt @map("updated_at")
+
+  @@unique([type, language])
+  @@index([publicationStatus, isActive])
+  @@map("legal_documents")
 }

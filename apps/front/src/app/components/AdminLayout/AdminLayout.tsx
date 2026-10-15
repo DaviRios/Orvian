@@ -11,6 +11,7 @@ import {
   BellIcon,
   BriefcaseIcon,
   CalendarIcon,
+  FileTextIcon,
   FolderIcon,
   HomeIcon,
   ImageIcon,
@@ -18,7 +19,6 @@ import {
   MenuIcon,
   NewspaperIcon,
   SearchIcon,
-  SettingsIcon,
   XIcon,
   type IconProps,
 } from '../icons/OrvianIcons';
@@ -42,7 +42,11 @@ const navigationItems: NavigationItem[] = [
   { path: '/feedbacks', label: 'Feedbacks', icon: BriefcaseIcon },
   { path: '/blog-posts', label: 'Blog', icon: NewspaperIcon },
   { path: '/media', label: 'Mídias', icon: ImageIcon },
-  { label: 'Configurações', description: 'Em breve', icon: SettingsIcon },
+  {
+    path: '/legal-content',
+    label: 'Documentos legais',
+    icon: FileTextIcon,
+  },
 ];
 
 const searchableModules = [
@@ -71,6 +75,11 @@ const searchableModules = [
     path: '/about',
     label: 'Página Sobre',
     keywords: 'serviços parceiros vagas institucional',
+  },
+  {
+    path: '/legal-content',
+    label: 'Documentos legais',
+    keywords: 'política privacidade termos serviço privacy policy terms',
   },
 ];
 

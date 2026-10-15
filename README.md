@@ -126,6 +126,7 @@ Rotas administrativas usam os cookies seguros criados por `POST /v1/users/auth`.
 | Parceiros              | `/v1/partners`        |
 | Carreiras              | `/v1/careers`         |
 | Serviços               | `/v1/services`        |
+| Documentos legais      | `/v1/legal-documents` |
 
 Rotas públicas:
 
@@ -134,6 +135,8 @@ GET /v1/public/pages/home?language=PORTUGUESE
 GET /v1/public/pages/feedbacks?language=PORTUGUESE
 GET /v1/public/pages/about
 GET /v1/public/pages/blog?language=PORTUGUESE
+GET /v1/public/pages/privacy-policy?language=PORTUGUESE
+GET /v1/public/pages/terms-of-service?language=PORTUGUESE
 ```
 
 ## PostgreSQL e mídia

@@ -100,6 +100,10 @@ const resourceStyles: Record<
   BLOG: { label: 'Blog', className: 'bg-orvian-gold/15 text-orvian-gold' },
   MEDIA: { label: 'Mídia', className: 'bg-orvian-blue/15 text-orvian-blue' },
   ABOUT: { label: 'Sobre', className: 'bg-orvian-red/20 text-orvian-red' },
+  LEGAL: {
+    label: 'Legal',
+    className: 'bg-orvian-primary/15 text-orvian-primary',
+  },
 };
 
 function formatActivityDate(value: string) {

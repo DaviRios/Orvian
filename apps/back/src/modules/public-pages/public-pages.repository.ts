@@ -9,6 +9,8 @@ import type {
   ContentLink,
   MediaAsset,
   Information,
+  LegalDocument,
+  LegalDocumentType,
   Product,
 } from '../../generated/prisma/client';
 
@@ -32,4 +34,8 @@ export interface PublicPagesRepository {
   listAboutMedia(): Promise<AboutMediaWithAsset[]>;
   listPosts(language?: 'ENGLISH' | 'PORTUGUESE'): Promise<BlogPostWithAuthor[]>;
   listAuthors(): Promise<Author[]>;
+  findLegalDocument(
+    type: LegalDocumentType,
+    language: 'ENGLISH' | 'PORTUGUESE',
+  ): Promise<LegalDocument | null>;
 }

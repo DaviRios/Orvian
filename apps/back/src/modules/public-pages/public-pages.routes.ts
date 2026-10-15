@@ -27,4 +27,14 @@ export const publicPagesRoutes: FastifyPluginAsync<
     { schema: { querystring: languageQuerySchema } },
     (request) => service.blog(request.query.language),
   );
+  server.get(
+    '/public/pages/privacy-policy',
+    { schema: { querystring: languageQuerySchema } },
+    (request) => service.legal('PRIVACY_POLICY', request.query.language),
+  );
+  server.get(
+    '/public/pages/terms-of-service',
+    { schema: { querystring: languageQuerySchema } },
+    (request) => service.legal('TERMS_OF_SERVICE', request.query.language),
+  );
 };

@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const dashboardActivitySchema = z.object({
   id: z.string(),
-  resource: z.enum(['HOME', 'REVIEW', 'BLOG', 'MEDIA', 'ABOUT']),
+  resource: z.enum(['HOME', 'REVIEW', 'BLOG', 'MEDIA', 'ABOUT', 'LEGAL']),
   action: z.enum(['CREATED', 'UPDATED', 'PUBLISHED', 'DELETED']),
   title: z.string(),
   occurredAt: z.string(),

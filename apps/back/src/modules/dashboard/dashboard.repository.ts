@@ -1,4 +1,10 @@
-export type DashboardResource = 'HOME' | 'REVIEW' | 'BLOG' | 'MEDIA' | 'ABOUT';
+export type DashboardResource =
+  | 'HOME'
+  | 'REVIEW'
+  | 'BLOG'
+  | 'MEDIA'
+  | 'ABOUT'
+  | 'LEGAL';
 
 export interface DashboardActivityCandidate {
   id: string;

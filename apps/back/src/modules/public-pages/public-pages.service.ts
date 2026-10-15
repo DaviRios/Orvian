@@ -1,5 +1,6 @@
 import { auditDto, lifecycleDto } from '../../core/lifecycle';
 import type { PublicPagesRepository } from './public-pages.repository';
+import type { LegalDocumentType } from '../../generated/prisma/client';
 
 export class PublicPagesService {
   constructor(private readonly repository: PublicPagesRepository) {}
@@ -63,5 +64,13 @@ export class PublicPagesService {
       })),
       authors: authors.map(auditDto),
     };
+  }
+
+  async legal(
+    type: LegalDocumentType,
+    language: 'ENGLISH' | 'PORTUGUESE' = 'PORTUGUESE',
+  ) {
+    const document = await this.repository.findLegalDocument(type, language);
+    return document ? lifecycleDto(document) : null;
   }
 }

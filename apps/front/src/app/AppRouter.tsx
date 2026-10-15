@@ -14,6 +14,7 @@ const About = lazy(() => import('./pages/about/About'));
 const Feedbacks = lazy(() => import('./pages/feedbacks/Feedbacks'));
 const SiteContent = lazy(() => import('./pages/site-content/SiteContent'));
 const MediaGallery = lazy(() => import('./pages/media/MediaGallery'));
+const LegalContent = lazy(() => import('./pages/legal-content/LegalContent'));
 
 function Loading() {
   return (
@@ -36,6 +37,7 @@ function AppRoutes() {
           <Route path="feedbacks" element={<Feedbacks />} />
           <Route path="site-content" element={<SiteContent />} />
           <Route path="media" element={<MediaGallery />} />
+          <Route path="legal-content" element={<LegalContent />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

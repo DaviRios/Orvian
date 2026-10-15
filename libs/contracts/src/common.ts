@@ -3,6 +3,10 @@ import { z } from 'zod';
 export const idSchema = z.uuid();
 export const languageSchema = z.enum(['ENGLISH', 'PORTUGUESE']);
 export const publicationStatusSchema = z.enum(['DRAFT', 'PUBLISHED']);
+export const legalDocumentTypeSchema = z.enum([
+  'PRIVACY_POLICY',
+  'TERMS_OF_SERVICE',
+]);
 export const userRoleSchema = z.enum(['ADMIN', 'EDITOR']);
 export const informationStyleSchema = z.enum([
   'ORANGE_WHITE',
@@ -40,5 +44,6 @@ export const apiErrorSchema = z.object({
 
 export type Language = z.infer<typeof languageSchema>;
 export type PublicationStatus = z.infer<typeof publicationStatusSchema>;
+export type LegalDocumentType = z.infer<typeof legalDocumentTypeSchema>;
 export type UserRole = z.infer<typeof userRoleSchema>;
 export type InformationStyle = z.infer<typeof informationStyleSchema>;

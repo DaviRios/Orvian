@@ -37,7 +37,8 @@ export class PrismaDashboardRepository implements DashboardRepository {
               EXISTS (SELECT 1 FROM partners WHERE is_active AND publication_status = 'PUBLISHED') OR
               EXISTS (SELECT 1 FROM careers WHERE is_active AND publication_status = 'PUBLISHED') OR
               EXISTS (SELECT 1 FROM service_items WHERE is_active AND publication_status = 'PUBLISHED')
-            THEN 1 ELSE 0 END
+            THEN 1 ELSE 0 END +
+            (SELECT COUNT(*)::int FROM legal_documents WHERE is_active AND publication_status = 'PUBLISHED')
           )::int AS "publishedPages",
           (SELECT COUNT(*)::int FROM reviews WHERE is_active) AS reviews,
           (SELECT COUNT(*)::int FROM blog_posts WHERE is_active) AS "blogPosts",
@@ -71,6 +72,8 @@ export class PrismaDashboardRepository implements DashboardRepository {
           SELECT id::text, 'ABOUT', title, is_active, published_at, created_at, updated_at FROM careers
           UNION ALL
           SELECT id::text, 'ABOUT', name, is_active, published_at, created_at, updated_at FROM service_items
+          UNION ALL
+          SELECT id::text, 'LEGAL', title, is_active, published_at, created_at, updated_at FROM legal_documents
         ) AS recent_activity
         ORDER BY "updatedAt" DESC
         LIMIT 3

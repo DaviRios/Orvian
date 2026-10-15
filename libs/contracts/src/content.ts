@@ -4,6 +4,7 @@ import {
   idParamsSchema,
   idSchema,
   languageSchema,
+  legalDocumentTypeSchema,
   lifecycleSchema,
   informationStyleSchema,
 } from './common';
@@ -237,6 +238,22 @@ export const createServiceItemSchema = z.strictObject({
 });
 export const updateServiceItemSchema = createServiceItemSchema.partial();
 
+export const legalDocumentSchema = lifecycleSchema.extend({
+  id: idSchema,
+  type: legalDocumentTypeSchema,
+  title: z.string(),
+  content: z.string(),
+  language: languageSchema,
+});
+export const saveLegalDocumentSchema = z.strictObject({
+  title: requiredText,
+  content: requiredText,
+  language: languageSchema.default('PORTUGUESE'),
+});
+export const legalDocumentTypeParamsSchema = z.object({
+  type: legalDocumentTypeSchema,
+});
+
 export type AuthorDto = z.infer<typeof authorSchema>;
 export type BlogPostDto = z.infer<typeof blogPostSchema>;
 export type ProductDto = z.infer<typeof productSchema>;
@@ -245,3 +262,4 @@ export type PartnerBannerDto = z.infer<typeof partnerBannerSchema>;
 export type ContentLinkDto = z.infer<typeof contentLinkSchema>;
 export type FeedbackDto = z.infer<typeof feedbackSchema>;
 export type ReviewDto = z.infer<typeof reviewSchema>;
+export type LegalDocumentDto = z.infer<typeof legalDocumentSchema>;

@@ -1,5 +1,6 @@
 import type { DatabaseClient } from '../../infrastructure/database/prisma';
 import type { PublicPagesRepository } from './public-pages.repository';
+import type { LegalDocumentType } from '../../generated/prisma/client';
 
 const published = { isActive: true, publicationStatus: 'PUBLISHED' as const };
 
@@ -65,6 +66,15 @@ export class PrismaPublicPagesRepository implements PublicPagesRepository {
     return this.database.author.findMany({
       where: { isActive: true },
       orderBy: { name: 'asc' },
+    });
+  }
+
+  findLegalDocument(
+    type: LegalDocumentType,
+    language: 'ENGLISH' | 'PORTUGUESE',
+  ) {
+    return this.database.legalDocument.findFirst({
+      where: { ...published, type, language },
     });
   }
 }
