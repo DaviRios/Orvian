@@ -4,6 +4,23 @@ Plataforma institucional de gestão de conteúdo, criada em Node.js e TypeScript
 
 **Autoria:** Davi Rios
 
+## Estado atual
+
+O Orvian é um CMS funcional com painel administrativo responsivo, API pública e persistência relacional. O frontend usa carregamento por rota e cache de dados; o backend é modular e não depende de outro repositório para executar.
+
+| Área | Recursos disponíveis |
+| --- | --- |
+| Administração | login, renovação de sessão, dashboard, busca de módulos e navegação responsiva |
+| Conteúdo Site | produtos, parceiros/banner, logos, saiba mais/informações e links |
+| Feedbacks | avaliações, imagens, depoimentos e feedbacks de clientes |
+| Editorial | posts de blog e autores |
+| Institucional | mídias da página Sobre, parceiros, carreiras e serviços |
+| Mídia | upload e catálogo de imagens, vídeos e arquivos, com armazenamento local ou S3 |
+| Documentos legais | Política de Privacidade e Termos de Serviço em português e inglês |
+| Entrega pública | endpoints que retornam apenas conteúdo ativo e publicado |
+
+O ciclo editorial é consistente entre os domínios: um registro novo começa como `DRAFT` e `isActive=true`; publicar muda o estado para `PUBLISHED`; excluir realiza soft delete (`isActive=false` e `deletedAt` preenchido). Registros removidos permanecem no banco. Mídias e autores referenciados não podem ser excluídos e retornam HTTP 409.
+
 ## Arquitetura
 
 - API: Fastify 5, Zod e OpenAPI;
@@ -15,11 +32,17 @@ Plataforma institucional de gestão de conteúdo, criada em Node.js e TypeScript
 
 Os módulos de backend separam rotas, serviços de aplicação e contratos de repositório. A composição com Prisma e armazenamento acontece em `apps/back/src/app.ts`; domínio e serviços não dependem do antigo documento JSONB.
 
-Conteúdos novos começam como `DRAFT` e `isActive=true`. Publicar muda o estado editorial para `PUBLISHED`; excluir realiza soft delete (`isActive=false` e `deletedAt` preenchido). Registros removidos permanecem no banco. Mídias e autores referenciados não podem ser excluídos e retornam HTTP 409.
+```text
+apps/back       API Fastify, casos de uso e adaptadores Prisma/S3/local
+apps/front      painel React e serviços HTTP
+libs/contracts  contratos Zod e tipos compartilhados
+prisma          schema relacional e migrations
+tools           execução local e importação do formato legado
+```
 
 ## Execução local com Docker
 
-Requisito: Docker Desktop com Docker Compose. O ambiente de desenvolvimento executa frontend, backend, migrations e PostgreSQL em containers.
+Requisito: Docker Desktop com Docker Compose. O ambiente executa frontend, backend, migrations e PostgreSQL em containers. O `compose.yaml` fornecido é destinado exclusivamente ao desenvolvimento local: suas credenciais padrão são públicas e não devem ser reutilizadas em produção.
 
 ```bash
 copy .env.example .env
@@ -103,7 +126,45 @@ Os testes de integração não abrem nem alteram banco algum: usam `Fastify.inje
 | `S3_SECRET_ACCESS_KEY`  | —                       | credencial opcional                    |
 | `S3_FORCE_PATH_STYLE`   | `false`                 | compatibilidade com MinIO e similares  |
 
-No frontend, `VITE_API_ORVIAN_URL` pode apontar para outra API. No desenvolvimento padrão, o proxy do Vite encaminha `/v1` para `http://localhost:3000`.
+Variáveis incorporadas ao build do frontend:
+
+| Variável | Padrão | Uso |
+| --- | --- | --- |
+| `VITE_API_ORVIAN_URL` | `/v1` | base HTTP consumida pelo painel |
+| `VITE_SKIP_AUTH` | `false` | simula o usuário somente na interface durante desenvolvimento; não remove a proteção da API |
+
+No desenvolvimento padrão, o proxy do Vite encaminha `/v1` para `http://localhost:3000`.
+
+Em produção, prefira publicar painel e API sob a mesma origem por meio de um proxy reverso. O backend atualmente valida `APP_ORIGIN` para requisições mutáveis, mas não registra CORS para uso direto entre origens diferentes.
+
+## Segurança
+
+Controles implementados:
+
+- senhas armazenadas com Argon2;
+- access token JWT com duração de 15 minutos em cookie `HttpOnly`;
+- refresh token opaco com duração de 7 dias, armazenado no banco somente como hash, rotacionado na renovação e revogado no logout;
+- cookies com `SameSite=Strict` e `Secure` quando `NODE_ENV=production`;
+- autorização por papéis `ADMIN` e `EDITOR`, com confirmação de que o usuário continua ativo em cada rota protegida;
+- validação de entrada e saída com Zod e schemas OpenAPI;
+- verificação de origem nas operações mutáveis;
+- limites de upload de 20 arquivos, 25 MB por arquivo e 60 partes por requisição;
+- PostgreSQL, API e painel publicados apenas em `127.0.0.1` pelo Compose de desenvolvimento;
+- `.env`, variantes locais de ambiente, uploads, dados locais, logs e o Prisma Client gerado excluídos do Git e do contexto de build Docker.
+
+Pendências antes de uma publicação em produção:
+
+- substituir todas as credenciais padrão do Compose e usar um gerenciador de segredos;
+- executar com HTTPS e `NODE_ENV=production` para ativar cookies `Secure`;
+- não publicar a porta do PostgreSQL na internet;
+- adicionar rate limiting, especialmente no login e na renovação de sessão;
+- adicionar headers HTTP de segurança, como CSP e HSTS, no Fastify ou no proxy reverso;
+- restringir ou desabilitar `/docs` caso a documentação OpenAPI não deva ser pública;
+- ampliar os padrões de ignore caso sejam usados arquivos como `.env.production` ou `.env.staging`;
+- adicionar varredura automática de segredos e dependências no CI;
+- considerar controle de concorrência otimista para impedir que duas edições simultâneas do mesmo registro sobrescrevam uma à outra.
+
+Nunca coloque valores reais em `.env.example`, `compose.yaml` ou arquivos versionados. Se um segredo for commitado, removê-lo do arquivo não é suficiente: revogue/rotacione a credencial e então trate o histórico Git.
 
 ## Rotas
 
