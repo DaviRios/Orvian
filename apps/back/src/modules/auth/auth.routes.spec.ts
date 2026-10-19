@@ -80,6 +80,43 @@ class MemoryAuthRepository implements AuthRepository {
 }
 
 describe('auth API integration', () => {
+  it('creates the demo user only once', async () => {
+    const repository = new MemoryAuthRepository();
+    const service = new AuthService(repository);
+    await service.bootstrapAdmin({
+      username: 'admin',
+      email: 'admin@orvian.local',
+      password: 'admin123',
+    });
+
+    await expect(
+      service.bootstrapDemoUser({
+        username: 'Rony',
+        email: 'RONY@orvian.local',
+        password: 'demo1234',
+      }),
+    ).resolves.toBe(true);
+    await expect(
+      service.bootstrapDemoUser({
+        username: 'rony',
+        email: 'rony@orvian.local',
+        password: 'demo1234',
+      }),
+    ).resolves.toBe(false);
+
+    expect(repository.users).toHaveLength(2);
+    expect(repository.users[1]).toMatchObject({
+      username: 'rony',
+      email: 'rony@orvian.local',
+      name: 'Rony',
+      role: 'EDITOR',
+      groups: ['Orvian_editors'],
+    });
+    await expect(
+      service.authenticate('rony', 'demo1234'),
+    ).resolves.toMatchObject({ username: 'rony' });
+  });
+
   it('validates login and authenticates a profile using HttpOnly cookies', async () => {
     const repository = new MemoryAuthRepository();
     const service = new AuthService(repository);
@@ -132,6 +169,8 @@ describe('auth API integration', () => {
         ORVIAN_ADMIN_USER: 'admin',
         ORVIAN_ADMIN_EMAIL: 'admin@orvian.local',
         ORVIAN_ADMIN_PASSWORD: 'admin123',
+        ORVIAN_DEMO_USER: 'rony',
+        ORVIAN_DEMO_EMAIL: 'rony@orvian.local',
         ORVIAN_UPLOAD_DIR: 'data/uploads',
         MEDIA_STORAGE: 'local',
         S3_REGION: 'us-east-1',

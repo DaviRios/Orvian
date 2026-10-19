@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: orvian-demo
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ORVIAN_ADMIN_USER
+        value: admin
+      - key: ORVIAN_ADMIN_EMAIL
+        value: admin@orvian.local
+      - key: ORVIAN_ADMIN_PASSWORD
+        sync: false
+      - key: ORVIAN_DEMO_USER
+        value: rony
+      - key: ORVIAN_DEMO_EMAIL
+        value: rony@orvian.local
+      - key: ORVIAN_DEMO_PASSWORD
+        sync: false
+      - key: MEDIA_STORAGE
+        value: local
+      - key: S3_REGION
+        value: auto
+      - key: S3_BUCKET
+        sync: false
+      - key: S3_ENDPOINT
+        sync: false
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_FORCE_PATH_STYLE
+        value: 'false'

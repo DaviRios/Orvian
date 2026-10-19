@@ -15,6 +15,9 @@ const envSchema = z
     ORVIAN_ADMIN_USER: z.string().trim().min(3).default('admin'),
     ORVIAN_ADMIN_EMAIL: z.email().default('admin@orvian.local'),
     ORVIAN_ADMIN_PASSWORD: z.string().min(8),
+    ORVIAN_DEMO_USER: z.string().trim().min(3).default('rony'),
+    ORVIAN_DEMO_EMAIL: z.email().default('rony@orvian.local'),
+    ORVIAN_DEMO_PASSWORD: z.string().min(8).optional(),
     ORVIAN_UPLOAD_DIR: z.string().default('data/uploads'),
     MEDIA_STORAGE: z.enum(['local', 's3']).default('local'),
     S3_REGION: z.string().default('us-east-1'),
@@ -43,7 +46,10 @@ const envSchema = z
 export type AppEnv = z.infer<typeof envSchema>;
 
 export function loadEnv(source: NodeJS.ProcessEnv = process.env): AppEnv {
-  const result = envSchema.safeParse(source);
+  const result = envSchema.safeParse({
+    ...source,
+    APP_ORIGIN: source.APP_ORIGIN ?? source.RENDER_EXTERNAL_URL,
+  });
   if (!result.success) {
     const details = result.error.issues
       .map((issue) => `${issue.path.join('.')}: ${issue.message}`)

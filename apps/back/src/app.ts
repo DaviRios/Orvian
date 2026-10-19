@@ -5,8 +5,10 @@ import Fastify, {
 import cookie from '@fastify/cookie';
 import jwt from '@fastify/jwt';
 import multipart from '@fastify/multipart';
+import staticFiles from '@fastify/static';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
+import { resolve } from 'node:path';
 import {
   jsonSchemaTransform,
   serializerCompiler,
@@ -212,6 +214,42 @@ export async function buildApp(
       username: env.ORVIAN_ADMIN_USER,
       email: env.ORVIAN_ADMIN_EMAIL,
       password: env.ORVIAN_ADMIN_PASSWORD,
+    });
+    if (env.ORVIAN_DEMO_PASSWORD) {
+      await auth.bootstrapDemoUser({
+        username: env.ORVIAN_DEMO_USER,
+        email: env.ORVIAN_DEMO_EMAIL,
+        password: env.ORVIAN_DEMO_PASSWORD,
+      });
+    }
+  }
+
+  if (env.NODE_ENV === 'production') {
+    await app.register(staticFiles, {
+      root: resolve(process.cwd(), 'dist/apps/front'),
+      maxAge: '30d',
+      immutable: true,
+    });
+    app.get('/', (_request, reply) =>
+      reply.sendFile('index.html', { maxAge: 0, immutable: false }),
+    );
+    app.setNotFoundHandler((request, reply) => {
+      const isFrontendNavigation =
+        request.method === 'GET' &&
+        !request.url.startsWith('/v1') &&
+        !request.url.startsWith('/docs');
+      if (isFrontendNavigation) {
+        return reply.sendFile('index.html', {
+          maxAge: 0,
+          immutable: false,
+        });
+      }
+      return reply.code(404).send({
+        statusCode: 404,
+        code: 'NOT_FOUND',
+        message: 'Rota não encontrada',
+        requestId: request.id,
+      });
     });
   }
   app.addHook('onClose', async () => database.$disconnect());

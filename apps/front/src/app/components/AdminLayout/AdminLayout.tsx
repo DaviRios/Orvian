@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/auth';
+import { OrvianLogo } from '../brand/OrvianLogo';
 import {
   BellIcon,
   BriefcaseIcon,
@@ -116,9 +117,11 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         onClick={() => goTo('/')}
         aria-label="Ir para o início"
       >
-        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-orvian-primary text-lg font-bold text-white shadow-[0_8px_20px_rgba(239,89,40,0.28)] lg:size-[clamp(2.5rem,2.5vw,4.5rem)] lg:rounded-[clamp(0.75rem,0.8vw,1.25rem)] lg:text-[clamp(1.125rem,1.2vw,2rem)]">
-          O
-        </span>
+        <OrvianLogo
+          variant="mark"
+          decorative
+          className="size-10 shrink-0 overflow-hidden rounded-xl shadow-[0_8px_20px_rgba(239,89,40,0.28)] lg:size-[clamp(2.5rem,2.5vw,4.5rem)] lg:rounded-[clamp(0.75rem,0.8vw,1.25rem)]"
+        />
         <span>
           <strong className="block text-lg font-bold tracking-[0.08em] text-white lg:text-[clamp(1.125rem,1.2vw,2rem)]">
             Orvian

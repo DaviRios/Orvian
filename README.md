@@ -8,16 +8,16 @@ Plataforma institucional de gestão de conteúdo, criada em Node.js e TypeScript
 
 O Orvian é um CMS funcional com painel administrativo responsivo, API pública e persistência relacional. O frontend usa carregamento por rota e cache de dados; o backend é modular e não depende de outro repositório para executar.
 
-| Área | Recursos disponíveis |
-| --- | --- |
-| Administração | login, renovação de sessão, dashboard, busca de módulos e navegação responsiva |
-| Conteúdo Site | produtos, parceiros/banner, logos, saiba mais/informações e links |
-| Feedbacks | avaliações, imagens, depoimentos e feedbacks de clientes |
-| Editorial | posts de blog e autores |
-| Institucional | mídias da página Sobre, parceiros, carreiras e serviços |
-| Mídia | upload e catálogo de imagens, vídeos e arquivos, com armazenamento local ou S3 |
-| Documentos legais | Política de Privacidade e Termos de Serviço em português e inglês |
-| Entrega pública | endpoints que retornam apenas conteúdo ativo e publicado |
+| Área              | Recursos disponíveis                                                           |
+| ----------------- | ------------------------------------------------------------------------------ |
+| Administração     | login, renovação de sessão, dashboard, busca de módulos e navegação responsiva |
+| Conteúdo Site     | produtos, parceiros/banner, logos, saiba mais/informações e links              |
+| Feedbacks         | avaliações, imagens, depoimentos e feedbacks de clientes                       |
+| Editorial         | posts de blog e autores                                                        |
+| Institucional     | mídias da página Sobre, parceiros, carreiras e serviços                        |
+| Mídia             | upload e catálogo de imagens, vídeos e arquivos, com armazenamento local ou S3 |
+| Documentos legais | Política de Privacidade e Termos de Serviço em português e inglês              |
+| Entrega pública   | endpoints que retornam apenas conteúdo ativo e publicado                       |
 
 O ciclo editorial é consistente entre os domínios: um registro novo começa como `DRAFT` e `isActive=true`; publicar muda o estado para `PUBLISHED`; excluir realiza soft delete (`isActive=false` e `deletedAt` preenchido). Registros removidos permanecem no banco. Mídias e autores referenciados não podem ser excluídos e retornam HTTP 409.
 
@@ -80,12 +80,15 @@ Senha:  valor de `ORVIAN_ADMIN_PASSWORD`
 
 Defina um `ORVIAN_ADMIN_PASSWORD` próprio antes da primeira execução e um `JWT_SECRET` aleatório com pelo menos 32 caracteres. O usuário administrador só é criado quando a tabela de usuários está vazia.
 
+Quando `ORVIAN_DEMO_PASSWORD` é definida, a inicialização também garante de forma idempotente a existência do usuário de demonstração `Rony`, com papel `EDITOR`. O seed não duplica o usuário em reinicializações e todos os usuários continuam acessando o mesmo conteúdo.
+
 ## Comandos
 
 ```bash
 npm run dev                 # API e painel; Ctrl+C encerra ambos
 npm run dev:back            # somente API
 npm run dev:front           # somente painel
+npm run start:prod          # aplica migrations e inicia o build de produção
 npm run docker:up           # constrói e inicia front, back, migrations e PostgreSQL
 npm run docker:down         # remove containers e rede; preserva volumes
 npm run docker:logs         # acompanha os logs dos containers
@@ -117,6 +120,9 @@ Os testes de integração não abrem nem alteram banco algum: usam `Fastify.inje
 | `ORVIAN_ADMIN_USER`     | `admin`                 | usuário inicial                        |
 | `ORVIAN_ADMIN_EMAIL`    | `admin@orvian.local`    | e-mail inicial                         |
 | `ORVIAN_ADMIN_PASSWORD` | obrigatório             | senha inicial (mínimo de 8 caracteres) |
+| `ORVIAN_DEMO_USER`      | `rony`                  | usuário da demonstração                |
+| `ORVIAN_DEMO_EMAIL`     | `rony@orvian.local`     | e-mail da demonstração                 |
+| `ORVIAN_DEMO_PASSWORD`  | —                       | senha que habilita o seed da demo      |
 | `MEDIA_STORAGE`         | `local`                 | `local` ou `s3`                        |
 | `ORVIAN_UPLOAD_DIR`     | `data/uploads`          | raiz do adaptador local                |
 | `S3_REGION`             | `us-east-1`             | região S3                              |
@@ -128,14 +134,38 @@ Os testes de integração não abrem nem alteram banco algum: usam `Fastify.inje
 
 Variáveis incorporadas ao build do frontend:
 
-| Variável | Padrão | Uso |
-| --- | --- | --- |
-| `VITE_API_ORVIAN_URL` | `/v1` | base HTTP consumida pelo painel |
-| `VITE_SKIP_AUTH` | `false` | simula o usuário somente na interface durante desenvolvimento; não remove a proteção da API |
+| Variável              | Padrão  | Uso                                                                                         |
+| --------------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `VITE_API_ORVIAN_URL` | `/v1`   | base HTTP consumida pelo painel                                                             |
+| `VITE_SKIP_AUTH`      | `false` | simula o usuário somente na interface durante desenvolvimento; não remove a proteção da API |
 
 No desenvolvimento padrão, o proxy do Vite encaminha `/v1` para `http://localhost:3000`.
 
-Em produção, prefira publicar painel e API sob a mesma origem por meio de um proxy reverso. O backend atualmente valida `APP_ORIGIN` para requisições mutáveis, mas não registra CORS para uso direto entre origens diferentes.
+Em produção, o backend serve o build do painel e a API sob a mesma origem. No Render, `APP_ORIGIN` usa automaticamente `RENDER_EXTERNAL_URL`; defina-a explicitamente somente ao usar um domínio próprio.
+
+## Deploy de demonstração no Render
+
+O `render.yaml` cria um único Web Service gratuito a partir do `Dockerfile`. O container compila frontend e backend, aplica `prisma migrate deploy` a cada inicialização e então inicia a API, que também entrega os arquivos estáticos do painel.
+
+Antes de criar o Blueprint no Render:
+
+1. crie um projeto PostgreSQL gratuito no Neon e copie sua connection string;
+2. crie um bucket R2 e um token de API com permissão de leitura e escrita;
+3. no Render, escolha **New > Blueprint** e conecte este repositório;
+4. informe os valores solicitados para `DATABASE_URL`, senhas e variáveis `S3_*`.
+
+Valores do Cloudflare R2:
+
+```text
+S3_REGION=auto
+S3_BUCKET=<nome-do-bucket>
+S3_ENDPOINT=https://<account-id>.r2.cloudflarestorage.com
+S3_ACCESS_KEY_ID=<access-key-do-token>
+S3_SECRET_ACCESS_KEY=<secret-key-do-token>
+S3_FORCE_PATH_STYLE=false
+```
+
+O PostgreSQL do Neon armazena usuários, sessões, conteúdo e metadados das mídias. Os binários de imagens, vídeos e arquivos ficam no R2. Nenhum segredo deve ser incluído no Git. O plano gratuito do Render pode suspender a aplicação por inatividade; na primeira requisição seguinte, o serviço reinicia normalmente sem perder os dados externos.
 
 ## Segurança
 

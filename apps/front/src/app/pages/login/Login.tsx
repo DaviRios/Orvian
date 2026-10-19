@@ -5,6 +5,7 @@ import { login } from '../../services/auth.service';
 import { zodResolver } from '../../lib/zod-resolver';
 import { Alert } from '../../components/ui/Alert';
 import { Button } from '../../components/ui/Button';
+import { OrvianLogo } from '../../components/brand/OrvianLogo';
 import { DashboardIllustration } from '../dashboard/DashboardIllustration';
 
 export function Login() {
@@ -40,9 +41,11 @@ export function Login() {
 
           <div className="relative z-10 flex w-full flex-col">
             <div className="flex items-center gap-3">
-              <span className="grid size-[clamp(2.5rem,3vw,4.25rem)] place-items-center rounded-[clamp(0.75rem,0.8vw,1.25rem)] bg-orvian-primary text-[clamp(1rem,1.2vw,1.75rem)] font-bold text-white shadow-[0_10px_24px_rgba(239,89,40,0.28)]">
-                O
-              </span>
+              <OrvianLogo
+                variant="mark"
+                decorative
+                className="size-[clamp(2.5rem,3vw,4.25rem)] shrink-0 overflow-hidden rounded-[clamp(0.75rem,0.8vw,1.25rem)] shadow-[0_10px_24px_rgba(239,89,40,0.28)]"
+              />
               <span>
                 <strong className="block text-[clamp(1rem,1.25vw,1.75rem)] font-bold tracking-[0.08em] text-white">
                   Orvian

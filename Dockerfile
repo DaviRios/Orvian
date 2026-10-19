@@ -14,6 +14,10 @@ RUN mkdir -p apps/back/src \
 
 COPY . .
 
-EXPOSE 3000 4200
+RUN npm run build
 
-CMD ["npm", "run", "dev"]
+ENV NODE_ENV=production
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start:prod"]

@@ -39,6 +39,28 @@ export class AuthService {
     return true;
   }
 
+  async bootstrapDemoUser(input: {
+    username: string;
+    email: string;
+    password: string;
+  }): Promise<boolean> {
+    const username = input.username.trim().toLowerCase();
+    const email = input.email.trim().toLowerCase();
+    const existing =
+      (await this.repository.findUserByIdentifier(username)) ??
+      (await this.repository.findUserByIdentifier(email));
+    if (existing) return false;
+    await this.repository.createUser({
+      username,
+      email,
+      name: 'Rony',
+      passwordHash: await argon2.hash(input.password),
+      role: 'EDITOR',
+      groups: ['Orvian_editors'],
+    });
+    return true;
+  }
+
   async authenticate(
     identifier: string,
     password: string,
